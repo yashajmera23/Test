@@ -23,13 +23,13 @@ Update these lines in place. This is the only part of the file you overwrite.
 
 ```
 Lane:            Project
-Rung:            [pending /molecule-audit]
+Rung:            5 — Extracted (⚠️ GAPPED)
 Artefacts:       PRODUCT_CONTEXT.md [ ] · SPEC.md [ ] · FLOW.md [ ] · design.md [ ] · build [ ] · deployed [ ]
 Rounds:          0
-Provisional:     none yet
-Open debt:       No app-store triangulation; JTBD cuts trail not produced; survey cook-dependent count is inferred from recruitment (not a form field)
+Provisional:     Research readiness DECISION (scope card vs HMW drift unresolved) — explore only, do not build on it
+Open debt:       Scope card mechanism drift; JTBD filter/cuts absent; Social JTBD outcome assumed; no app-store triangulation; survey cook-dependent count inferred from recruitment
 Overrides open:  0
-Next command:    /molecule-audit
+Next command:    /molecule-context
 ```
 
 ---
@@ -60,6 +60,20 @@ Nine entry types. Use the tag that is true, not the one that sounds best.
 
 **Question:** Which candidate jobs were considered and dropped, and why did these three survive?
 **Blocks:** Defensibility of Functional / Emotional / Social JTBD in critique
+**Owner:** you
+
+### `DECISION` — 2026-08-01 · Pre-work · Research readiness audit
+
+**Decided:** Entering the build phase at rung 5 with the verdict ⚠️ GAPPED. Intake: Legibility 4/5 · Substance 4/5. Scope: drifted (mechanism) — scope card not yet rewritten.
+**Rejected:** “Early auto-reminder / virtual shelf alone is the retention fix” as an unverified carry-forward from the original hypothesis; Social JTBD outcome clause as `observed`.
+**Because:** Cart/low-value chain holds (survey Q3 + P2 AAA). Fail-to-act holds (P2). Filter stage absent. Social “seen as responsible / drops the ball” has no cite in the handoff. Emotional “what’s next” anxiety is inferred. Several quotes named in audit were not in uploaded atomic notes.
+**Confidence:** inferred
+**Provisional:** yes
+
+### `OPEN` — 2026-08-01 · Will the scope card hypothesis be rewritten to match Insight 2 + cart bundling, or will the HMW move back?
+
+**Question:** Which document is wrong — scope card feature/hypothesis, or problem statement — and what is the one-sentence updated hypothesis if the card changes?
+**Blocks:** PRODUCT_CONTEXT and every downstream claim about what the product does
 **Owner:** you
 
 ---
