@@ -1,11 +1,11 @@
-# [Project name] — Build Log
+# Blinkit — Home Pantry Tracker — Build Log
 
 **Designer:** [your name]
-**Lane:** Experiment / Project
-**AARRR stage:** [Acquisition / Activation / Retention / Referral / Revenue]
-**Started:** [date]
-**Repo:** [url, or "none"]
-**Live URL:** [url, or "not yet"]
+**Lane:** Project
+**AARRR stage:** Retention (Primary) / Revenue (Secondary)
+**Started:** 2026-08-01
+**Repo:** none
+**Live URL:** not yet
 
 ---
 
@@ -22,14 +22,14 @@
 Update these lines in place. This is the only part of the file you overwrite.
 
 ```
-Lane:            Experiment / Project
-Rung:            [0–7, from the last /molecule-audit]
+Lane:            Project
+Rung:            [pending /molecule-audit]
 Artefacts:       PRODUCT_CONTEXT.md [ ] · SPEC.md [ ] · FLOW.md [ ] · design.md [ ] · build [ ] · deployed [ ]
-Rounds:          [count of critique → decision → change; a CHANGE with Type: pixel is not one]
-Provisional:     [decisions marked provisional that nothing may be built on]
-Open debt:       [what is knowingly unfinished]
-Overrides open:  [count]
-Next command:    [the actual command, e.g. /molecule-spec]
+Rounds:          0
+Provisional:     none yet
+Open debt:       No app-store triangulation; JTBD cuts trail not produced; survey cook-dependent count is inferred from recruitment (not a form field)
+Overrides open:  0
+Next command:    /molecule-audit
 ```
 
 ---
@@ -41,6 +41,26 @@ Nine entry types. Use the tag that is true, not the one that sounds best.
 `DECISION` · `PIVOT` · `CRITIQUE` · `CHANGE` · `FAIL` · `WIN` · `OVERRIDE` · `VERIFY` · `OPEN`
 
 <!-- Append below. Newest at the bottom. -->
+
+### `DECISION` — 2026-08-01 · Pre-work · Lane
+
+**Decided:** Project lane
+**Rejected:** Experiment lane
+**Because:** Case study — intend to finish and show this work
+**Confidence:** assumed
+**Provisional:** no
+
+### `OPEN` — 2026-08-01 · App-store triangulation never collected
+
+**Question:** What do Blinkit / Instamart / Zepto store reviews say about stockouts, reminders, cart minimums, and cook-driven reordering?
+**Blocks:** Secondary triangulation named in the research plan; claims about notification fatigue and cart friction rest on interview + survey only
+**Owner:** you
+
+### `OPEN` — 2026-08-01 · JTBD cuts trail not produced
+
+**Question:** Which candidate jobs were considered and dropped, and why did these three survive?
+**Blocks:** Defensibility of Functional / Emotional / Social JTBD in critique
+**Owner:** you
 
 ---
 
