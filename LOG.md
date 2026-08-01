@@ -12,10 +12,10 @@
 ```
 Bet:        Auto pantry tracking + reminders will improve D14 retention — but research shows the real break is fail-to-act + cart minimum, not early warning alone (scope drift — not yet rewritten)
 Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=15 (12 cook-dependent inferred from recruitment)
-Files:      SCOPE.md [x] · RESEARCH.md [x] · DESIGN.md [ ] · LANGUAGE.md [ ] · build [ ] · live [ ]
+Files:      SCOPE.md [x] · RESEARCH.md [x] · DESIGN.md [x] · LANGUAGE.md [ ] · build [ ] · live [ ]
 Rounds:     0
-Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next:       /molades-define
+Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed; Kitchen setup options + Running low visual treatment TBD
+Next:       /molades-language
 ```
 
 ---
@@ -39,3 +39,9 @@ Next:       /molades-define
 **Found:** Cook already warns 1–2 days early; user forgets to act. Cart ₹150 minimum blocks single low-value reorders. Lead time is category-dependent.
 **Changed:** Problem shifted from “notify earlier” to “convert awareness into bundled action”
 **What this made worthless:** Scope card hypothesis as written — needs deliberate rewrite before build
+
+### DECISION · 2026-08-01 · molades-define
+**Decided:** Running low section inside Order Again; 4 screens (Running low, Bundle review, Kitchen setup, inherited Checkout); bundle only surfaces at ≥ ₹150; Blinkit-only tracking as retention bet
+**Rejected:** Home entry point; new bottom-nav tab; sub-₹150 partial bundle UI; cross-platform import; manual pantry entry; cook/flatmate accounts
+**Because:** Screenshots show Order Again already has category-grouped reorder; research shows single low-value alerts useless and cart minimum is systemic blocker; P1 cross-platform behaviour means Blinkit-only tracking incentivises consolidation
+**Confidence:** inferred
