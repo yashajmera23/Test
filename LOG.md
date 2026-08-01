@@ -12,10 +12,10 @@
 ```
 Bet:        Auto pantry tracking + reminders will improve D14 retention — but research shows the real break is fail-to-act + cart minimum, not early warning alone (scope drift — not yet rewritten)
 Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=15 (12 cook-dependent inferred from recruitment)
-Files:      SCOPE.md [x] · RESEARCH.md [x] · DESIGN.md [x] · LANGUAGE.md [ ] · build [ ] · live [ ]
+Files:      SCOPE.md [x] · RESEARCH.md [x] · DESIGN.md [x] · LANGUAGE.md [x] · build [ ] · live [ ]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed; Kitchen setup options + Running low visual treatment TBD
-Next:       /molades-language
+Next:       /molades-build
 ```
 
 ---

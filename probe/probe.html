@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=390, initial-scale=1" />
+  <title>Blinkit Language Probe — Running low</title>
+  <style>
+    :root {
+      --surface: #F6F6F6;
+      --surface-raised: #FFFFFF;
+      --ink: #1A1A1A;
+      --ink-muted: #696969;
+      --accent: #318616;
+      --accent-light: #E8F5E3;
+      --signal: #E23744;
+      --status-soon: #E3F2FD;
+      --status-soon-ink: #1565C0;
+      --border: #E8E8E8;
+      --radius-card: 12px;
+      --radius-btn: 8px;
+      --radius-pill: 24px;
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: var(--surface);
+      color: var(--ink);
+      width: 390px;
+      margin: 0 auto;
+      padding-bottom: 24px;
+    }
+    /* 1. Header */
+    .header {
+      background: var(--surface-raised);
+      padding: var(--space-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .header .secondary {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .section-label {
+      font-size: 18px;
+      font-weight: 700;
+      padding: var(--space-2) var(--space-2) var(--space-1);
+    }
+    /* 2. List cards */
+    .card {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 12px;
+      margin: 0 var(--space-2) var(--space-1);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .card-thumb {
+      width: 56px;
+      height: 56px;
+      background: #F0F0F0;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .card-body { flex: 1; min-width: 0; }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .card-fact {
+      font-size: 12px;
+      color: var(--ink-muted);
+      line-height: 1.4;
+    }
+    .status {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: var(--status-soon);
+      color: var(--status-soon-ink);
+      margin-top: 6px;
+    }
+    /* 3. Form */
+    .field {
+      margin: var(--space-2);
+      padding: var(--space-2);
+      background: var(--surface-raised);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border);
+    }
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .field .helper {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-top: 6px;
+    }
+    .field select {
+      width: 100%;
+      height: 44px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-btn);
+      padding: 0 12px;
+      font-size: 14px;
+      background: #fff;
+    }
+    /* 4. Buttons */
+    .actions {
+      display: flex;
+      gap: 12px;
+      padding: var(--space-2);
+    }
+    .btn-primary {
+      flex: 1;
+      height: 48px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-btn);
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .btn-secondary {
+      flex: 1;
+      height: 48px;
+      background: #fff;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-btn);
+      font-size: 15px;
+      font-weight: 600;
+    }
+    /* 5. Empty */
+    .empty {
+      text-align: center;
+      padding: var(--space-3) var(--space-2);
+      margin: var(--space-2);
+      background: var(--surface-raised);
+      border-radius: var(--radius-card);
+      border: 1px dashed var(--border);
+    }
+    .empty p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      margin-bottom: 12px;
+    }
+    .btn-add-outline {
+      display: inline-block;
+      padding: 8px 24px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: #fff;
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      font-weight: 700;
+    }
+    /* 6. Error */
+    .error {
+      margin: 0 var(--space-2) var(--space-2);
+      padding: 10px 12px;
+      background: #FFF0F0;
+      border: 1px solid #FFCDD2;
+      border-radius: var(--radius-btn);
+      font-size: 13px;
+      color: var(--signal);
+    }
+    .bundle-total {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 0 var(--space-2) var(--space-1);
+      color: var(--ink-muted);
+    }
+    .bundle-total strong { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <!-- 1. Header -->
+  <header class="header">
+    <h1>Order Again</h1>
+    <span class="secondary">See all</span>
+  </header>
+
+  <p class="section-label">Running low</p>
+  <p class="bundle-total">Bundle total: <strong>₹186</strong> · ready to order</p>
+
+  <!-- 2. Three list cards -->
+  <article class="card">
+    <div class="card-thumb"></div>
+    <div class="card-body">
+      <div class="card-title">Onion (pyaaz)</div>
+      <div class="card-fact">Usually lasts 5 days · last ordered 4 days ago</div>
+      <span class="status">Order soon</span>
+    </div>
+  </article>
+  <article class="card">
+    <div class="card-thumb"></div>
+    <div class="card-body">
+      <div class="card-title">Toor dal</div>
+      <div class="card-fact">Staple · predicted runout in 2 days</div>
+      <span class="status">Order soon</span>
+    </div>
+  </article>
+  <article class="card">
+    <div class="card-thumb"></div>
+    <div class="card-body">
+      <div class="card-title">Fortune Sunflower Oil 1L</div>
+      <div class="card-fact">Masala &amp; oil · last ordered 3 weeks ago</div>
+      <span class="status">Order soon</span>
+    </div>
+  </article>
+
+  <!-- 3. Form field -->
+  <div class="field">
+    <label for="household">How many people at home?</label>
+    <select id="household">
+      <option>2 people</option>
+      <option selected>3 people</option>
+      <option>4+ people</option>
+    </select>
+    <p class="helper">Used to estimate how fast you go through staples.</p>
+  </div>
+
+  <!-- 4. Buttons -->
+  <div class="actions">
+    <button class="btn-primary" type="button">Order what's running low</button>
+    <button class="btn-secondary" type="button">Not now</button>
+  </div>
+
+  <!-- 5. Empty state (shown as alternate block for probe) -->
+  <div class="empty">
+    <p>Nothing running low yet — we'll show items here when your bundle is ready to order.</p>
+    <span class="btn-add-outline">ADD</span>
+  </div>
+
+  <!-- 6. Inline error -->
+  <p class="error">Couldn't update your kitchen — pull to refresh.</p>
+</body>
+</html>
