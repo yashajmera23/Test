@@ -12,10 +12,10 @@
 ```
 Bet:        Auto pantry tracking + reminders will improve D14 retention — but research shows the real break is fail-to-act + cart minimum, not early warning alone (scope drift — not yet rewritten)
 Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=15 (12 cook-dependent inferred from recruitment)
-Files:      SCOPE.md [x] · RESEARCH.md [x] · DESIGN.md [x] · LANGUAGE.md [x] · build [ ] · live [ ]
+Files:      SCOPE.md [x] · RESEARCH.md [x] · DESIGN.md [x] · LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
-Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed; Kitchen setup options + Running low visual treatment TBD
-Next:       /molades-build
+Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
+Next:       /molades-stress
 ```
 
 ---
@@ -56,3 +56,26 @@ Next:       /molades-build
 **Rounds run:** 2
 **Biggest gap between round 1 and final:** Section heading size and card padding — first probe read slightly heavier than Blinkit product rows
 **Did not close:** Custom Blinkit typeface — using system stack substitute; letterforms won't match exactly
+
+### DECISION · 2026-08-01 · molades-build
+**Decided:** Slice 1 — Order Again with Running low section + Bundle review sheet; single HTML file in `docs/`; Gilroy fonts; states switchable via demo bar (ready, loading, error, empty, kitchen setup)
+**Rejected:** Framework/build step; greyscale pass; single-shot full app; invented product data without sample labels
+**Because:** DESIGN.md defines two places for first slice; LANGUAGE.md + probe provide grounded styling; stack must open by double-click for case study deploy
+**Confidence:** inferred
+
+### LEARNED · 2026-08-01 · molades-build
+**Tried:** Kitchen setup modal on first visit via localStorage
+**Expected:** User completes setup once then sees Running low
+**Actually happened:** Modal correctly blocks interaction until Save — works as designed
+**Cost:** n/a
+**Now know:** Demo state switcher needed for portfolio to show empty/loading without clearing localStorage
+
+### CHANGE · 2026-08-01 · molades-build
+**Changed:** Deployed interactive prototype to `docs/index.html` (GitHub Pages)
+**Caused by:** molades-build slice 1 complete
+**Result:** Live URL at https://yashajmera23.github.io/Test/
+
+### CHANGE · 2026-08-01 · molades-language
+**Changed:** LANGUAGE.md and probe now use Gilroy (Light, Regular, Medium, Bold, Heavy) from `fonts/`
+**Caused by:** Student supplied Gilroy font files
+**Result:** Type scale dimension closed; probe re-rendered as `probe-round3-gilroy.png`
