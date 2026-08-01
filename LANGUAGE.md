@@ -3,7 +3,7 @@
 **Project:** Blinkit — Home Pantry Tracker  
 **Type:** feature addition  
 **References:** Blinkit app screenshots — Home, Order Again, Order History, Checkout, product detail, product grid, Previously Bought category, Similar products, All details sheet, Support chat, Gift Cards, Blinkit Money (Aug 2026)  
-**Status:** Matched in 2 rounds — 6 of 6 passing
+**Status:** Matched in 3 rounds — 6 of 6 passing (type closed with Gilroy fonts)
 
 > Values are estimated from proportion in reference images. They were not measured. Treat them as a scale that has been checked, not as truth.
 
@@ -13,12 +13,12 @@
 
 | Name | Size | Weight | Used for |
 |---|---|---|---|
-| Display | 22px | 700 | Page title ("Order Again") |
-| Heading | 18px | 700 | Section headers ("Running low", "Frequently bought") |
-| Body | 15px | 600 / 400 | Product names, button labels, form labels |
-| Caption | 12px | 400 / 600 | Secondary facts, helper text, status pills, MRP |
+| Display | 22px | 700 (Bold) | Page title ("Order Again") |
+| Heading | 18px | 700 (Bold) | Section headers ("Running low", "Frequently bought") |
+| Body | 15px | 500 (Medium) / 400 (Regular) | Product names, button labels, form labels |
+| Caption | 12px | 400 (Regular) / 600 (Medium) | Secondary facts, helper text, status pills, MRP |
 
-**Family:** Blinkit uses a custom sans-serif in-app. Substitute: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif` (`inferred` — closest free match; letterforms will not be identical).
+**Family:** Gilroy — supplied by student (`fonts/Gilroy-*.ttf`). Weights in use: Light 300 · Regular 400 · Medium 500 · Bold 700 · Heavy 800.
 
 ---
 
@@ -108,7 +108,12 @@ Running low copy should match: "Order what's running low" not "Proceed to checko
 | Shape | ✅ | |
 | Hierarchy | ✅ | |
 
-Probe saved: `probe/probe.html` · `probe/probe-round2.png`
+Probe saved: `probe/probe.html` · `probe/probe-round3-gilroy.png`
+
+### Round 3 (Gilroy fonts supplied)
+| Dimension | Result | Note |
+|---|---|---|
+| Type scale | ✅ | Gilroy Bold/Medium/Regular loaded from `fonts/` — closes round 2 typeface gap |
 
 ---
 
@@ -144,11 +149,11 @@ Probe saved: `probe/probe.html` · `probe/probe-round2.png`
 ## Confidence
 
 **Observed in images:** Surface colours, green CTA, ADD outline style, bottom nav, card-on-grey layout, real UI strings  
-**Inferred:** Exact hex values, type sizes from proportion, status pill blue, spacing steps, font substitute  
-**Assumed, nothing behind it:** Exact Blinkit custom font name
+**Inferred:** Exact hex values, type sizes from proportion, status pill blue, spacing steps  
+**Assumed, nothing behind it:** none — Gilroy fonts now supplied
 
 ---
 
 ## Generation constraints
 
-Use only the sizes, steps and palette roles above. Do not introduce a new size, step or colour. If something seems to need one, that is a hierarchy problem — solve it with the existing scale.
+Use only the sizes, steps and palette roles above. Font: Gilroy from `fonts/` — do not substitute. Do not introduce a new size, step or colour. If something seems to need one, that is a hierarchy problem — solve it with the existing scale.

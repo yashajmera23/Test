@@ -45,3 +45,14 @@ Next:       /molades-build
 **Rejected:** Home entry point; new bottom-nav tab; sub-₹150 partial bundle UI; cross-platform import; manual pantry entry; cook/flatmate accounts
 **Because:** Screenshots show Order Again already has category-grouped reorder; research shows single low-value alerts useless and cart minimum is systemic blocker; P1 cross-platform behaviour means Blinkit-only tracking incentivises consolidation
 **Confidence:** inferred
+
+### DECISION · 2026-08-01 · molades-language
+**Decided:** Blinkit-matched language — green #318616 accent, 8pt spacing, 12px card radius, spacious consumer density, Order soon status in Bought Earlier blue pill style; system font stack substitute
+**Rejected:** Amber urgency pills; Gift Card serif/decorative styling; yellow promo gradients on product surfaces; drop shadows on cards
+**Because:** Feature must look native inside Order Again; Bought Earlier pill is existing repurchase signal; product grids use bordered flat cards not elevated shadows
+**Confidence:** inferred
+
+### LEARNED · 2026-08-01 · molades-language
+**Rounds run:** 2
+**Biggest gap between round 1 and final:** Section heading size and card padding — first probe read slightly heavier than Blinkit product rows
+**Did not close:** Custom Blinkit typeface — using system stack substitute; letterforms won't match exactly
