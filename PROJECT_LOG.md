@@ -1,5 +1,9 @@
 # Blinkit — Home Pantry Tracker — Build Log
 
+> **Superseded by `LOG.md`** (Molades v0.7). Entries through 2026-08-01 were migrated. Use `LOG.md` going forward.
+
+# Blinkit — Home Pantry Tracker — Build Log (v0.3 archive)
+
 **Designer:** [your name]
 **Lane:** Project
 **AARRR stage:** Retention (Primary) / Revenue (Secondary)
