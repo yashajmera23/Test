@@ -1,12 +1,10 @@
 ---
-description: Status — what's done, what's open, what's next, and the one thing worth knowing
+description: Where am I in my Molades project — status block and one next step
 ---
 
-Use the `molades-start` skill. Return the `/molades-where` status block and nothing after
-it except the next command.
+Use the `molades-start` skill.
 
-Count rounds honestly. Zero is a real answer.
-
-The last line names one specific thing, not a pep talk.
+Return the WHERE YOU ARE status block from that skill, then the single next command.
+Read `LOG.md` first if it exists. Do not re-interview.
 
 $ARGUMENTS

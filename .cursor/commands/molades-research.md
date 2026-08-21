@@ -1,16 +1,9 @@
 ---
-description: Plan the research I haven't done, or check the research I have
+description: Plan my research, or check whether what I collected is enough to work from
 ---
 
 Use the `molades-research` skill.
 
-If I have nothing, plan it — questions, methods, sample, bias sentence, and one dated
-action inside 48 hours. Make me name what would change my mind before we pick methods.
-
-If I have data, run the gate: is there real data here, or would we be synthesising my
-opinions? Thin proceeds with tags. Only "nothing from anyone but me" stops — and give me
-the fast route out in the same message.
-
-Never role-play a participant. Not once.
+Follow that skill exactly. Do not blend in other Molades steps.
 
 $ARGUMENTS

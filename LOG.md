@@ -12,10 +12,10 @@
 ```
 Bet:        Auto pantry tracking + reminders will improve D14 retention — but research shows the real break is fail-to-act + cart minimum, not early warning alone (scope drift — not yet rewritten)
 Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=15 (12 cook-dependent inferred from recruitment)
-Files:      SCOPE.md [x] · RESEARCH.md [x] · DESIGN.md [x] · LANGUAGE.md [x] · build [x] · live [x]
+Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next:       /molades-stress
+Next: /molades-attack
 ```
 
 ---
@@ -79,3 +79,9 @@ Next:       /molades-stress
 **Changed:** LANGUAGE.md and probe now use Gilroy (Light, Regular, Medium, Bold, Heavy) from `fonts/`
 **Caused by:** Student supplied Gilroy font files
 **Result:** Type scale dimension closed; probe re-rendered as `probe-round3-gilroy.png`
+
+### LEARNED · 2026-08-21 · pack-update
+**Believed:** Skills matched the previous 12-step spine (define / synthesise / stress / craft / challenge).
+**Found:** Course blocks 01–13 shipped — Ideas, Ideas-with-AI, Brief, Attack, Test replace/reshape several steps; files are BRIEF.md and DESIGN_LANGUAGE.md.
+**Changed:** Installed block pack as Cursor skills; old commands alias to new ones. Project DESIGN.md / LANGUAGE.md copied to BRIEF.md / DESIGN_LANGUAGE.md.
+**What this made worthless:** Nothing in the Blinkit build — next step is still attack/stress on the live prototype (`/molades-attack`).
