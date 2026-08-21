@@ -42,50 +42,151 @@
 | Paths A & B | One-tap from notification / park until next order on top of 1+3 | Student: both looked like different ideas; locked normal 1+3 |
 
 ## What survived
-**Winner: Idea 1+3** — virtual memory of what they ordered, shown as running-low (e.g. home / Order Again), with a soft optional household-size ask (not prominent, skippable).  
+**Winner: Idea 1+3** — virtual memory of what they ordered, shown as **Running low** (sheet + Order Again entry), soft optional household-size ask (not prominent, skippable). After check → **Add all to cart**.
 
 **Lost:** Idea 6 — deferred “next order” bundling past ₹150. Student chose the normal tracker + surface path over attaching A/B effort shortcuts.
 
 ## Open
-- Scope card still drifts vs fail-to-act + cart-minimum insight; Idea 1+3 leans early-warning — watch in the brief.
+- Scope card still drifts vs fail-to-act + cart-minimum insight; Idea 1+3 leans early-warning — watch in build/test.
 - Rounds 3–4 not run — student stopped after Round 2 pick.
-- Soft household-size ask still optional; not in AX Spec as required input.
+- Soft household-size ask still optional; not a required screen.
+- “Enough” items to show Running low: **at least 2** — *guessing*, not measured.
 
 ---
 
-# AX SPEC — Running-low draft bag (Idea 1+3)
+# AX SPEC — Running low (Idea 1+3)
 
 **What the model does:** guesses which Blinkit staples might be running low  
 **How much it does alone:** model does it, person checks — because awareness already exists (cook warns); the boring part is building the list; silent auto-order is unsafe when Blinkit can’t see the fridge  
-**What it looks like:** draft bag pre-filled — open manually from Order Again, or from a nudge only when it matters; remove what’s wrong — not a chat box  
-**Material facts:** refresh when they open the bag or get a nudge (not every scroll) · guess from Blinkit history only · wrong often and will sound sure · no fake precision numbers
+**What it looks like:** **Running low** sheet pre-filled — open from Order Again entry or a rare nudge; remove what’s wrong; **Add all to cart** — not a chat box  
+**Material facts:** refresh when they open Running low or get a nudge (not every scroll) · guess from Blinkit history only · wrong often and will sound sure · no fake precision numbers
 
 ## When it's wrong
 | State | What they see | The words on screen | What they can do |
 |---|---|---|---|
-| Wrong | Item on the draft bag that isn’t actually low | “Not running low? Remove it.” | Remove; teaches softly |
+| Wrong | Item on Running low that isn’t actually low | “Not running low? Remove it.” | Remove; teaches softly |
 | Not sure | Soft wording, no counts | “Might be running low” | Keep or remove — no “based on N orders” |
-| Slow | Loading / skeleton while bag builds | “Building your running-low bag…” | Wait, or use Order Again as usual |
-| Won’t | Nothing | — | New users: do not show a bag or empty state |
-| Half done | Nothing | — | Do not show a half bag; only show when there’s a real list |
+| Slow | Loading / skeleton while list builds | “Building Running low…” | Wait, or use Order Again as usual |
+| Won’t | Nothing | — | New users / not enough items: no entry, no sheet |
+| Half done | Nothing | — | Do not show a thin list; only show when there’s enough |
 | Out of date | n/a | — | Dropped — not in this project |
 
 ## Staying in control
 | | How it works | Where it appears |
 |---|---|---|
-| What it remembers | Only Blinkit orders — not fridge, not outside buys | Implicit in how the bag is built; Order Again already shows repurchase |
-| How sure it is | Guess from past orders + usual finish times; soft “might,” no scores | On items / bag copy |
-| Teaching it | Remove = not needed right now — don’t re-push irritably; if they order that item again themselves, it can return to the guess | Draft bag remove · later repurchase |
+| What it remembers | Only Blinkit orders — not fridge, not outside buys | Implicit in how Running low is built; Order Again already shows repurchase |
+| How sure it is | Guess from past orders + usual finish times; soft “might,” no scores | On items / sheet copy |
+| Teaching it | Remove = not needed right now — don’t re-push irritably; if they order that item again themselves, it can return to the guess | Running low remove · later repurchase |
 
-**Why the other five matter less here:** Undo is just remove before checkout. Override is covered by teaching. “Where from / why” without numbers would nag. Get a person isn’t a pantry job.  
+**Why the other five matter less here:** Undo is just remove before Add all. Override is covered by teaching. “Where from / why” without numbers would nag. Get a person isn’t a pantry job.  
 
 ## Who does what
 | The model does → | The person decides → | What's left behind → |
 |---|---|---|
-| Builds running-low draft bag from Blinkit orders + usual finish times | Open bag (Order Again or rare nudge); remove wrong items; checkout | Edited bag / placed order; removes soft-train; manual repurchase can bring an item back |
+| Builds Running low from Blinkit orders + usual finish times | Open sheet (Order Again or rare nudge); remove wrong items; Add all to cart; checkout | Cart / placed order; removes soft-train; manual repurchase can bring an item back |
 
 ## Does it get better
 Signal picked up: remove (soften) · manual repurchase (may return) · Effort for the person: none extra (same remove / order they already do)
 
 ## The riskiest thing I'm assuming
-That a guessed draft bag will get opened and edited often enough to beat “cook already warned me, I still didn’t act” — without becoming another ignored list. · Cheapest way to find out: watch 3–5 cook-dependent people with a clickable bag for one week — count opens, removes, and checkouts from the bag.
+That a guessed Running low sheet will get opened and edited often enough to beat “cook already warned me, I still didn’t act” — without becoming another ignored list. · Cheapest way to find out: watch 3–5 cook-dependent people with a clickable sheet for one week — count opens, removes, and Add-all → checkout.
+
+---
+
+## The shape
+**Chosen:** Sheet over Order Again **plus** a durable entry on Order Again if they close the sheet. Rare nudge opens the same sheet.
+
+**Costs accepted:** Order Again gets busier; entry and sheet must share the same words (**Running low**) or people think they’re two features. Sheet is easy to dismiss — entry is the insurance.
+
+**Rejected:**
+- Its own screens / Pantry flow — too many steps, people drop off, biggest build
+- Change-only section with no sheet — too easy to miss the check step before cart
+
+## Words we're using
+| We call it | Not | Because |
+|---|---|---|
+| Running low | Draft bag, pantry tracker, virtual shelf, Separate cart | Survey used “running low”; student locked this name for entry + sheet |
+| Might be running low | Predicted empty, % sure, “based on N orders” | Soft guess; no fake precision (AX Spec) |
+| Add all to cart | Pay / Checkout on the sheet | Check first, then land in Blinkit cart |
+| Order Again | My kitchen, Pantry tab | Hang off a screen that already exists |
+
+## Screens
+- **Order Again** — where they find the Running low entry and open the sheet
+- **Running low (sheet)** — where they check the guess, remove what’s wrong, Add all to cart
+- **Cart** — already exists — where items land after Add all
+- **Checkout** — already exists — where they pay
+
+## Where they hang off the existing product
+Order Again → Running low entry → sheet. Nudge → same sheet. Add all → Cart → Checkout.
+
+**NOT ADDING:** Pantry tab, pay inside the sheet, cook login, fridge sync, auto-order, empty/half Running low for new or thin lists.
+
+## What's on each screen
+
+### Order Again
+**This screen is for:** finding and opening Running low  
+**Information, in priority order**
+1. Running low entry *(component · only if enough items)*  
+2. Existing Order Again content *(already exists)*  
+**Not here:** full check list → lives on the sheet
+
+### Running low (sheet)
+**This screen is for:** checking the guess, then adding to cart  
+**Information, in priority order**
+1. Items that might be running low *(component · has states)*  
+2. Soft “Might be running low” — no numbers *(static)*  
+3. Remove on each item *(component)*  
+4. Add all to cart *(component)*  
+**Not here:** payment, address, household-size wall, pay button
+
+### Cart / Checkout
+Inherited. No new information architecture in this project.
+
+## The main path
+**Open Running low → check → Add all to cart → pay · 5 steps**
+
+1. Order Again → tap Running low → sheet opens  
+2. Check the list → remove what’s wrong  
+3. Add all to cart → sheet closes, items in Cart  
+4. Cart → checkout as usual  
+5. Pay → done  
+
+**Cut:** household-size wall, pay on sheet, Pantry tab, showing Running low when items aren’t enough.
+
+## Other routes
+- Rare nudge opens the same Running low sheet  
+- Close sheet without adding → entry still on Order Again (if still enough items)  
+- Remove down to below “enough” / empty → no Add all; don’t prioritize showing the sheet again until there’s a real list  
+
+## When it's not perfect
+
+### Order Again — Running low entry
+- **Empty / not enough:** no entry *(at least 2 items to show — guessing)*  
+- **Loading:** open  
+- **Error:** open  
+- **Done:** entry visible when list is worth checking  
+- **Too much:** open  
+- **Not allowed:** n/a  
+
+### Running low (sheet)
+- **Empty / not enough:** don’t show sheet or entry  
+- **Loading:** “Building Running low…” — wait or use Order Again  
+- **Error:** open  
+- **Done:** after Add all — sheet closes, cart has items  
+- **Too much:** open (scroll; no cap decided)  
+- **Not allowed:** nothing left to add → Add all disabled or hidden  
+
+### Cart / Checkout
+Inherited Blinkit states — not redesigned here.
+
+## Not in this project
+- Knowing what’s in the fridge / what the cook bought elsewhere  
+- Auto-ordering when something runs out  
+- Cook login or shared household account  
+- Pantry tab / full pantry flow  
+- Paying inside the Running low sheet  
+
+## What breaks if this ships
+- Order Again gets a new entry — denser, one more thing to learn  
+- People may open Running low instead of hunting categories on Order Again  
+- Checkout path unchanged — Add all only lengthens the path by the sheet check step

@@ -84,7 +84,7 @@ Real strings from references:
 - "Inclusive of all taxes"
 - "Move to wishlist"
 
-Running low copy should match: "Order what's running low" not "Proceed to checkout with selected pantry items."
+Running low copy should match: **"Add all to cart"** on the sheet (brief), soft **"Might be running low"** — not “Proceed to checkout with selected pantry items,” not fake % confidence.
 
 ---
 
@@ -136,7 +136,8 @@ Probe saved: `probe/probe.html` · `probe/probe-round3-gilroy.png`
 ## Mine to decide
 
 - **Order soon pill colour** — matched "Bought Earlier" blue rather than amber urgency. Rejected amber: Blinkit already uses blue for repurchase signals; amber reads as promo.
-- **Section placement** — Running low above Frequently bought. Rejected Home banner: student decision in DESIGN.md.
+- **Shape** — Running low as a **sheet** over Order Again + durable entry (brief). Rejected full pantry flow and section-only with no sheet.
+- **Fridge / pantry opening animation** — **parked**. Ship the sheet first. Motion later only if it explains origin (sheet open), not decoration. Rejected fridge theatre as default — fights Blinkit-native look.
 
 ---
 
