@@ -47,6 +47,45 @@
 **Lost:** Idea 6 — deferred “next order” bundling past ₹150. Student chose the normal tracker + surface path over attaching A/B effort shortcuts.
 
 ## Open
-- Predicting “finishes in a few days” without knowing the kitchen is a model guess — Block 7 (Ideas when a model is involved) is next if we keep that prediction.
-- Scope card still drifts vs fail-to-act + cart-minimum insight; Idea 1+3 leans early-warning again — flag for brief.
+- Scope card still drifts vs fail-to-act + cart-minimum insight; Idea 1+3 leans early-warning — watch in the brief.
 - Rounds 3–4 not run — student stopped after Round 2 pick.
+- Soft household-size ask still optional; not in AX Spec as required input.
+
+---
+
+# AX SPEC — Running-low draft bag (Idea 1+3)
+
+**What the model does:** guesses which Blinkit staples might be running low  
+**How much it does alone:** model does it, person checks — because awareness already exists (cook warns); the boring part is building the list; silent auto-order is unsafe when Blinkit can’t see the fridge  
+**What it looks like:** draft bag pre-filled — open manually from Order Again, or from a nudge only when it matters; remove what’s wrong — not a chat box  
+**Material facts:** refresh when they open the bag or get a nudge (not every scroll) · guess from Blinkit history only · wrong often and will sound sure · no fake precision numbers
+
+## When it's wrong
+| State | What they see | The words on screen | What they can do |
+|---|---|---|---|
+| Wrong | Item on the draft bag that isn’t actually low | “Not running low? Remove it.” | Remove; teaches softly |
+| Not sure | Soft wording, no counts | “Might be running low” | Keep or remove — no “based on N orders” |
+| Slow | Loading / skeleton while bag builds | “Building your running-low bag…” | Wait, or use Order Again as usual |
+| Won’t | Nothing | — | New users: do not show a bag or empty state |
+| Half done | Nothing | — | Do not show a half bag; only show when there’s a real list |
+| Out of date | n/a | — | Dropped — not in this project |
+
+## Staying in control
+| | How it works | Where it appears |
+|---|---|---|
+| What it remembers | Only Blinkit orders — not fridge, not outside buys | Implicit in how the bag is built; Order Again already shows repurchase |
+| How sure it is | Guess from past orders + usual finish times; soft “might,” no scores | On items / bag copy |
+| Teaching it | Remove = not needed right now — don’t re-push irritably; if they order that item again themselves, it can return to the guess | Draft bag remove · later repurchase |
+
+**Why the other five matter less here:** Undo is just remove before checkout. Override is covered by teaching. “Where from / why” without numbers would nag. Get a person isn’t a pantry job.  
+
+## Who does what
+| The model does → | The person decides → | What's left behind → |
+|---|---|---|
+| Builds running-low draft bag from Blinkit orders + usual finish times | Open bag (Order Again or rare nudge); remove wrong items; checkout | Edited bag / placed order; removes soft-train; manual repurchase can bring an item back |
+
+## Does it get better
+Signal picked up: remove (soften) · manual repurchase (may return) · Effort for the person: none extra (same remove / order they already do)
+
+## The riskiest thing I'm assuming
+That a guessed draft bag will get opened and edited often enough to beat “cook already warned me, I still didn’t act” — without becoming another ignored list. · Cheapest way to find out: watch 3–5 cook-dependent people with a clickable bag for one week — count opens, removes, and checkouts from the bag.

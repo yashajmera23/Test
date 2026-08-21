@@ -15,7 +15,7 @@ Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=
 Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next: /molades-brief
+Next: /molades-language
 ```
 
 ---
@@ -102,5 +102,11 @@ Next: /molades-brief
 **Decided:** Level = model does, person checks. Surface = draft bag from Order Again + rare nudge. Control = what it remembers (Blinkit only), how sure (soft guess, no numbers), teaching (remove softens; manual repurchase can bring back)
 **Rejected:** Person-only; suggest-only; silent auto-order. Chat box. Wrong-state empty for new users / half bag / out-of-date. “Based on N orders” copy. Forever-ban on remove
 **Because:** Student — draft bag check/remove; open from Order Again; nudge only when it matters; new users see nothing; teach without irritating; repurchase can restore
+**How sure:** worked it out
+
+### DECISION · 2026-08-21 · brief
+**Decided:** Shape = sheet + Order Again entry; name = Running low; screens = Order Again, Running low sheet, Cart, Checkout; main path 5 steps (open → check → Add all to cart → checkout → pay); show only when enough items (≥2 guessing)
+**Rejected:** Full pantry flow; section-only with no sheet; Draft bag / Separate cart naming; pay on sheet; empty/half sheet for thin lists; fridge knowledge, auto-order, cook login
+**Because:** Student — sheet with re-entry if closed; Running low name; Add all to cart after check; hide when not enough items
 **How sure:** worked it out
 
