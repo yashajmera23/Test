@@ -15,7 +15,7 @@ Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=
 Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next: /molades-attack
+Next: /molades-brief
 ```
 
 ---
@@ -85,3 +85,22 @@ Next: /molades-attack
 **Found:** Course blocks 01–13 shipped — Ideas, Ideas-with-AI, Brief, Attack, Test replace/reshape several steps; files are BRIEF.md and DESIGN_LANGUAGE.md.
 **Changed:** Installed block pack as Cursor skills; old commands alias to new ones. Project DESIGN.md / LANGUAGE.md copied to BRIEF.md / DESIGN_LANGUAGE.md.
 **What this made worthless:** Nothing in the Blinkit build — next step is still attack/stress on the live prototype (`/molades-attack`).
+
+### DECISION · 2026-08-21 · molades-ideas
+**Decided:** Restart at Ideas against the problem statement (act on low-stock without manual track / single low-value orders). Prior brief/build parked until one idea is chosen here.
+**Rejected:** Treating the already-built pantry tracker as the locked idea without running Ideas rounds
+**Because:** Student asked to go back to Ideas with the new block
+**How sure:** worked it out
+
+### DECISION · 2026-08-21 · ideas
+**Decided:** Idea 1+3 — remember what they ordered, show running-low, soft optional household-size ask (not a setup wall)
+**Rejected:** Idea 2, 5 (same move); Idea 4 as separate product (folded as quiet notch); Idea 7, 10, 11 (not competing); Idea 8 (cart confusion); Idea 9 (too much effort); Idea 6 and paths A/B (student locked normal 1+3)
+**Because:** Student: currently the idea is good; A/B made it look like different ideas — keep normal 1+3
+**How sure:** worked it out
+
+### DECISION · 2026-08-21 · ai
+**Decided:** Level = model does, person checks. Surface = draft bag from Order Again + rare nudge. Control = what it remembers (Blinkit only), how sure (soft guess, no numbers), teaching (remove softens; manual repurchase can bring back)
+**Rejected:** Person-only; suggest-only; silent auto-order. Chat box. Wrong-state empty for new users / half bag / out-of-date. “Based on N orders” copy. Forever-ban on remove
+**Because:** Student — draft bag check/remove; open from Order Again; nudge only when it matters; new users see nothing; teach without irritating; repurchase can restore
+**How sure:** worked it out
+

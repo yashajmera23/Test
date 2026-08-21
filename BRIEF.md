@@ -1,150 +1,52 @@
 # BRIEF
 
-> Migrated from earlier pack: this file was `DESIGN.md`. Content below is unchanged.
-
-# DESIGN
-
 **Project:** Blinkit — Home Pantry Tracker  
-**Date:** 2026-08-01  
-**Solving:** How might we help urban working professionals who depend on their cook for kitchen management to act on low-stock signals before things run out — without requiring them to manually track or place single low-value orders — so they feel in control of their household even when they're not physically present in the kitchen?
+**Date:** 2026-08-21  
+**Solving:** How might we help urban working professionals who depend on their cook for kitchen management to act on low-stock signals before things run out — without requiring them to manually track or place single low-value orders — so they feel in control of their household even when they're not physically present in the kitchen?  
+**What this means for design:** Convert awareness into action without manual tracking or lonely low-value orders — not “notify earlier” alone.
 
----
+## Constraints
+1. Stuck with Blinkit's cart minimum and existing checkout — adding a room, not rebuilding the house. *(saw it — student confirmed)*
+2. “Away from kitchen” dropped for now — the squeeze is low cart value. *(worked it out — student)*
+3. Blinkit does **not** know what's in the kitchen or what the cook bought elsewhere — nothing pretends it sees the fridge. *(saw it — student corrected)*
+4. Guardrail: pantry tracking stays useful if they keep ordering on Blinkit — that's the retention hook. *(worked it out — student)*
+5. Works without the cook installing anything. *(saw it — student confirmed)*
 
-## Words we're using
+## Ideas
+| # | Idea | The move underneath | Round | Out of ten |
+|---|---|---|---|---|
+| Idea 1 | Keep a list of what they ordered, warn before runout, one tap into cart | give it memory + remind at a time | obvious | 8 |
+| Idea 2 | Push: “milk finishes in a few days” with Add | remind at a time | obvious | 9 |
+| Idea 3 | A “Running low” strip on home | make the invisible visible | obvious | 8 |
+| Idea 4 | Optional “how many people at home?” to guess usage | let the person teach it | obvious | 6 |
+| Idea 5 | Same low items in Order Again, ready to re-add | show what you did last | obvious | 8 |
+| Idea 6 | “Remind me on the next order”; surface when bag clears ₹150 | defer the decision / change when it happens | Round 2 | 3 |
+| Idea 7 | After every order, optional “reorder milk in 10 days?” — no ongoing shelf | change when it happens | Round 2 | 4 |
+| Idea 8 | Cart opens already holding cheap staples over the minimum | remove the choice | Round 2 | 4 |
+| Idea 9 | Paste/forward cook’s list → cart over ₹150 | change who starts it | Round 2 | 3 |
+| Idea 10 | Lonely item: “₹40 alone — add these two, you’re over ₹150” | make the cost visible | Round 2 | 4 |
+| Idea 11 | Standing order tops up on a fixed day | let the system decide | Round 2 | 3 |
 
-| We call it | Not | Because |
+## Thrown away, and why
+| # | Idea | Why it went |
 |---|---|---|
-| Running low | Pantry, virtual shelf, low-stock alert | Participants described items "running out" and "running low" — not pantry tracking |
-| Order Again | New tab, Home section | Feature lives inside existing Order Again tab |
-| Saved for later | Wishlist, planned cart | P2 wanted a list separate from urgent orders; Blinkit Checkout already has "Move to wishlist" |
-| Order soon | Urgent, critical, out of stock | Status before runout — matches research lead-time framing |
-| Home | Kitchen address | Blinkit already labels delivery address as "Home" |
+| Idea 2 | Push when milk’s low | Same move as Idea 1+3; nine-out-of-ten first-minute idea |
+| Idea 5 | Low items in Order Again alone | Same move as Idea 1+3 |
+| Idea 4 (as separate product) | Household-size setup wall | Folded into Idea 1+3 as a quiet optional notch — not its own idea |
+| Idea 7 | One-shot reorder schedule | Left on the table — not competing this round |
+| Idea 8 | Cart pre-fill staples | Student: creates confusion in cart |
+| Idea 9 | Paste cook’s list | Student: too much effort for a quick-delivery app |
+| Idea 10 | Show cost-to-minimum at lonely item | Left on the table — not competing this round |
+| Idea 11 | Standing order | Left on the table — not competing this round |
+| Idea 6 | Remind me on next order @ ₹150 | Lost the final pick — student kept normal Idea 1+3; A/B effort add-ons rejected |
+| Paths A & B | One-tap from notification / park until next order on top of 1+3 | Student: both looked like different ideas; locked normal 1+3 |
 
-**One word everywhere:** "Running low" is the section name, the notification copy, and the status label — not "Low stock" on one screen and "Running out" on another.
+## What survived
+**Winner: Idea 1+3** — virtual memory of what they ordered, shown as running-low (e.g. home / Order Again), with a soft optional household-size ask (not prominent, skippable).  
 
----
-
-## Screens
-
-| Screen | Job |
-|---|---|
-| **Running low** (section on Order Again) | See what's predicted to run out soon — only when bundle is orderable |
-| **Bundle review** | Confirm grouped items before they hit the cart |
-| **Kitchen setup** (first time only) | Calibrate household size so consumption estimates make sense |
-| **Checkout** (existing) | Pay — inherited, not redesigned |
-
----
-
-## Where they hang off the existing app
-
-```
-Order Again tab (existing)
-  └ Running low section          NEW — sits above "Frequently bought"
-       └ Bundle review            reached when user taps "Order what's running low"
-            └ Checkout (existing) reached via "Add to cart"
-
-Order History (existing)
-  └ unchanged — reorder per past order still works separately
-
-Home (existing)
-  └ no new section — entry is Order Again only
-
-NOT ADDING:
-  · new bottom-nav tab
-  · Home banner or card
-  · changes to Checkout layout beyond receiving bundled items
-  · cross-platform order import
-```
-
-**Constraint:** Adding a room, not knocking the house down. Order Again gets one new section; Checkout, Home nav, and Order History stay as they are.
-
-**Strategic bet (Blinkit-only):** Tracking only works on Blinkit orders. Users who split across Zepto/Amazon (like P1 Ritika) cannot get full coverage — intentional incentive to consolidate grocery orders on Blinkit for pantry visibility.
-
----
-
-## The main path
-
-**Organiser reorders before cook runs out — 5 steps**
-
-1. **Order Again** → Running low section visible (bundle ≥ ₹150)
-2. **Tap "Order what's running low"** → Bundle review
-3. **Review items** → tap "Add to cart"
-4. **Checkout** (existing) → Place order
-5. **Done** → back to Order Again; fulfilled items drop off Running low
-
-**Cut from path:** naming individual items, choosing delivery slot (inherited), manual item entry, category-by-category ordering
-
----
-
-## Other routes
-
-| Route | What happens |
-|---|---|
-| **First-time user** | Kitchen setup modal on first visit to Order Again → asks household size → section empty until enough order history |
-| **Notification tap** | Deep-links to Running low section on Order Again |
-| **Urgent one-off order** | User orders via normal search/cart — does not clear Running low; urgent cart and saved bundle stay separate |
-| **Bundle not yet ₹150** | Running low section hidden — no partial or sub-threshold state shown |
-
----
-
-## When it's not perfect
-
-### Running low section
-| State | What user sees |
-|---|---|
-| **Empty** | Section not shown — no items meet ₹150 bundle threshold yet |
-| **Loading** | Skeleton cards while predictions calculate from order history |
-| **Error** | "Couldn't update your kitchen — pull to refresh" |
-| **Done** | Items disappear after successful order |
-| **Too much** | Cap visible items (e.g. 8) with "View all" — open: exact cap TBD at build |
-| **Not allowed** | Section hidden if no home address set or no order history |
-
-### Kitchen setup (first time)
-| State | What user sees |
-|---|---|
-| **Empty** | n/a — modal always has a default household size pre-selected |
-| **Error** | "Couldn't save — try again" with retry |
-| **Done** | Modal dismisses; never shown again unless user resets in Account |
-
-### Bundle review
-| State | What user sees |
-|---|---|
-| **Empty** | Should not occur — only reachable when bundle ≥ ₹150 |
-| **Loading** | Prices fetching — show spinner on total |
-| **Error** | Item unavailable — show which item failed, offer to remove and recalculate |
-| **Done** | Transition to Checkout with items added |
-
-### Checkout (inherited)
-| State | Handled by existing Blinkit — not redesigned |
-
----
-
-## Not in this project
-
-- **Cross-platform tracking** — Zepto, Amazon, Instamart orders are not imported. Blinkit-only is the retention bet: consolidate orders here to get tracking.
-- **Cook or flatmate accounts** — one person orders; cook has no app access.
-- **Manual pantry entry** — users cannot add items Blinkit hasn't delivered to their home address.
-- **New bottom-nav tab** — lives inside Order Again.
-- **Home screen entry point** — Order Again only.
-- **Sub-₹150 bundle UI** — section hidden until bundle is orderable; no "add ₹X more" state.
-- **Category-specific notification timing UI** — lead times differ by category (research finding) but user-facing controls for this are out of scope; logic runs in background.
-
----
-
-## What breaks if this ships
-
-- **Order Again gets longer** — new section above Frequently bought pushes category tiles down; returning users scroll more.
-- **"Frequently bought" vs "Running low" confusion** — two similar-looking sections on same screen; must be visually distinct (status labels, different card treatment).
-- **Wishlist naming collision** — Checkout already has "Move to wishlist"; Running low must not use wishlist language.
-- **Users with thin Blinkit history** — feature invisible until enough orders to predict and bundle; cold-start users see nothing.
-- **Notification fatigue** — one more push channel; must only fire when bundle is actionable (≥ ₹150), not per-item.
-
----
+**Lost:** Idea 6 — deferred “next order” bundling past ₹150. Student chose the normal tracker + surface path over attaching A/B effort shortcuts.
 
 ## Open
-
-- Exact household-size options in Kitchen setup (2 / 3 / 4+ people?)
-- Visual treatment to distinguish Running low from Frequently bought
-- Notification copy and persistence behaviour (research says persistent until acted — detail at build)
-- Scope card hypothesis still drifted from research — update SCOPE.md before build
-- JTBD cuts trail, app-store triangulation still missing (see LOG.md)
+- Predicting “finishes in a few days” without knowing the kitchen is a model guess — Block 7 (Ideas when a model is involved) is next if we keep that prediction.
+- Scope card still drifts vs fail-to-act + cart-minimum insight; Idea 1+3 leans early-warning again — flag for brief.
+- Rounds 3–4 not run — student stopped after Round 2 pick.
