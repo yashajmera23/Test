@@ -15,7 +15,7 @@ Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=
 Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next: /molades-language
+Next: /molades-build
 ```
 
 ---
@@ -109,4 +109,15 @@ Next: /molades-language
 **Rejected:** Full pantry flow; section-only with no sheet; Draft bag / Separate cart naming; pay on sheet; empty/half sheet for thin lists; fridge knowledge, auto-order, cook login
 **Because:** Student — sheet with re-entry if closed; Running low name; Add all to cart after check; hide when not enough items
 **How sure:** worked it out
+
+### DECISION · 2026-08-21 · molades-language
+**Decided:** Keep matched Blinkit language (Gilroy, #318616, 8pt, sheet + Order Again). Primary sheet CTA copy = Add all to cart. Fridge/pantry opening animation parked.
+**Rejected:** Rebuilding language from scratch without re-pasted screens; fridge theatre as default motion; amber urgency pills
+**Because:** Student — screens already shared earlier; park fridge, ship the sheet first
+**How sure:** worked it out (language saw it in prior match; fridge park = student choice)
+
+### LEARNED · 2026-08-21 · molades-language
+**Rounds run:** 3 (prior session) — reused, not re-looped
+**Biggest gap between round 1 and final:** density / heading size (prior)
+**Did not close:** Original Blinkit screenshot files not in repo now — values from DESIGN_LANGUAGE.md; re-paste if anything looks wrong in build
 
