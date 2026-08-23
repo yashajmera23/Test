@@ -190,3 +190,30 @@ Inherited Blinkit states — not redesigned here.
 - Order Again gets a new entry — denser, one more thing to learn  
 - People may open Running low instead of hunting categories on Order Again  
 - Checkout path unchanged — Add all only lengthens the path by the sheet check step
+
+### Stress pass — Running low sheet · 2026-08-23
+
+**The job:** Open Running low, check the guess, remove what’s wrong, Add all to cart.  
+**Predicted:** 4 · **Missed:** sticky footer not in build yet; long names; remove-to-1 while sheet open; loading with no escape besides close
+
+| Condition | What should happen | What did happen | How bad |
+|---|---|---|---|
+| Nothing — new user / &lt;2 items | No entry, no sheet | Entry hidden (demo: Not enough). **saw it** in code | — (by design) |
+| Too much — ~20+ staples | List scrolls; **Add all** stays sticky/reachable | Sheet scrolls as a whole; footer is **not** sticky — button scrolls away. **saw it** | Major |
+| Too much — long name e.g. Fortune Sunflower Oil 1L | Name wraps; Remove still hittable | Wraps; no truncate. Remove still there. **saw it** | Minor |
+| Wrong — cook already bought it | Remove; soft teach; don’t nag | Remove works; no “bought elsewhere” copy. Teach is remove-only in UI. **saw it** | Minor |
+| Wrong — remove every item | Add all disabled/hidden; don’t prioritize empty sheet | Add all hidden when 0 items. **saw it** | — |
+| Wrong — remove down to 1 while sheet open | Brief: don’t show thin lists; enough ≥2 | Still can Add all with 1 item; entry hides only after close. **saw it** | Major |
+| Waiting — Building Running low… | Show loading; can’t Add all; can leave | Demo loading: skeletons + copy; Add all hidden. Close works. Hang never auto-ends in demo. **saw it** | Minor |
+| Waiting — double-tap Add all | One register only | Button disables + loading for ~700ms. **saw it** | — (matches intent) |
+
+**Fixing (cap 5):**
+1. Sticky **Add all to cart** footer while list scrolls *(moments / looks)*
+2. If removes leave &lt;2 items: disable Add all or close sheet + hide entry *(steps / moments)*
+3. Longer-life staples only in the guess set — name the rule in brief *(the bet / things)*
+4. Loading: keep Close obvious; don’t leave people with no exit *(moments)*
+5. Optional: after Remove, one soft line that it can return if they order it on Blinkit again *(moments)*
+
+**Deliberately not fixing:** Perfect fridge-knowledge for Wrong — Blinkit can’t see the kitchen (constraint).  
+**Couldn't test statically:** Real slow network; real 247 SKUs; screen reader; focus order after sheet open.
+

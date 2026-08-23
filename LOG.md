@@ -15,7 +15,7 @@ Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=
 Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next: /molades-attack
+Next: /molades-attack (craft pass — rulers)
 ```
 
 ---
@@ -138,4 +138,22 @@ Next: /molades-attack
 **Changed:** Student confirmed slice 1 runs and looks good (entry → sheet → Add all to cart)
 **Caused by:** Student test of https://yashajmera23.github.io/Test/ / docs/index.html
 **Result:** Ready for /molades-attack — Cart/Checkout inherited, not in this slice
+
+### CRITIQUE · 2026-08-23 · attack · Source: self
+**Finding:** Add all footer not sticky under long lists — scrolls away with sheet
+**Severity:** major
+**Layer:** moments
+**Action:**
+
+### CRITIQUE · 2026-08-23 · attack · Source: self
+**Finding:** Can Add all with 1 item still in open sheet (&lt; enough threshold)
+**Severity:** major
+**Layer:** steps
+**Action:**
+
+### CRITIQUE · 2026-08-23 · attack · Source: self
+**Finding:** Longer-life staples filter not specified in build — research constraint not encoded
+**Severity:** major
+**Layer:** the bet / things
+**Action:**
 
