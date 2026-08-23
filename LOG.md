@@ -15,7 +15,7 @@ Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=
 Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next: /molades-brief confirm → /molades-build (attack fixes)
+Next: /molades-build (qty edit) → /molades-attack
 ```
 
 ---
@@ -162,4 +162,10 @@ Next: /molades-brief confirm → /molades-build (attack fixes)
 **Rejected:** Designing a custom error sheet; hiding Order Again Running low after cart add
 **Because:** Student — not in Blinkit system; want suggestions always; remove from nudge on home
 **How sure:** worked it out (confirm pending on remove-only-on-nudge)
+
+### DECISION · 2026-08-23 · brief
+**Decided:** Running low rows show predicted qty from last orders; user can edit before Add all. Keep current nudge styling for now (no Blinkit nudge SS).
+**Rejected:** Waiting on nudge screenshot; building parked persist/remove-on-Home flow now
+**Because:** Student — qty from prediction but editable; nudge SS not available
+**How sure:** worked it out
 

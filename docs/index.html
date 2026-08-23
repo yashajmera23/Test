@@ -365,6 +365,49 @@
     .remove-btn:hover { color: var(--signal); }
     .remove-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
+    .item-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .qty {
+      display: inline-flex;
+      align-items: center;
+      height: 32px;
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-btn);
+      background: var(--raised);
+      overflow: hidden;
+    }
+    .qty button {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: var(--raised);
+      color: var(--accent);
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .qty button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .qty button:disabled { opacity: 0.35; cursor: not-allowed; }
+    .qty .qty-val {
+      min-width: 28px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .qty-hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
     .sheet-footer { padding-top: 8px; }
     .btn {
       width: 100%;
@@ -499,7 +542,6 @@
       <option value="ready">Ready (≥2 items)</option>
       <option value="toomuch">Too much (many items)</option>
       <option value="loading">Loading sheet</option>
-      <option value="error">Sheet error</option>
       <option value="empty">Not enough — no entry</option>
       <option value="nudge">Ready + nudge</option>
     </select>
@@ -585,7 +627,7 @@
       <p style="margin-top:12px">Building Running low…</p>
     </div>
 
-    <div id="sheetError" class="sheet-error hidden">Couldn’t build Running low — close and try again.</div>
+    <div id="sheetError" class="sheet-error hidden" hidden></div>
 
     <div class="sheet-list" id="sheetList"></div>
 
@@ -598,29 +640,29 @@
     /* Sample catalogue — not live data. Enough = ≥2 (brief: guessing). */
     const ENOUGH = 2;
     const SAMPLE = [
-      { id: 'onion', name: 'Onion (pyaaz)', detail: 'Last ordered recently', emoji: '🧅', price: 32 },
-      { id: 'dal', name: 'Toor dal', detail: 'Staple from your orders', emoji: '🫘', price: 54 },
-      { id: 'oil', name: 'Fortune Sunflower Oil 1L', detail: 'Masala & oil', emoji: '🛢️', price: 100 }
+      { id: 'onion', name: 'Onion (pyaaz)', detail: 'From your last orders', emoji: '🧅', price: 32, qty: 2 },
+      { id: 'dal', name: 'Toor dal', detail: 'From your last orders', emoji: '🫘', price: 54, qty: 1 },
+      { id: 'oil', name: 'Fortune Sunflower Oil 1L', detail: 'From your last orders', emoji: '🛢️', price: 100, qty: 1 }
     ];
 
     /* Sample only — for Too much stress check. Not a claim about real kitchens. */
     const MANY = [
-      { id: 'onion', name: 'Onion (pyaaz)', detail: 'Might be running low', emoji: '🧅', price: 32 },
-      { id: 'dal', name: 'Toor dal', detail: 'Might be running low', emoji: '🫘', price: 54 },
-      { id: 'oil', name: 'Fortune Sunflower Oil 1L Cold Pressed Premium', detail: 'Might be running low', emoji: '🛢️', price: 100 },
-      { id: 'atta', name: 'Aashirvaad Whole Wheat Atta 5 kg', detail: 'Might be running low', emoji: '🌾', price: 240 },
-      { id: 'rice', name: 'India Gate Basmati Rice 1 kg', detail: 'Might be running low', emoji: '🍚', price: 145 },
-      { id: 'sugar', name: 'Madhur Pure Sugar 1 kg', detail: 'Might be running low', emoji: '🧂', price: 48 },
-      { id: 'salt', name: 'Tata Salt 1 kg', detail: 'Might be running low', emoji: '⬜', price: 28 },
-      { id: 'tea', name: 'Tata Tea Gold 500 g', detail: 'Might be running low', emoji: '🍵', price: 210 },
-      { id: 'coffee', name: 'Nescafe Classic Coffee 100 g', detail: 'Might be running low', emoji: '☕', price: 185 },
-      { id: 'ghee', name: 'Amul Pure Ghee 1 L', detail: 'Might be running low', emoji: '🧈', price: 560 },
-      { id: 'besan', name: 'Fortune Besan 1 kg', detail: 'Might be running low', emoji: '🟡', price: 95 },
-      { id: 'poha', name: 'Mother’s Recipe Thick Poha 1 kg', detail: 'Might be running low', emoji: '🥞', price: 72 },
-      { id: 'rava', name: 'Bambino Sooji / Rava 1 kg', detail: 'Might be running low', emoji: '🥣', price: 55 },
-      { id: 'mustard', name: 'Fortune Mustard Oil 1 L', detail: 'Might be running low', emoji: '🫙', price: 165 },
-      { id: 'soap', name: 'Surf Excel Matic Front Load 2 kg', detail: 'Might be running low', emoji: '🧼', price: 380 },
-      { id: 'tissue', name: 'Origami Kitchen Towels 6 rolls', detail: 'Might be running low', emoji: '🧻', price: 199 }
+      { id: 'onion', name: 'Onion (pyaaz)', detail: 'From your last orders', emoji: '🧅', price: 32, qty: 2 },
+      { id: 'dal', name: 'Toor dal', detail: 'From your last orders', emoji: '🫘', price: 54, qty: 1 },
+      { id: 'oil', name: 'Fortune Sunflower Oil 1L Cold Pressed Premium', detail: 'From your last orders', emoji: '🛢️', price: 100, qty: 1 },
+      { id: 'atta', name: 'Aashirvaad Whole Wheat Atta 5 kg', detail: 'From your last orders', emoji: '🌾', price: 240, qty: 1 },
+      { id: 'rice', name: 'India Gate Basmati Rice 1 kg', detail: 'From your last orders', emoji: '🍚', price: 145, qty: 1 },
+      { id: 'sugar', name: 'Madhur Pure Sugar 1 kg', detail: 'From your last orders', emoji: '🧂', price: 48, qty: 1 },
+      { id: 'salt', name: 'Tata Salt 1 kg', detail: 'From your last orders', emoji: '⬜', price: 28, qty: 1 },
+      { id: 'tea', name: 'Tata Tea Gold 500 g', detail: 'From your last orders', emoji: '🍵', price: 210, qty: 1 },
+      { id: 'coffee', name: 'Nescafe Classic Coffee 100 g', detail: 'From your last orders', emoji: '☕', price: 185, qty: 1 },
+      { id: 'ghee', name: 'Amul Pure Ghee 1 L', detail: 'From your last orders', emoji: '🧈', price: 560, qty: 1 },
+      { id: 'besan', name: 'Fortune Besan 1 kg', detail: 'From your last orders', emoji: '🟡', price: 95, qty: 1 },
+      { id: 'poha', name: 'Mother’s Recipe Thick Poha 1 kg', detail: 'From your last orders', emoji: '🥞', price: 72, qty: 1 },
+      { id: 'rava', name: 'Bambino Sooji / Rava 1 kg', detail: 'From your last orders', emoji: '🥣', price: 55, qty: 1 },
+      { id: 'mustard', name: 'Fortune Mustard Oil 1 L', detail: 'From your last orders', emoji: '🫙', price: 165, qty: 1 },
+      { id: 'soap', name: 'Surf Excel Matic Front Load 2 kg', detail: 'From your last orders', emoji: '🧼', price: 380, qty: 1 },
+      { id: 'tissue', name: 'Origami Kitchen Towels 6 rolls', detail: 'From your last orders', emoji: '🧻', price: 199, qty: 1 }
     ];
 
     let items = SAMPLE.map(i => ({ ...i }));
@@ -674,6 +716,7 @@
     function renderSheetList() {
       sheetList.innerHTML = '';
       items.forEach(item => {
+        const qty = item.qty || 1;
         const row = document.createElement('article');
         row.className = 'sheet-item';
         row.dataset.id = item.id;
@@ -683,14 +726,23 @@
             '<h3>' + item.name + '</h3>' +
             '<p>' + item.detail + '</p>' +
             '<span class="pill">Might be running low</span>' +
+            '<p class="qty-hint">Suggested qty from last orders — you can change it</p>' +
           '</div>' +
-          '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>';
+          '<div class="item-actions">' +
+            '<div class="qty" role="group" aria-label="Quantity for ' + item.name + '">' +
+              '<button type="button" data-qty-minus="' + item.id + '" aria-label="Decrease quantity"' + (qty <= 1 ? ' disabled' : '') + '>−</button>' +
+              '<span class="qty-val" aria-live="polite">' + qty + '</span>' +
+              '<button type="button" data-qty-plus="' + item.id + '" aria-label="Increase quantity">+</button>' +
+            '</div>' +
+            '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>' +
+          '</div>';
         sheetList.appendChild(row);
       });
+      const units = items.reduce((s, i) => s + (i.qty || 1), 0);
       addAllBtn.disabled = items.length === 0;
       addAllBtn.hidden = items.length === 0;
       addAllBtn.textContent = items.length
-        ? 'Add all to cart' + (items.length ? ' · ' + items.length : '')
+        ? 'Add all to cart · ' + units
         : 'Add all to cart';
     }
 
@@ -745,8 +797,6 @@
       }
       if (state === 'loading') {
         openSheet('loading');
-      } else if (state === 'error') {
-        openSheet('error');
       }
     }
 
@@ -757,9 +807,30 @@
     document.getElementById('nudgeDismiss').addEventListener('click', () => nudge.classList.remove('show'));
 
     sheetList.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-remove]');
-      if (!btn) return;
-      const id = btn.getAttribute('data-remove');
+      const minus = e.target.closest('[data-qty-minus]');
+      const plus = e.target.closest('[data-qty-plus]');
+      const remove = e.target.closest('[data-remove]');
+
+      if (minus) {
+        const id = minus.getAttribute('data-qty-minus');
+        items = items.map(i => {
+          if (i.id !== id) return i;
+          return { ...i, qty: Math.max(1, (i.qty || 1) - 1) };
+        });
+        renderSheetList();
+        return;
+      }
+      if (plus) {
+        const id = plus.getAttribute('data-qty-plus');
+        items = items.map(i => {
+          if (i.id !== id) return i;
+          return { ...i, qty: Math.min(99, (i.qty || 1) + 1) };
+        });
+        renderSheetList();
+        return;
+      }
+      if (!remove) return;
+      const id = remove.getAttribute('data-remove');
       items = items.filter(i => i.id !== id);
       renderSheetList();
       if (items.length < ENOUGH) {
@@ -769,21 +840,21 @@
 
     addAllBtn.addEventListener('click', function () {
       if (items.length === 0) return;
-      const count = items.length;
+      const units = items.reduce((s, i) => s + (i.qty || 1), 0);
       const firstEmoji = items[0].emoji;
       this.classList.add('loading');
       this.disabled = true;
       setTimeout(() => {
         this.classList.remove('loading');
         this.disabled = false;
-        cartCount = count;
+        cartCount = units;
         cartLabel.textContent = 'View cart · ' + cartCount + ' Items';
         cartThumb.textContent = firstEmoji;
         viewCart.classList.remove('hidden');
         items = [];
         closeSheet();
         updateEntry();
-        showToast('Added to cart — ' + count + ' items');
+        showToast('Added to cart — ' + units + ' items');
       }, 700);
     });
 

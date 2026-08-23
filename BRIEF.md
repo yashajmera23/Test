@@ -134,9 +134,10 @@ Order Again → Running low entry → sheet. Nudge → same sheet. Add all → C
 **This screen is for:** checking the guess, then adding to cart  
 **Information, in priority order**
 1. Items that might be running low *(component · has states)*  
-2. Soft “Might be running low” — no numbers *(static)*  
-3. Remove on each item *(component)*  
-4. Add all to cart *(component)*  
+2. Soft “Might be running low” — no fake confidence numbers *(static)*  
+3. Quantity — default from last-order prediction; user can edit *(component)*  
+4. Remove on each item *(component)*  
+5. Add all to cart *(component)*  
 **Not here:** payment, address, household-size wall, pay button
 
 ### Cart / Checkout
@@ -235,4 +236,10 @@ Inherited Blinkit states — not redesigned here.
 - **Remove** as a concept: from **Home nudge** only — not the primary remove model on the Order Again sheet (pending student confirm of wording).
 
 **Layer:** steps / things — brief change before next build edit.
+
+## Quantity (locked · 2026-08-23)
+- Default qty on each Running low row comes from the **prediction / last Blinkit orders** (sample in prototype).
+- User can **edit** qty before Add all to cart.
+- Nudge: keep current prototype treatment for now (Blinkit nudge screenshot not available).
+- Still parked: error sheet; Order Again persist / remove-only-on-Home flow change.
 
