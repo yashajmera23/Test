@@ -15,7 +15,7 @@ Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=
 Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next: /molades-attack (after they confirm main path)
+Next: /molades-attack
 ```
 
 ---
@@ -133,4 +133,9 @@ Next: /molades-attack (after they confirm main path)
 **Actually happened:** Old build put the full list on Order Again — contradicted brief priority (list lives on sheet)
 **Cost:** full rewrite of docs/index.html
 **Now know:** Entry must be a summary control; checklist only on the sheet or people skip the check step
+
+### CHANGE · 2026-08-23 · build
+**Changed:** Student confirmed slice 1 runs and looks good (entry → sheet → Add all to cart)
+**Caused by:** Student test of https://yashajmera23.github.io/Test/ / docs/index.html
+**Result:** Ready for /molades-attack — Cart/Checkout inherited, not in this slice
 
