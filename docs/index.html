@@ -376,36 +376,36 @@
       display: inline-flex;
       align-items: center;
       height: 32px;
-      border: 1px solid var(--accent);
+      border: none;
       border-radius: var(--radius-btn);
-      background: var(--raised);
+      background: var(--accent);
       overflow: hidden;
     }
     .qty button {
       width: 32px;
       height: 32px;
       border: none;
-      background: var(--raised);
-      color: var(--accent);
+      background: transparent;
+      color: #fff;
       font-size: 16px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
       line-height: 1;
     }
-    .qty button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-    .qty button:disabled { opacity: 0.35; cursor: not-allowed; }
+    .qty button:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
+    .qty button:disabled { opacity: 0.4; cursor: not-allowed; }
     .qty .qty-val {
       min-width: 28px;
       text-align: center;
       font-size: 14px;
       font-weight: 700;
-      color: var(--accent);
+      color: #fff;
     }
-    .qty-hint {
-      font-size: 11px;
+    .item-unit {
+      font-size: 12px;
       color: var(--muted);
-      margin-top: 4px;
+      margin-bottom: 4px;
     }
 
     .sheet-footer { padding-top: 8px; }
@@ -640,29 +640,29 @@
     /* Sample catalogue — not live data. Enough = ≥2 (brief: guessing). */
     const ENOUGH = 2;
     const SAMPLE = [
-      { id: 'onion', name: 'Onion (pyaaz)', detail: 'From your last orders', emoji: '🧅', price: 32, qty: 2 },
-      { id: 'dal', name: 'Toor dal', detail: 'From your last orders', emoji: '🫘', price: 54, qty: 1 },
-      { id: 'oil', name: 'Fortune Sunflower Oil 1L', detail: 'From your last orders', emoji: '🛢️', price: 100, qty: 1 }
+      { id: 'onion', name: 'Onion (pyaaz)', unit: '1 kg', detail: 'From your last orders', emoji: '🧅', price: 32, qty: 2 },
+      { id: 'dal', name: 'Toor dal', unit: '1 kg', detail: 'From your last orders', emoji: '🫘', price: 54, qty: 1 },
+      { id: 'oil', name: 'Fortune Sunflower Oil', unit: '1 L', detail: 'From your last orders', emoji: '🛢️', price: 100, qty: 1 }
     ];
 
     /* Sample only — for Too much stress check. Not a claim about real kitchens. */
     const MANY = [
-      { id: 'onion', name: 'Onion (pyaaz)', detail: 'From your last orders', emoji: '🧅', price: 32, qty: 2 },
-      { id: 'dal', name: 'Toor dal', detail: 'From your last orders', emoji: '🫘', price: 54, qty: 1 },
-      { id: 'oil', name: 'Fortune Sunflower Oil 1L Cold Pressed Premium', detail: 'From your last orders', emoji: '🛢️', price: 100, qty: 1 },
-      { id: 'atta', name: 'Aashirvaad Whole Wheat Atta 5 kg', detail: 'From your last orders', emoji: '🌾', price: 240, qty: 1 },
-      { id: 'rice', name: 'India Gate Basmati Rice 1 kg', detail: 'From your last orders', emoji: '🍚', price: 145, qty: 1 },
-      { id: 'sugar', name: 'Madhur Pure Sugar 1 kg', detail: 'From your last orders', emoji: '🧂', price: 48, qty: 1 },
-      { id: 'salt', name: 'Tata Salt 1 kg', detail: 'From your last orders', emoji: '⬜', price: 28, qty: 1 },
-      { id: 'tea', name: 'Tata Tea Gold 500 g', detail: 'From your last orders', emoji: '🍵', price: 210, qty: 1 },
-      { id: 'coffee', name: 'Nescafe Classic Coffee 100 g', detail: 'From your last orders', emoji: '☕', price: 185, qty: 1 },
-      { id: 'ghee', name: 'Amul Pure Ghee 1 L', detail: 'From your last orders', emoji: '🧈', price: 560, qty: 1 },
-      { id: 'besan', name: 'Fortune Besan 1 kg', detail: 'From your last orders', emoji: '🟡', price: 95, qty: 1 },
-      { id: 'poha', name: 'Mother’s Recipe Thick Poha 1 kg', detail: 'From your last orders', emoji: '🥞', price: 72, qty: 1 },
-      { id: 'rava', name: 'Bambino Sooji / Rava 1 kg', detail: 'From your last orders', emoji: '🥣', price: 55, qty: 1 },
-      { id: 'mustard', name: 'Fortune Mustard Oil 1 L', detail: 'From your last orders', emoji: '🫙', price: 165, qty: 1 },
-      { id: 'soap', name: 'Surf Excel Matic Front Load 2 kg', detail: 'From your last orders', emoji: '🧼', price: 380, qty: 1 },
-      { id: 'tissue', name: 'Origami Kitchen Towels 6 rolls', detail: 'From your last orders', emoji: '🧻', price: 199, qty: 1 }
+      { id: 'onion', name: 'Onion (pyaaz)', unit: '1 kg', detail: 'From your last orders', emoji: '🧅', price: 32, qty: 2 },
+      { id: 'dal', name: 'Toor dal', unit: '1 kg', detail: 'From your last orders', emoji: '🫘', price: 54, qty: 1 },
+      { id: 'oil', name: 'Fortune Sunflower Oil Cold Pressed Premium', unit: '1 L', detail: 'From your last orders', emoji: '🛢️', price: 100, qty: 1 },
+      { id: 'atta', name: 'Aashirvaad Whole Wheat Atta', unit: '5 kg', detail: 'From your last orders', emoji: '🌾', price: 240, qty: 1 },
+      { id: 'rice', name: 'India Gate Basmati Rice', unit: '1 kg', detail: 'From your last orders', emoji: '🍚', price: 145, qty: 1 },
+      { id: 'sugar', name: 'Madhur Pure Sugar', unit: '1 kg', detail: 'From your last orders', emoji: '🧂', price: 48, qty: 1 },
+      { id: 'salt', name: 'Tata Salt', unit: '1 kg', detail: 'From your last orders', emoji: '⬜', price: 28, qty: 1 },
+      { id: 'tea', name: 'Tata Tea Gold', unit: '500 g', detail: 'From your last orders', emoji: '🍵', price: 210, qty: 1 },
+      { id: 'coffee', name: 'Nescafe Classic Coffee', unit: '100 g', detail: 'From your last orders', emoji: '☕', price: 185, qty: 1 },
+      { id: 'ghee', name: 'Amul Pure Ghee', unit: '1 L', detail: 'From your last orders', emoji: '🧈', price: 560, qty: 1 },
+      { id: 'besan', name: 'Fortune Besan', unit: '1 kg', detail: 'From your last orders', emoji: '🟡', price: 95, qty: 1 },
+      { id: 'poha', name: 'Mother’s Recipe Thick Poha', unit: '1 kg', detail: 'From your last orders', emoji: '🥞', price: 72, qty: 1 },
+      { id: 'rava', name: 'Bambino Sooji / Rava', unit: '1 kg', detail: 'From your last orders', emoji: '🥣', price: 55, qty: 1 },
+      { id: 'mustard', name: 'Fortune Mustard Oil', unit: '1 L', detail: 'From your last orders', emoji: '🫙', price: 165, qty: 1 },
+      { id: 'soap', name: 'Surf Excel Matic Front Load', unit: '2 kg', detail: 'From your last orders', emoji: '🧼', price: 380, qty: 1 },
+      { id: 'tissue', name: 'Origami Kitchen Towels', unit: '6 rolls', detail: 'From your last orders', emoji: '🧻', price: 199, qty: 1 }
     ];
 
     let items = SAMPLE.map(i => ({ ...i }));
@@ -724,9 +724,8 @@
           '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
           '<div class="body">' +
             '<h3>' + item.name + '</h3>' +
-            '<p>' + item.detail + '</p>' +
+            '<p class="item-unit">' + (item.unit || '') + '</p>' +
             '<span class="pill">Might be running low</span>' +
-            '<p class="qty-hint">Suggested qty from last orders — you can change it</p>' +
           '</div>' +
           '<div class="item-actions">' +
             '<div class="qty" role="group" aria-label="Quantity for ' + item.name + '">' +
