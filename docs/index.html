@@ -41,10 +41,12 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
     }
 
-    /* Top bar */
     .top-bar {
       background: linear-gradient(180deg, var(--yellow-top) 0%, #FFF9D6 60%, var(--surface) 100%);
       padding: 12px 16px 8px;
@@ -87,7 +89,6 @@
       color: var(--muted);
     }
 
-    /* Sections */
     .section-head {
       display: flex;
       justify-content: space-between;
@@ -95,104 +96,54 @@
       padding: 16px 16px 8px;
     }
     .section-head h2 { font-size: 18px; font-weight: 700; }
-    .section-head a { font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; }
 
-    .bundle-meta {
-      padding: 0 16px 8px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--muted);
-    }
-    .bundle-meta strong { color: var(--ink); font-weight: 700; }
-
-    /* Running low cards */
-    .low-card {
-      margin: 0 16px 8px;
+    /* Running low ENTRY — opens sheet; full list lives on sheet */
+    .rl-entry {
+      margin: 0 16px 16px;
       padding: 12px;
       background: var(--raised);
       border: 1px solid var(--border);
       border-radius: var(--radius-card);
       display: flex;
+      align-items: center;
       gap: 12px;
-      align-items: flex-start;
-      transition: transform 150ms ease-out, box-shadow 150ms ease-out;
-    }
-    .low-card:active { transform: scale(0.98); }
-    .thumb {
-      width: 56px; height: 56px;
-      border-radius: 8px;
-      background: #F0F0F0;
-      flex-shrink: 0;
-      display: grid; place-items: center;
-      font-size: 24px;
-    }
-    .low-card h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
-    .low-card p { font-size: 12px; color: var(--muted); line-height: 1.4; }
-    .pill {
-      display: inline-block;
-      margin-top: 6px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      background: var(--soon-bg);
-      color: var(--soon-ink);
-    }
-
-    .skeleton {
-      margin: 0 16px 8px;
-      height: 80px;
-      border-radius: var(--radius-card);
-      background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.2s infinite;
-    }
-    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-    .error-banner {
-      margin: 8px 16px;
-      padding: 10px 12px;
-      background: #FFF0F0;
-      border: 1px solid #FFCDD2;
-      border-radius: var(--radius-btn);
-      font-size: 13px;
-      color: var(--signal);
-    }
-
-    .cta-row {
-      display: flex;
-      gap: 12px;
-      padding: 8px 16px 16px;
-    }
-    .btn {
-      flex: 1;
-      height: 48px;
-      border-radius: var(--radius-btn);
-      font-size: 15px;
+      width: calc(100% - 32px);
+      text-align: left;
       font-family: inherit;
       cursor: pointer;
-      transition: opacity 150ms ease-out, transform 150ms ease-out;
+      transition: transform 150ms ease-out, border-color 150ms ease-out;
     }
-    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .btn:active { transform: scale(0.98); }
-    .btn-primary { background: var(--accent); color: #fff; border: none; font-weight: 700; }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-secondary { background: #fff; color: var(--accent); border: 1px solid var(--accent); font-weight: 600; }
-    .btn-primary.loading { position: relative; color: transparent; }
-    .btn-primary.loading::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      margin: auto;
-      width: 20px; height: 20px;
-      border: 2px solid #fff;
-      border-top-color: transparent;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
+    .rl-entry:hover { border-color: #cfcfcf; }
+    .rl-entry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .rl-entry:active { transform: scale(0.98); }
+    .rl-entry .thumbs {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .rl-entry .thumb-sm {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      background: #F0F0F0;
+      display: grid; place-items: center;
+      font-size: 18px;
+      border: 1px solid var(--border);
+    }
+    .rl-entry .thumb-sm.more {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .rl-entry .copy { flex: 1; min-width: 0; }
+    .rl-entry .copy h3 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+    .rl-entry .copy p { font-size: 12px; color: var(--muted); line-height: 1.35; }
+    .rl-entry .chev {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
 
-    /* Frequently bought grid */
     .freq-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -210,7 +161,6 @@
     .freq-tile h4 { font-size: 14px; font-weight: 600; line-height: 1.3; }
     .freq-tile span { font-size: 11px; color: var(--muted); }
 
-    /* Floating cart */
     .view-cart {
       position: fixed;
       left: 50%;
@@ -225,11 +175,14 @@
       gap: 10px;
       font-size: 14px;
       font-weight: 600;
-      box-shadow: 0 4px 12px rgba(49,134,22,0.25);
       z-index: 40;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
       transition: transform 200ms ease-out, opacity 200ms ease-out;
     }
     .view-cart.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
+    .view-cart:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
     .view-cart .mini-thumb {
       width: 32px; height: 32px;
       border-radius: 6px;
@@ -246,7 +199,6 @@
       font-weight: 800;
     }
 
-    /* Bottom nav */
     .bottom-nav {
       position: fixed;
       bottom: 0; left: 50%;
@@ -277,7 +229,6 @@
     }
     .nav-item.active .icon { background: #EFEFEF; }
 
-    /* Overlay / sheet */
     .overlay {
       position: fixed; inset: 0;
       background: rgba(0,0,0,0.4);
@@ -301,6 +252,8 @@
       transition: transform 280ms ease-out;
       max-height: 85vh;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
     }
     .sheet.open { transform: translate(-50%, 0); }
     .sheet-handle {
@@ -309,59 +262,191 @@
       border-radius: 2px;
       margin: 0 auto 16px;
     }
-    .sheet h2 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-    .sheet .sub { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
-
-    .bundle-line {
+    .sheet-head {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
+      margin-bottom: 4px;
+      gap: 12px;
+    }
+    .sheet h2 { font-size: 18px; font-weight: 700; }
+    .sheet-close {
+      background: none;
+      border: none;
+      font-size: 22px;
+      line-height: 1;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px;
+      font-family: inherit;
+    }
+    .sheet-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .sheet .hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .sheet-loading {
+      padding: 24px 0 32px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .skeleton {
+      height: 72px;
+      border-radius: var(--radius-card);
+      background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+      margin-bottom: 8px;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .sheet-error {
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      background: #FFF0F0;
+      border: 1px solid #FFCDD2;
+      border-radius: var(--radius-btn);
+      font-size: 13px;
+      color: var(--signal);
+    }
+
+    .sheet-list { flex: 1; overflow-y: auto; margin-bottom: 12px; }
+
+    .sheet-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
       padding: 12px 0;
       border-bottom: 1px solid var(--border);
-      font-size: 15px;
     }
-    .bundle-line:last-of-type { border-bottom: none; }
-    .bundle-line .price { font-weight: 600; }
-    .bundle-total-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 16px 0 8px;
-      font-size: 16px;
+    .sheet-item:last-child { border-bottom: none; }
+    .sheet-item .thumb {
+      width: 56px; height: 56px;
+      border-radius: 8px;
+      background: #F0F0F0;
+      flex-shrink: 0;
+      display: grid; place-items: center;
+      font-size: 24px;
+      border: 1px solid var(--border);
+    }
+    .sheet-item .body { flex: 1; min-width: 0; }
+    .sheet-item h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .sheet-item p { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .pill {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--soon-bg);
+      color: var(--soon-ink);
+    }
+    .remove-btn {
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 8px 4px;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .remove-btn:hover { color: var(--signal); }
+    .remove-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .sheet-footer { padding-top: 8px; }
+    .btn {
+      width: 100%;
+      height: 48px;
+      border-radius: var(--radius-btn);
+      font-size: 15px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity 150ms ease-out, transform 150ms ease-out;
+    }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn:active:not(:disabled) { transform: scale(0.98); }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
       font-weight: 700;
     }
-    .bundle-total-row span:last-child { color: var(--accent); }
-
-  /* Kitchen setup modal */
-    .modal {
-      position: fixed; inset: 0;
-      display: grid; place-items: center;
-      z-index: 70;
-      padding: 24px;
-      opacity: 0; pointer-events: none;
-      transition: opacity 200ms ease-out;
+    .btn-primary:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
     }
-    .modal.open { opacity: 1; pointer-events: auto; }
-    .modal-card {
+    .btn-primary.loading { position: relative; color: transparent; }
+    .btn-primary.loading::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 20px; height: 20px;
+      border: 2px solid #fff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .nudge {
+      position: fixed;
+      left: 50%;
+      top: 56px;
+      transform: translateX(-50%) translateY(-12px);
+      width: calc(100% - 32px);
+      max-width: 398px;
       background: var(--raised);
+      border: 1px solid var(--border);
       border-radius: var(--radius-card);
-      padding: 20px;
-      width: 100%;
-      max-width: 340px;
-      border: 1px solid var(--border);
+      padding: 12px;
+      z-index: 45;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease-out, transform 200ms ease-out;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
-    .modal-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .modal-card p { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
-    .modal-card select {
-      width: 100%; height: 44px;
-      border: 1px solid var(--border);
+    .nudge.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .nudge p { flex: 1; font-size: 13px; font-weight: 500; line-height: 1.35; }
+    .nudge button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
       border-radius: var(--radius-btn);
-      padding: 0 12px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
       font-family: inherit;
-      font-size: 14px;
-      margin-bottom: 16px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .nudge button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+    .nudge .dismiss {
+      background: none;
+      color: var(--muted);
+      padding: 4px 6px;
+      font-size: 16px;
     }
 
-    /* Demo state switcher */
     .demo-bar {
       position: fixed;
       top: 0; right: 0;
@@ -378,11 +463,11 @@
       border: none;
       font-size: 10px;
       margin-left: 4px;
+      max-width: 140px;
     }
 
     .hidden { display: none !important; }
 
-    /* Success toast */
     .toast {
       position: fixed;
       top: 48px; left: 50%;
@@ -399,37 +484,34 @@
       pointer-events: none;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    .sample-note {
+      padding: 0 16px 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
   <div class="demo-bar" aria-hidden="true">
-    Demo state
-    <select id="stateSelect">
-      <option value="ready">Running low · ready</option>
-      <option value="loading">Loading</option>
-      <option value="error">Error</option>
-      <option value="empty">Empty (hidden)</option>
-      <option value="setup">Kitchen setup</option>
+    Demo
+    <select id="stateSelect" aria-label="Demo state">
+      <option value="ready">Ready (≥2 items)</option>
+      <option value="loading">Loading sheet</option>
+      <option value="error">Sheet error</option>
+      <option value="empty">Not enough — no entry</option>
+      <option value="nudge">Ready + nudge</option>
     </select>
   </div>
 
   <div class="toast" id="toast" role="status"></div>
 
-  <!-- Kitchen setup modal -->
-  <div class="modal" id="setupModal" role="dialog" aria-labelledby="setupTitle">
-    <div class="modal-card">
-      <h2 id="setupTitle">Set up your kitchen</h2>
-      <p>How many people live at your home? We use this to estimate how fast you go through staples.</p>
-      <select id="householdSelect" aria-label="Household size">
-        <option value="2">2 people</option>
-        <option value="3" selected>3 people</option>
-        <option value="4">4+ people</option>
-      </select>
-      <button class="btn btn-primary" style="width:100%" id="saveSetup">Save</button>
-    </div>
+  <div class="nudge" id="nudge" role="status">
+    <p>A few things might be running low</p>
+    <button type="button" id="nudgeOpen">Running low</button>
+    <button type="button" class="dismiss" id="nudgeDismiss" aria-label="Dismiss">×</button>
   </div>
 
-  <!-- Order Again screen -->
   <header class="top-bar">
     <div class="delivery-row">
       <div>
@@ -437,59 +519,28 @@
         <p class="sub">HOME — 39 A · 800 m away</p>
       </div>
       <div class="top-icons">
-        <div class="icon-btn">₹0</div>
-        <div class="icon-btn">👤</div>
+        <div class="icon-btn" aria-hidden="true">₹0</div>
+        <div class="icon-btn" aria-hidden="true">👤</div>
       </div>
     </div>
-    <div class="search">🔍 Search "tomato"</div>
+    <div class="search" aria-hidden="true">🔍 Search "tomato"</div>
   </header>
 
-  <main id="mainContent">
-    <section id="runningLowSection">
+  <main>
+    <!-- Order Again: Running low ENTRY only when enough items -->
+    <section id="rlEntrySection">
       <div class="section-head">
         <h2>Running low</h2>
-        <a href="#" id="seeAllLink">See all</a>
       </div>
-      <p class="bundle-meta" id="bundleMeta">Bundle total: <strong>₹186</strong> · ready to order</p>
-
-      <div id="loadingState" class="hidden">
-        <div class="skeleton"></div>
-        <div class="skeleton"></div>
-        <div class="skeleton"></div>
-      </div>
-
-      <div id="errorState" class="error-banner hidden">Couldn't update your kitchen — pull to refresh.</div>
-
-      <div id="cardsState">
-        <article class="low-card">
-          <div class="thumb">🧅</div>
-          <div>
-            <h3>Onion (pyaaz)</h3>
-            <p>Usually lasts 5 days · last ordered 4 days ago</p>
-            <span class="pill">Order soon</span>
-          </div>
-        </article>
-        <article class="low-card">
-          <div class="thumb">🫘</div>
-          <div>
-            <h3>Toor dal</h3>
-            <p>Staple · predicted runout in 2 days</p>
-            <span class="pill">Order soon</span>
-          </div>
-        </article>
-        <article class="low-card">
-          <div class="thumb">🛢️</div>
-          <div>
-            <h3>Fortune Sunflower Oil 1L</h3>
-            <p>Masala &amp; oil · last ordered 3 weeks ago</p>
-            <span class="pill">Order soon</span>
-          </div>
-        </article>
-        <div class="cta-row">
-          <button class="btn btn-primary" id="orderBtn">Order what's running low</button>
-          <button class="btn btn-secondary" id="dismissBtn">Not now</button>
+      <p class="sample-note">Sample items for the prototype — not live Blinkit data.</p>
+      <button type="button" class="rl-entry" id="rlEntry" aria-haspopup="dialog">
+        <div class="thumbs" id="entryThumbs" aria-hidden="true"></div>
+        <div class="copy">
+          <h3>Running low</h3>
+          <p id="entryMeta">Might be running low · tap to check</p>
         </div>
-      </div>
+        <span class="chev" aria-hidden="true">›</span>
+      </button>
     </section>
 
     <section>
@@ -505,11 +556,11 @@
     </section>
   </main>
 
-  <div class="view-cart hidden" id="viewCart">
-    <div class="mini-thumb">🛢️</div>
-    <span>View cart · 3 Items</span>
+  <button type="button" class="view-cart hidden" id="viewCart">
+    <div class="mini-thumb" id="cartThumb">🛢️</div>
+    <span id="cartLabel">View cart · 0 Items</span>
     <div class="arrow">›</div>
-  </div>
+  </button>
 
   <nav class="bottom-nav" aria-label="Main">
     <div class="nav-item"><div class="icon">🏠</div>Home</div>
@@ -518,33 +569,57 @@
     <div class="nav-item"><div class="icon">🖨</div>Print</div>
   </nav>
 
-  <!-- Bundle review sheet -->
   <div class="overlay" id="overlay"></div>
-  <div class="sheet" id="bundleSheet" role="dialog" aria-labelledby="bundleTitle">
+  <div class="sheet" id="rlSheet" role="dialog" aria-modal="true" aria-labelledby="rlTitle">
     <div class="sheet-handle"></div>
-    <h2 id="bundleTitle">Order what's running low</h2>
-    <p class="sub">3 items · delivers to Home — 39 A</p>
-    <div class="bundle-line"><span>Onion (pyaaz) · 1 kg</span><span class="price">₹32</span></div>
-    <div class="bundle-line"><span>Toor dal · 1 kg</span><span class="price">₹54</span></div>
-    <div class="bundle-line"><span>Fortune Sunflower Oil 1L</span><span class="price">₹100</span></div>
-    <div class="bundle-total-row"><span>Bundle total</span><span>₹186</span></div>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Inclusive of all taxes · free delivery over ₹150</p>
-    <button class="btn btn-primary" style="width:100%" id="addToCartBtn">Add to cart</button>
-    <button class="btn btn-secondary" style="width:100%;margin-top:8px" id="closeSheet">Not now</button>
+    <div class="sheet-head">
+      <h2 id="rlTitle">Running low</h2>
+      <button type="button" class="sheet-close" id="closeSheet" aria-label="Close">×</button>
+    </div>
+    <p class="hint">Might be running low — remove anything that isn’t. Then add the rest to cart.</p>
+
+    <div id="sheetLoading" class="sheet-loading hidden">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <p style="margin-top:12px">Building Running low…</p>
+    </div>
+
+    <div id="sheetError" class="sheet-error hidden">Couldn’t build Running low — close and try again.</div>
+
+    <div class="sheet-list" id="sheetList"></div>
+
+    <div class="sheet-footer">
+      <button type="button" class="btn btn-primary" id="addAllBtn">Add all to cart</button>
+    </div>
   </div>
 
   <script>
+    /* Sample catalogue — not live data. Enough = ≥2 (brief: guessing). */
+    const ENOUGH = 2;
+    const SAMPLE = [
+      { id: 'onion', name: 'Onion (pyaaz)', detail: 'Last ordered recently', emoji: '🧅', price: 32 },
+      { id: 'dal', name: 'Toor dal', detail: 'Staple from your orders', emoji: '🫘', price: 54 },
+      { id: 'oil', name: 'Fortune Sunflower Oil 1L', detail: 'Masala & oil', emoji: '🛢️', price: 100 }
+    ];
+
+    let items = SAMPLE.map(i => ({ ...i }));
+    let cartCount = 0;
+
     const stateSelect = document.getElementById('stateSelect');
-    const runningLow = document.getElementById('runningLowSection');
-    const loadingState = document.getElementById('loadingState');
-    const errorState = document.getElementById('errorState');
-    const cardsState = document.getElementById('cardsState');
-    const bundleMeta = document.getElementById('bundleMeta');
-    const setupModal = document.getElementById('setupModal');
+    const rlEntrySection = document.getElementById('rlEntrySection');
+    const entryMeta = document.getElementById('entryMeta');
+    const entryThumbs = document.getElementById('entryThumbs');
     const overlay = document.getElementById('overlay');
-    const bundleSheet = document.getElementById('bundleSheet');
+    const sheet = document.getElementById('rlSheet');
+    const sheetList = document.getElementById('sheetList');
+    const sheetLoading = document.getElementById('sheetLoading');
+    const sheetError = document.getElementById('sheetError');
+    const addAllBtn = document.getElementById('addAllBtn');
     const viewCart = document.getElementById('viewCart');
+    const cartLabel = document.getElementById('cartLabel');
+    const cartThumb = document.getElementById('cartThumb');
     const toast = document.getElementById('toast');
+    const nudge = document.getElementById('nudge');
 
     function showToast(msg) {
       toast.textContent = msg;
@@ -552,75 +627,146 @@
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    function applyState(state) {
-      loadingState.classList.add('hidden');
-      errorState.classList.add('hidden');
-      cardsState.classList.add('hidden');
-      bundleMeta.classList.add('hidden');
-      runningLow.classList.remove('hidden');
-      setupModal.classList.remove('open');
-
-      if (state === 'loading') {
-        loadingState.classList.remove('hidden');
-        bundleMeta.classList.remove('hidden');
-      } else if (state === 'error') {
-        errorState.classList.remove('hidden');
-        cardsState.classList.remove('hidden');
-        bundleMeta.classList.remove('hidden');
-      } else if (state === 'empty') {
-        runningLow.classList.add('hidden');
-      } else if (state === 'setup') {
-        cardsState.classList.remove('hidden');
-        bundleMeta.classList.remove('hidden');
-        setupModal.classList.add('open');
-      } else {
-        cardsState.classList.remove('hidden');
-        bundleMeta.classList.remove('hidden');
+    function updateEntry() {
+      const n = items.length;
+      if (n < ENOUGH) {
+        rlEntrySection.classList.add('hidden');
+        return;
+      }
+      rlEntrySection.classList.remove('hidden');
+      entryMeta.textContent = n + ' items · might be running low';
+      entryThumbs.innerHTML = '';
+      items.slice(0, 2).forEach(i => {
+        const d = document.createElement('div');
+        d.className = 'thumb-sm';
+        d.textContent = i.emoji;
+        entryThumbs.appendChild(d);
+      });
+      if (n > 2) {
+        const m = document.createElement('div');
+        m.className = 'thumb-sm more';
+        m.textContent = '+' + (n - 2);
+        entryThumbs.appendChild(m);
       }
     }
 
-    stateSelect.addEventListener('change', () => applyState(stateSelect.value));
-
-    document.getElementById('orderBtn').addEventListener('click', () => {
-      overlay.classList.add('open');
-      bundleSheet.classList.add('open');
-    });
-    document.getElementById('closeSheet').addEventListener('click', closeSheet);
-    overlay.addEventListener('click', closeSheet);
-    function closeSheet() {
-      overlay.classList.remove('open');
-      bundleSheet.classList.remove('open');
+    function renderSheetList() {
+      sheetList.innerHTML = '';
+      items.forEach(item => {
+        const row = document.createElement('article');
+        row.className = 'sheet-item';
+        row.dataset.id = item.id;
+        row.innerHTML =
+          '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
+          '<div class="body">' +
+            '<h3>' + item.name + '</h3>' +
+            '<p>' + item.detail + '</p>' +
+            '<span class="pill">Might be running low</span>' +
+          '</div>' +
+          '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>';
+        sheetList.appendChild(row);
+      });
+      addAllBtn.disabled = items.length === 0;
+      addAllBtn.hidden = items.length === 0;
+      addAllBtn.textContent = items.length
+        ? 'Add all to cart' + (items.length ? ' · ' + items.length : '')
+        : 'Add all to cart';
     }
 
-    document.getElementById('addToCartBtn').addEventListener('click', function() {
+    function openSheet(mode) {
+      nudge.classList.remove('show');
+      overlay.classList.add('open');
+      sheet.classList.add('open');
+      sheetLoading.classList.add('hidden');
+      sheetError.classList.add('hidden');
+      sheetList.classList.remove('hidden');
+      addAllBtn.classList.remove('hidden');
+
+      if (mode === 'loading') {
+        sheetList.classList.add('hidden');
+        addAllBtn.classList.add('hidden');
+        sheetLoading.classList.remove('hidden');
+        return;
+      }
+      if (mode === 'error') {
+        sheetError.classList.remove('hidden');
+        renderSheetList();
+        return;
+      }
+      renderSheetList();
+    }
+
+    function closeSheet() {
+      overlay.classList.remove('open');
+      sheet.classList.remove('open');
+      updateEntry();
+    }
+
+    function applyDemo(state) {
+      nudge.classList.remove('show');
+      closeSheet();
+      items = SAMPLE.map(i => ({ ...i }));
+
+      if (state === 'empty') {
+        items = SAMPLE.slice(0, 1).map(i => ({ ...i }));
+        updateEntry();
+        return;
+      }
+      updateEntry();
+      if (state === 'nudge') {
+        nudge.classList.add('show');
+      }
+      if (state === 'loading') {
+        openSheet('loading');
+      } else if (state === 'error') {
+        openSheet('error');
+      }
+    }
+
+    document.getElementById('rlEntry').addEventListener('click', () => openSheet('ready'));
+    document.getElementById('closeSheet').addEventListener('click', closeSheet);
+    overlay.addEventListener('click', closeSheet);
+    document.getElementById('nudgeOpen').addEventListener('click', () => openSheet('ready'));
+    document.getElementById('nudgeDismiss').addEventListener('click', () => nudge.classList.remove('show'));
+
+    sheetList.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-remove]');
+      if (!btn) return;
+      const id = btn.getAttribute('data-remove');
+      items = items.filter(i => i.id !== id);
+      renderSheetList();
+      if (items.length < ENOUGH) {
+        showToast('Not enough left — entry will hide when you close');
+      }
+    });
+
+    addAllBtn.addEventListener('click', function () {
+      if (items.length === 0) return;
+      const count = items.length;
+      const firstEmoji = items[0].emoji;
       this.classList.add('loading');
       this.disabled = true;
       setTimeout(() => {
         this.classList.remove('loading');
         this.disabled = false;
-        closeSheet();
+        cartCount = count;
+        cartLabel.textContent = 'View cart · ' + cartCount + ' Items';
+        cartThumb.textContent = firstEmoji;
         viewCart.classList.remove('hidden');
-        showToast('Added to cart — 3 items');
-        applyState('empty');
-      }, 800);
+        items = [];
+        closeSheet();
+        updateEntry();
+        showToast('Added to cart — ' + count + ' items');
+      }, 700);
     });
 
-    document.getElementById('dismissBtn').addEventListener('click', () => showToast("We'll remind you when it's ready"));
-
-    document.getElementById('saveSetup').addEventListener('click', () => {
-      localStorage.setItem('blinkit-kitchen-setup', document.getElementById('householdSelect').value);
-      setupModal.classList.remove('open');
-      stateSelect.value = 'ready';
-      applyState('ready');
-      showToast('Kitchen setup saved');
+    viewCart.addEventListener('click', () => {
+      showToast('Checkout is Blinkit’s — not redesigned here');
     });
 
-    if (!localStorage.getItem('blinkit-kitchen-setup')) {
-      stateSelect.value = 'setup';
-      applyState('setup');
-    } else {
-      applyState('ready');
-    }
+    stateSelect.addEventListener('change', () => applyDemo(stateSelect.value));
+
+    updateEntry();
   </script>
 </body>
 </html>

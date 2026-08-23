@@ -15,7 +15,7 @@ Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=
 Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next: /molades-build
+Next: /molades-attack (after they confirm main path)
 ```
 
 ---
@@ -120,4 +120,17 @@ Next: /molades-build
 **Rounds run:** 3 (prior session) — reused, not re-looped
 **Biggest gap between round 1 and final:** density / heading size (prior)
 **Did not close:** Original Blinkit screenshot files not in repo now — values from DESIGN_LANGUAGE.md; re-paste if anything looks wrong in build
+
+### DECISION · 2026-08-23 · build
+**Decided:** Slice 1 — Order Again with Running low **entry** + Running low **sheet** (check, remove, Add all to cart). Demo states: ready, loading, error, not enough (no entry), nudge. Kitchen setup wall removed. Fridge motion not built.
+**Rejected:** Full list on Order Again; Order what's running low CTA; kitchen setup modal; pay on sheet; inventing live Blinkit stock data
+**Because:** BRIEF.md shape + words; DESIGN_LANGUAGE.md tokens; sample items labelled as sample
+**How sure:** worked it out
+
+### LEARNED · 2026-08-23 · build
+**Tried:** Keep old inline Running low cards + new sheet
+**Expected:** Match brief “entry opens sheet”
+**Actually happened:** Old build put the full list on Order Again — contradicted brief priority (list lives on sheet)
+**Cost:** full rewrite of docs/index.html
+**Now know:** Entry must be a summary control; checklist only on the sheet or people skip the check step
 
