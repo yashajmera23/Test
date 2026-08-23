@@ -243,3 +243,5 @@ Inherited Blinkit states — not redesigned here.
 - Nudge: keep current prototype treatment for now (Blinkit nudge screenshot not available).
 - Still parked: error sheet; Order Again persist / remove-only-on-Home flow change.
 
+## Household notch (Idea 1 · 2026-08-23)
+Quiet row under sheet hint: **“N people at home · Change”**. Tap opens 1 / 2 / 3 / 4 / 5+ picker. No setup wall. Default sample: 3. Rejected Idea 2–4 for this pass.

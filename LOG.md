@@ -15,7 +15,7 @@ Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=
 Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next: /molades-build (qty edit) → /molades-attack
+Next: /molades-attack or continue build polish
 ```
 
 ---
@@ -167,5 +167,11 @@ Next: /molades-build (qty edit) → /molades-attack
 **Decided:** Running low rows show predicted qty from last orders; user can edit before Add all. Keep current nudge styling for now (no Blinkit nudge SS).
 **Rejected:** Waiting on nudge screenshot; building parked persist/remove-on-Home flow now
 **Because:** Student — qty from prediction but editable; nudge SS not available
+**How sure:** worked it out
+
+### DECISION · 2026-08-23 · build
+**Decided:** Household size = Idea 1 quiet notch under Running low sheet hint (“N people at home · Change”)
+**Rejected:** Idea 2 first-time wall; Idea 3 entry on Order Again; Idea 4 infer-only with no UI
+**Because:** Student chose Idea 1
 **How sure:** worked it out
 

@@ -284,9 +284,58 @@
     .sheet .hint {
       font-size: 12px;
       color: var(--muted);
-      margin-bottom: 16px;
+      margin-bottom: 8px;
       line-height: 1.4;
     }
+    .household-notch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      background: #F6F6F6;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-btn);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+    }
+    .household-notch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .household-notch .household-change {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .household-picker {
+      display: flex;
+      gap: 8px;
+      margin: -4px 0 16px;
+      flex-wrap: wrap;
+    }
+    .household-picker.hidden { display: none; }
+    .household-picker button {
+      min-width: 44px;
+      height: 36px;
+      padding: 0 10px;
+      border-radius: var(--radius-btn);
+      border: 1px solid var(--border);
+      background: var(--raised);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .household-picker button.on {
+      border-color: var(--accent);
+      background: #EAF7E4;
+      color: var(--accent);
+    }
+    .household-picker button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
     .sheet-loading {
       padding: 24px 0 32px;
@@ -619,7 +668,18 @@
       <h2 id="rlTitle">Running low</h2>
       <button type="button" class="sheet-close" id="closeSheet" aria-label="Close">×</button>
     </div>
-    <p class="hint">Might be running low — change quantity if you need to, remove anything that isn’t. Then add the rest to cart.</p>
+    <p class="hint">Suggested qty from last orders — you can change it</p>
+    <button type="button" class="household-notch" id="householdNotch">
+      <span id="householdLabel">3 people at home</span>
+      <span class="household-change">Change</span>
+    </button>
+    <div class="household-picker hidden" id="householdPicker" role="group" aria-label="People at home">
+      <button type="button" data-people="1">1</button>
+      <button type="button" data-people="2">2</button>
+      <button type="button" data-people="3" class="on">3</button>
+      <button type="button" data-people="4">4</button>
+      <button type="button" data-people="5">5+</button>
+    </div>
 
     <div id="sheetLoading" class="sheet-loading hidden">
       <div class="skeleton"></div>
@@ -683,6 +743,22 @@
     const cartThumb = document.getElementById('cartThumb');
     const toast = document.getElementById('toast');
     const nudge = document.getElementById('nudge');
+    const householdNotch = document.getElementById('householdNotch');
+    const householdLabel = document.getElementById('householdLabel');
+    const householdPicker = document.getElementById('householdPicker');
+    let peopleAtHome = 3;
+
+    function peopleLabel(n) {
+      return n >= 5 ? '5+ people at home' : n + (n === 1 ? ' person at home' : ' people at home');
+    }
+
+    function syncHouseholdUI() {
+      householdLabel.textContent = peopleLabel(peopleAtHome);
+      householdPicker.querySelectorAll('[data-people]').forEach(btn => {
+        const n = parseInt(btn.getAttribute('data-people'), 10);
+        btn.classList.toggle('on', n === peopleAtHome || (peopleAtHome >= 5 && n === 5));
+      });
+    }
 
     function showToast(msg) {
       toast.textContent = msg;
@@ -799,6 +875,18 @@
       }
     }
 
+    householdNotch.addEventListener('click', () => {
+      householdPicker.classList.toggle('hidden');
+    });
+    householdPicker.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-people]');
+      if (!btn) return;
+      peopleAtHome = parseInt(btn.getAttribute('data-people'), 10);
+      syncHouseholdUI();
+      householdPicker.classList.add('hidden');
+      showToast('Updated — qty guess uses ' + peopleLabel(peopleAtHome));
+    });
+
     document.getElementById('rlEntry').addEventListener('click', () => openSheet('ready'));
     document.getElementById('closeSheet').addEventListener('click', closeSheet);
     overlay.addEventListener('click', closeSheet);
@@ -863,6 +951,7 @@
 
     stateSelect.addEventListener('change', () => applyDemo(stateSelect.value));
 
+    syncHouseholdUI();
     updateEntry();
   </script>
 </body>
