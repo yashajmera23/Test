@@ -497,6 +497,7 @@
     Demo
     <select id="stateSelect" aria-label="Demo state">
       <option value="ready">Ready (≥2 items)</option>
+      <option value="toomuch">Too much (many items)</option>
       <option value="loading">Loading sheet</option>
       <option value="error">Sheet error</option>
       <option value="empty">Not enough — no entry</option>
@@ -600,6 +601,26 @@
       { id: 'onion', name: 'Onion (pyaaz)', detail: 'Last ordered recently', emoji: '🧅', price: 32 },
       { id: 'dal', name: 'Toor dal', detail: 'Staple from your orders', emoji: '🫘', price: 54 },
       { id: 'oil', name: 'Fortune Sunflower Oil 1L', detail: 'Masala & oil', emoji: '🛢️', price: 100 }
+    ];
+
+    /* Sample only — for Too much stress check. Not a claim about real kitchens. */
+    const MANY = [
+      { id: 'onion', name: 'Onion (pyaaz)', detail: 'Might be running low', emoji: '🧅', price: 32 },
+      { id: 'dal', name: 'Toor dal', detail: 'Might be running low', emoji: '🫘', price: 54 },
+      { id: 'oil', name: 'Fortune Sunflower Oil 1L Cold Pressed Premium', detail: 'Might be running low', emoji: '🛢️', price: 100 },
+      { id: 'atta', name: 'Aashirvaad Whole Wheat Atta 5 kg', detail: 'Might be running low', emoji: '🌾', price: 240 },
+      { id: 'rice', name: 'India Gate Basmati Rice 1 kg', detail: 'Might be running low', emoji: '🍚', price: 145 },
+      { id: 'sugar', name: 'Madhur Pure Sugar 1 kg', detail: 'Might be running low', emoji: '🧂', price: 48 },
+      { id: 'salt', name: 'Tata Salt 1 kg', detail: 'Might be running low', emoji: '⬜', price: 28 },
+      { id: 'tea', name: 'Tata Tea Gold 500 g', detail: 'Might be running low', emoji: '🍵', price: 210 },
+      { id: 'coffee', name: 'Nescafe Classic Coffee 100 g', detail: 'Might be running low', emoji: '☕', price: 185 },
+      { id: 'ghee', name: 'Amul Pure Ghee 1 L', detail: 'Might be running low', emoji: '🧈', price: 560 },
+      { id: 'besan', name: 'Fortune Besan 1 kg', detail: 'Might be running low', emoji: '🟡', price: 95 },
+      { id: 'poha', name: 'Mother’s Recipe Thick Poha 1 kg', detail: 'Might be running low', emoji: '🥞', price: 72 },
+      { id: 'rava', name: 'Bambino Sooji / Rava 1 kg', detail: 'Might be running low', emoji: '🥣', price: 55 },
+      { id: 'mustard', name: 'Fortune Mustard Oil 1 L', detail: 'Might be running low', emoji: '🫙', price: 165 },
+      { id: 'soap', name: 'Surf Excel Matic Front Load 2 kg', detail: 'Might be running low', emoji: '🧼', price: 380 },
+      { id: 'tissue', name: 'Origami Kitchen Towels 6 rolls', detail: 'Might be running low', emoji: '🧻', price: 199 }
     ];
 
     let items = SAMPLE.map(i => ({ ...i }));
@@ -710,6 +731,12 @@
       if (state === 'empty') {
         items = SAMPLE.slice(0, 1).map(i => ({ ...i }));
         updateEntry();
+        return;
+      }
+      if (state === 'toomuch') {
+        items = MANY.map(i => ({ ...i }));
+        updateEntry();
+        openSheet('ready');
         return;
       }
       updateEntry();
