@@ -217,3 +217,22 @@ Inherited Blinkit states — not redesigned here.
 **Deliberately not fixing:** Perfect fridge-knowledge for Wrong — Blinkit can’t see the kitchen (constraint).  
 **Couldn't test statically:** Real slow network; real 247 SKUs; screen reader; focus order after sheet open.
 
+## Attack decisions · 2026-08-23 (student)
+
+**Dropped**
+- Error sheet / error demo for Running low — not in Blinkit system; not designing it.
+
+**Kept for now**
+- Too much: sheet scrolls with many items (sticky Add all still open — student said scrolling is good to go).
+
+**Nudge**
+- Keep nudge behaviour; visual must match Blinkit system. Student will paste Blinkit nudge screenshots. Current prototype nudge is placeholder only.
+
+**Flow change — Order Again persistence (draft, pending confirm)**
+- Do **not** remove / hide the suggestions area on Order Again after Add all to cart.
+- After Add all, still show suggestions somehow.
+- If the Running low list is empty / cleared: still show suggestions, but **not** as Running low — normal suggestion treatment.
+- **Remove** as a concept: from **Home nudge** only — not the primary remove model on the Order Again sheet (pending student confirm of wording).
+
+**Layer:** steps / things — brief change before next build edit.
+

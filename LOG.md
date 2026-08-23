@@ -15,7 +15,7 @@ Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=
 Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next: /molades-attack (craft pass — rulers)
+Next: /molades-brief confirm → /molades-build (attack fixes)
 ```
 
 ---
@@ -156,4 +156,10 @@ Next: /molades-attack (craft pass — rulers)
 **Severity:** major
 **Layer:** the bet / things
 **Action:**
+
+### DECISION · 2026-08-23 · attack
+**Decided:** Drop Running low error sheet. Keep scroll for many items. Nudge stays but must match Blinkit (await screenshots). Order Again suggestions persist after Add all; empty Running low still shows normal suggestions not labelled Running low. Remove concept → Home nudge only (draft — awaiting confirm).
+**Rejected:** Designing a custom error sheet; hiding Order Again Running low after cart add
+**Because:** Student — not in Blinkit system; want suggestions always; remove from nudge on home
+**How sure:** worked it out (confirm pending on remove-only-on-nudge)
 
