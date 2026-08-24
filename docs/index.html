@@ -304,8 +304,9 @@
       position: fixed; top: 0; right: 0; z-index: 100;
       background: rgba(26,26,26,0.9); color: #fff; padding: 6px 8px;
       border-radius: 0 0 0 8px; font-size: 10px;
+      display: flex; flex-direction: column; gap: 4px; align-items: flex-end;
     }
-    .demo-bar select { background: #333; color: #fff; border: none; font-size: 10px; margin-left: 4px; max-width: 140px; }
+    .demo-bar select { background: #333; color: #fff; border: none; font-size: 10px; max-width: 160px; }
 
     .hidden { display: none !important; }
     .toast {
@@ -327,12 +328,18 @@
       <option value="empty">Not enough</option>
       <option value="nudge">Nudge</option>
     </select>
+    <select id="nudgeCopySelect" aria-label="Nudge copy">
+      <option value="0">Nudge A — cook flagged</option>
+      <option value="1">Nudge B — before kitchen stops</option>
+      <option value="2">Nudge C — clear ₹150</option>
+      <option value="3">Nudge D — soft check</option>
+    </select>
   </div>
 
   <div class="toast" id="toast" role="status"></div>
 
   <div class="nudge" id="nudge" role="status">
-    <p>Cook flagged staples again — check Running low before tonight</p>
+    <p id="nudgeCopy">Cook flagged staples again — check Running low before tonight</p>
     <button type="button" id="nudgeOpen">Check</button>
     <button type="button" class="dismiss" id="nudgeDismiss" aria-label="Dismiss">×</button>
   </div>
@@ -481,9 +488,23 @@
     const cartThumb = document.getElementById('cartThumb');
     const toast = document.getElementById('toast');
     const nudge = document.getElementById('nudge');
+    const nudgeCopy = document.getElementById('nudgeCopy');
+    const nudgeCopySelect = document.getElementById('nudgeCopySelect');
     const householdNotch = document.getElementById('householdNotch');
     const householdLabel = document.getElementById('householdLabel');
     const householdPicker = document.getElementById('householdPicker');
+
+    const NUDGE_LINES = [
+      'Cook flagged staples again — check Running low before tonight',
+      'Staples may run out before the next cook visit — check the list',
+      'A few staples look low — add together and clear ₹150',
+      'Running low is ready — a quick check, cart stays empty until you add'
+    ];
+
+    function applyNudgeCopy() {
+      const i = parseInt(nudgeCopySelect.value, 10) || 0;
+      nudgeCopy.textContent = NUDGE_LINES[i];
+    }
 
     function showToast(msg) {
       toast.textContent = msg;
@@ -602,8 +623,17 @@
         return;
       }
       updateEntry();
-      if (state === 'nudge') nudge.classList.add('show');
+      if (state === 'nudge') {
+        applyNudgeCopy();
+        nudge.classList.add('show');
+      }
     }
+
+    nudgeCopySelect.addEventListener('change', () => {
+      applyNudgeCopy();
+      stateSelect.value = 'nudge';
+      applyDemo('nudge');
+    });
 
     document.getElementById('rlEntry').addEventListener('click', () => openSheet('ready'));
     document.getElementById('closeSheet').addEventListener('click', closeSheet);
