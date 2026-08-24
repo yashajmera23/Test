@@ -425,9 +425,9 @@
       display: inline-flex;
       align-items: center;
       height: 32px;
-      border: none;
+      border: 1px solid var(--border);
       border-radius: var(--radius-btn);
-      background: var(--accent);
+      background: var(--raised);
       overflow: hidden;
     }
     .qty button {
@@ -435,21 +435,21 @@
       height: 32px;
       border: none;
       background: transparent;
-      color: #fff;
+      color: var(--ink);
       font-size: 16px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
       line-height: 1;
     }
-    .qty button:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
+    .qty button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
     .qty button:disabled { opacity: 0.4; cursor: not-allowed; }
     .qty .qty-val {
       min-width: 28px;
       text-align: center;
       font-size: 14px;
       font-weight: 700;
-      color: #fff;
+      color: var(--ink);
     }
     .item-unit {
       font-size: 12px;
@@ -656,6 +656,34 @@
       font-size: 11px;
       color: var(--muted);
     }
+
+    .start-why {
+      display: none;
+      position: relative;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      background: #EAF7E4;
+      border: 1px solid #C8E6C0;
+      border-radius: var(--radius-btn);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+    .start-why.show { display: block; }
+    .start-why button {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      border: none;
+      background: none;
+      color: var(--muted);
+      font-size: 16px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+    .start-why button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   </style>
 </head>
 <body>
@@ -671,10 +699,19 @@
     </label>
     <label>Qty UI
       <select id="qtyIdeaSelect" aria-label="Quantity idea">
-        <option value="1">Idea 1 — Suggested + outline</option>
+        <option value="1">Idea 1 — Outline (locked feel)</option>
         <option value="2">Idea 2 — Last ordered · Change</option>
         <option value="3">Idea 3 — Checkbox + outline</option>
         <option value="4">Idea 4 — Edit panel</option>
+      </select>
+    </label>
+    <label>Start why
+      <select id="motivationSelect" aria-label="Start motivation">
+        <option value="none">None</option>
+        <option value="A">A — Entry payoff</option>
+        <option value="B">B — Sheet job beat</option>
+        <option value="C">C — Nudge why</option>
+        <option value="AC">A+C — Entry + nudge</option>
       </select>
     </label>
   </div>
@@ -682,7 +719,7 @@
   <div class="toast" id="toast" role="status"></div>
 
   <div class="nudge" id="nudge" role="status">
-    <p>A few things might be running low</p>
+    <p id="nudgeCopy">A few things might be running low</p>
     <button type="button" id="nudgeOpen">Running low</button>
     <button type="button" class="dismiss" id="nudgeDismiss" aria-label="Dismiss">×</button>
   </div>
@@ -752,6 +789,10 @@
       <button type="button" class="sheet-close" id="closeSheet" aria-label="Close">×</button>
     </div>
     <p class="hint">Suggested qty from last orders — you can change it</p>
+    <div class="start-why" id="startWhy">
+      <span id="startWhyCopy">Check these so nothing blocks the cook mid-week</span>
+      <button type="button" id="startWhyDismiss" aria-label="Dismiss">×</button>
+    </div>
     <button type="button" class="household-notch" id="householdNotch">
       <span id="householdLabel">3 people at home</span>
       <span class="household-change">Change</span>
@@ -811,9 +852,12 @@
     let items = SAMPLE.map(i => ({ ...i, selected: true, editing: false }));
     let cartCount = 0;
     let qtyIdea = 1;
+    let motivation = 'none';
+    let startWhyDismissed = false;
 
     const stateSelect = document.getElementById('stateSelect');
     const qtyIdeaSelect = document.getElementById('qtyIdeaSelect');
+    const motivationSelect = document.getElementById('motivationSelect');
     const rlEntrySection = document.getElementById('rlEntrySection');
     const entryMeta = document.getElementById('entryMeta');
     const entryThumbs = document.getElementById('entryThumbs');
@@ -828,6 +872,9 @@
     const cartThumb = document.getElementById('cartThumb');
     const toast = document.getElementById('toast');
     const nudge = document.getElementById('nudge');
+    const nudgeCopy = document.getElementById('nudgeCopy');
+    const startWhy = document.getElementById('startWhy');
+    const startWhyCopy = document.getElementById('startWhyCopy');
     const householdNotch = document.getElementById('householdNotch');
     const householdLabel = document.getElementById('householdLabel');
     const householdPicker = document.getElementById('householdPicker');
@@ -862,7 +909,11 @@
         return;
       }
       rlEntrySection.classList.remove('hidden');
-      entryMeta.textContent = n + ' items · might be running low';
+      if (motivation === 'A' || motivation === 'AC') {
+        entryMeta.textContent = n + ' staples might run out · clear ₹150 in one go';
+      } else {
+        entryMeta.textContent = n + ' items · might be running low';
+      }
       entryThumbs.innerHTML = '';
       items.slice(0, 2).forEach(i => {
         const d = document.createElement('div');
@@ -876,6 +927,20 @@
         m.textContent = '+' + (n - 2);
         entryThumbs.appendChild(m);
       }
+    }
+
+    function applyMotivationUI() {
+      if (motivation === 'C' || motivation === 'AC') {
+        nudgeCopy.textContent = 'Running low · past free delivery if you add now';
+      } else {
+        nudgeCopy.textContent = 'A few things might be running low';
+      }
+
+      const showB = motivation === 'B' && !startWhyDismissed;
+      startWhy.classList.toggle('show', showB);
+      startWhyCopy.textContent = 'Check these so nothing blocks the cook mid-week';
+
+      updateEntry();
     }
 
     function outlineStepper(item, qty) {
@@ -976,10 +1041,12 @@
       sheetError.classList.add('hidden');
       sheetList.classList.remove('hidden');
       addAllBtn.classList.remove('hidden');
+      applyMotivationUI();
 
       if (mode === 'loading') {
         sheetList.classList.add('hidden');
         addAllBtn.classList.add('hidden');
+        startWhy.classList.remove('show');
         sheetLoading.classList.remove('hidden');
         return;
       }
@@ -1015,13 +1082,20 @@
         return;
       }
       updateEntry();
-      if (state === 'nudge') {
-        nudge.classList.add('show');
+      applyMotivationUI();
+      if (state === 'nudge' || motivation === 'C' || motivation === 'AC') {
+        if (state === 'nudge' || motivation === 'C' || motivation === 'AC') {
+          if (state !== 'loading' && state !== 'empty') {
+            if (motivation === 'C' || motivation === 'AC' || state === 'nudge') {
+              nudge.classList.add('show');
+            }
+          }
+        }
       }
       if (state === 'loading') {
         openSheet('loading');
       } else if (state === 'ready') {
-        openSheet('ready');
+        if (motivation === 'B') openSheet('ready');
       }
     }
 
