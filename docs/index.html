@@ -39,7 +39,6 @@
       position: relative;
       overflow-x: hidden;
     }
-
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -57,788 +56,272 @@
       align-items: flex-start;
       margin-bottom: 10px;
     }
-    .delivery-row h1 {
-      font-size: 22px;
-      font-weight: 800;
-      line-height: 1.1;
-    }
-    .delivery-row .sub {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    .delivery-row h1 { font-size: 22px; font-weight: 800; line-height: 1.1; }
+    .delivery-row .sub { font-size: 12px; font-weight: 500; color: var(--muted); margin-top: 2px; }
     .top-icons { display: flex; gap: 8px; align-items: center; }
     .icon-btn {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: var(--raised);
-      border: 1px solid var(--border);
-      display: grid; place-items: center;
-      font-size: 14px; font-weight: 700;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--raised); border: 1px solid var(--border);
+      display: grid; place-items: center; font-size: 14px; font-weight: 700;
     }
     .search {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--raised);
-      border-radius: 12px;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
-      font-size: 14px;
-      color: var(--muted);
+      display: flex; align-items: center; gap: 8px;
+      background: var(--raised); border-radius: 12px;
+      padding: 12px 14px; border: 1px solid var(--border);
+      font-size: 14px; color: var(--muted);
     }
 
     .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       padding: 16px 16px 8px;
     }
     .section-head h2 { font-size: 18px; font-weight: 700; }
+    .sample-note { padding: 0 16px 8px; font-size: 11px; color: var(--muted); }
 
-    /* Running low ENTRY — opens sheet; full list lives on sheet */
-    .rl-entry {
+    /* Merged Running low card — intro + entry */
+    .rl-card {
       margin: 0 16px 16px;
-      padding: 12px;
+      padding: 14px;
       background: var(--raised);
       border: 1px solid var(--border);
       border-radius: var(--radius-card);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: calc(100% - 32px);
       text-align: left;
+      width: calc(100% - 32px);
       font-family: inherit;
       cursor: pointer;
       transition: transform 150ms ease-out, border-color 150ms ease-out;
     }
-    .rl-entry:hover { border-color: #cfcfcf; }
-    .rl-entry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .rl-entry:active { transform: scale(0.98); }
-    .rl-entry .thumbs {
-      display: flex;
-      gap: 4px;
-      flex-shrink: 0;
+    .rl-card:hover { border-color: #cfcfcf; }
+    .rl-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .rl-card:active { transform: scale(0.99); }
+    .rl-card .rl-top {
+      display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px;
     }
-    .rl-entry .thumb-sm {
-      width: 40px; height: 40px;
-      border-radius: 8px;
-      background: #F0F0F0;
-      display: grid; place-items: center;
-      font-size: 18px;
-      border: 1px solid var(--border);
+    .rl-card .thumbs { display: flex; gap: 4px; flex-shrink: 0; }
+    .rl-card .thumb-sm {
+      width: 40px; height: 40px; border-radius: 8px; background: #F0F0F0;
+      display: grid; place-items: center; font-size: 18px; border: 1px solid var(--border);
     }
-    .rl-entry .thumb-sm.more {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--muted);
+    .rl-card .thumb-sm.more { font-size: 12px; font-weight: 700; color: var(--muted); }
+    .rl-card .rl-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .rl-card .rl-body {
+      font-size: 13px; color: var(--muted); line-height: 1.4; margin-bottom: 12px;
     }
-    .rl-entry .copy { flex: 1; min-width: 0; }
-    .rl-entry .copy h3 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
-    .rl-entry .copy p { font-size: 12px; color: var(--muted); line-height: 1.35; }
-    .rl-entry .chev {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--muted);
-      flex-shrink: 0;
+    .rl-card .rl-cta {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 10px; border-top: 1px solid var(--border);
+    }
+    .rl-card .rl-cta span:first-child {
+      font-size: 13px; font-weight: 600; color: var(--ink);
+    }
+    .rl-card .rl-cta .go {
+      font-size: 13px; font-weight: 700; color: var(--accent);
     }
 
     .freq-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      padding: 0 16px 16px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 16px;
     }
     .freq-tile {
-      background: var(--raised);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-card);
-      padding: 12px;
-      min-height: 100px;
+      background: var(--raised); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 12px; min-height: 100px;
     }
     .freq-tile .emoji { font-size: 28px; margin-bottom: 8px; }
     .freq-tile h4 { font-size: 14px; font-weight: 600; line-height: 1.3; }
     .freq-tile span { font-size: 11px; color: var(--muted); }
 
     .view-cart {
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 72px;
-      background: var(--accent);
-      color: #fff;
-      border-radius: 24px;
-      padding: 10px 12px 10px 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      z-index: 40;
-      border: none;
-      font-family: inherit;
-      cursor: pointer;
+      position: fixed; left: 50%; transform: translateX(-50%); bottom: 72px;
+      background: var(--accent); color: #fff; border-radius: 24px;
+      padding: 10px 12px 10px 10px; display: flex; align-items: center; gap: 10px;
+      font-size: 14px; font-weight: 600; z-index: 40; border: none; font-family: inherit; cursor: pointer;
       transition: transform 200ms ease-out, opacity 200ms ease-out;
     }
     .view-cart.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
     .view-cart:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
     .view-cart .mini-thumb {
-      width: 32px; height: 32px;
-      border-radius: 6px;
-      background: rgba(255,255,255,0.2);
-      display: grid; place-items: center;
-      font-size: 16px;
+      width: 32px; height: 32px; border-radius: 6px; background: rgba(255,255,255,0.2);
+      display: grid; place-items: center; font-size: 16px;
     }
     .view-cart .arrow {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: #fff;
-      color: var(--accent);
-      display: grid; place-items: center;
-      font-weight: 800;
+      width: 28px; height: 28px; border-radius: 50%; background: #fff; color: var(--accent);
+      display: grid; place-items: center; font-weight: 800;
     }
 
     .bottom-nav {
-      position: fixed;
-      bottom: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 100%; max-width: 430px;
-      background: var(--raised);
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 8px 8px 12px;
-      z-index: 30;
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 430px; background: var(--raised);
+      border-top: 1px solid var(--border); display: flex; justify-content: space-around;
+      align-items: center; padding: 8px 8px 12px; z-index: 30;
     }
-    .nav-item {
-      text-align: center;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--muted);
-      min-width: 56px;
-    }
+    .nav-item { text-align: center; font-size: 11px; font-weight: 500; color: var(--muted); min-width: 56px; }
     .nav-item.active { color: var(--ink); font-weight: 700; }
     .nav-item .icon {
-      width: 40px; height: 40px;
-      margin: 0 auto 2px;
-      border-radius: 50%;
-      display: grid; place-items: center;
-      font-size: 18px;
+      width: 40px; height: 40px; margin: 0 auto 2px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 18px;
     }
     .nav-item.active .icon { background: #EFEFEF; }
 
     .overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 50;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 250ms ease-out;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 50;
+      opacity: 0; pointer-events: none; transition: opacity 250ms ease-out;
     }
     .overlay.open { opacity: 1; pointer-events: auto; }
 
     .sheet {
-      position: fixed;
-      left: 50%;
-      bottom: 0;
-      transform: translate(-50%, 100%);
-      width: 100%; max-width: 430px;
-      background: var(--raised);
-      border-radius: 16px 16px 0 0;
-      z-index: 60;
-      padding: 12px 16px 24px;
-      transition: transform 280ms ease-out;
-      max-height: 85vh;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
+      position: fixed; left: 50%; bottom: 0; transform: translate(-50%, 100%);
+      width: 100%; max-width: 430px; background: var(--raised);
+      border-radius: 16px 16px 0 0; z-index: 60; padding: 12px 16px 24px;
+      transition: transform 280ms ease-out; max-height: 85vh; overflow-y: auto;
+      display: flex; flex-direction: column;
     }
     .sheet.open { transform: translate(-50%, 0); }
     .sheet-handle {
-      width: 40px; height: 4px;
-      background: #D0D0D0;
-      border-radius: 2px;
-      margin: 0 auto 16px;
+      width: 40px; height: 4px; background: #D0D0D0; border-radius: 2px; margin: 0 auto 16px;
     }
-    .sheet-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 4px;
-      gap: 12px;
-    }
+    .sheet-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; gap: 12px; }
     .sheet h2 { font-size: 18px; font-weight: 700; }
     .sheet-close {
-      background: none;
-      border: none;
-      font-size: 22px;
-      line-height: 1;
-      color: var(--muted);
-      cursor: pointer;
-      padding: 4px;
-      font-family: inherit;
+      background: none; border: none; font-size: 22px; line-height: 1; color: var(--muted);
+      cursor: pointer; padding: 4px; font-family: inherit;
     }
     .sheet-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .sheet .hint {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
+    .sheet .hint { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
+
     .household-notch {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      margin-bottom: 12px;
-      padding: 10px 12px;
-      background: #F6F6F6;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-btn);
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--ink);
-      cursor: pointer;
-      text-align: left;
+      display: flex; align-items: center; justify-content: space-between; width: 100%;
+      margin-bottom: 12px; padding: 10px 12px; background: #F6F6F6;
+      border: 1px solid var(--border); border-radius: var(--radius-btn);
+      font-family: inherit; font-size: 13px; font-weight: 500; color: var(--ink);
+      cursor: pointer; text-align: left;
     }
     .household-notch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .household-notch .household-change {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-    .household-picker {
-      display: flex;
-      gap: 8px;
-      margin: -4px 0 16px;
-      flex-wrap: wrap;
-    }
+    .household-notch .household-change { font-size: 13px; font-weight: 700; color: var(--accent); }
+    .household-picker { display: flex; gap: 8px; margin: -4px 0 16px; flex-wrap: wrap; }
     .household-picker.hidden { display: none; }
     .household-picker button {
-      min-width: 44px;
-      height: 36px;
-      padding: 0 10px;
-      border-radius: var(--radius-btn);
-      border: 1px solid var(--border);
-      background: var(--raised);
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink);
-      cursor: pointer;
+      min-width: 44px; height: 36px; padding: 0 10px; border-radius: var(--radius-btn);
+      border: 1px solid var(--border); background: var(--raised); font-family: inherit;
+      font-size: 13px; font-weight: 600; color: var(--ink); cursor: pointer;
     }
-    .household-picker button.on {
-      border-color: var(--accent);
-      background: #EAF7E4;
-      color: var(--accent);
-    }
+    .household-picker button.on { border-color: var(--accent); background: #EAF7E4; color: var(--accent); }
     .household-picker button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    .sheet-loading {
-      padding: 24px 0 32px;
-      text-align: center;
-      font-size: 14px;
-      color: var(--muted);
-    }
+    .sheet-loading { padding: 24px 0 32px; text-align: center; font-size: 14px; color: var(--muted); }
     .skeleton {
-      height: 72px;
-      border-radius: var(--radius-card);
+      height: 72px; border-radius: var(--radius-card);
       background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.2s infinite;
-      margin-bottom: 8px;
+      background-size: 200% 100%; animation: shimmer 1.2s infinite; margin-bottom: 8px;
     }
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    .sheet-error {
-      margin-bottom: 12px;
-      padding: 10px 12px;
-      background: #FFF0F0;
-      border: 1px solid #FFCDD2;
-      border-radius: var(--radius-btn);
-      font-size: 13px;
-      color: var(--signal);
-    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
     .sheet-list { flex: 1; overflow-y: auto; margin-bottom: 12px; }
-
     .sheet-item {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
     }
     .sheet-item:last-child { border-bottom: none; }
     .sheet-item .thumb {
-      width: 56px; height: 56px;
-      border-radius: 8px;
-      background: #F0F0F0;
-      flex-shrink: 0;
-      display: grid; place-items: center;
-      font-size: 24px;
-      border: 1px solid var(--border);
+      width: 56px; height: 56px; border-radius: 8px; background: #F0F0F0;
+      flex-shrink: 0; display: grid; place-items: center; font-size: 24px; border: 1px solid var(--border);
     }
     .sheet-item .body { flex: 1; min-width: 0; }
     .sheet-item h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
-    .sheet-item p { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .item-unit { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
     .pill {
-      display: inline-block;
-      margin-top: 6px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      background: var(--soon-bg);
-      color: var(--soon-ink);
+      display: inline-block; margin-top: 6px; padding: 4px 8px; border-radius: 4px;
+      font-size: 11px; font-weight: 600; background: var(--soon-bg); color: var(--soon-ink);
     }
+    .suggested-line { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .suggested-line strong { color: var(--ink); font-weight: 600; }
+
+    .item-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
     .remove-btn {
-      flex-shrink: 0;
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      padding: 8px 4px;
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      background: none; border: none; color: var(--muted); font-size: 12px; font-weight: 600;
+      font-family: inherit; cursor: pointer; padding: 8px 4px; text-decoration: underline; text-underline-offset: 2px;
     }
     .remove-btn:hover { color: var(--signal); }
     .remove-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    .item-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-      flex-shrink: 0;
-    }
     .qty {
-      display: inline-flex;
-      align-items: center;
-      height: 32px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-btn);
-      background: var(--raised);
-      overflow: hidden;
+      display: inline-flex; align-items: center; height: 32px;
+      border: 1px solid var(--border); border-radius: var(--radius-btn);
+      background: var(--raised); overflow: hidden;
     }
     .qty button {
-      width: 32px;
-      height: 32px;
-      border: none;
-      background: transparent;
-      color: var(--ink);
-      font-size: 16px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      line-height: 1;
+      width: 32px; height: 32px; border: none; background: transparent; color: var(--ink);
+      font-size: 16px; font-weight: 700; font-family: inherit; cursor: pointer; line-height: 1;
     }
     .qty button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
     .qty button:disabled { opacity: 0.4; cursor: not-allowed; }
-    .qty .qty-val {
-      min-width: 28px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .item-unit {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
+    .qty .qty-val { min-width: 28px; text-align: center; font-size: 14px; font-weight: 700; color: var(--ink); }
 
     .sheet-footer { padding-top: 8px; }
     .btn {
-      width: 100%;
-      height: 48px;
-      border-radius: var(--radius-btn);
-      font-size: 15px;
-      font-family: inherit;
-      cursor: pointer;
-      transition: opacity 150ms ease-out, transform 150ms ease-out;
+      width: 100%; height: 48px; border-radius: var(--radius-btn); font-size: 15px;
+      font-family: inherit; cursor: pointer; transition: opacity 150ms ease-out, transform 150ms ease-out;
     }
     .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .btn:active:not(:disabled) { transform: scale(0.98); }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      font-weight: 700;
-    }
-    .btn-primary:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
+    .btn-primary { background: var(--accent); color: #fff; border: none; font-weight: 700; }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
     .btn-primary.loading { position: relative; color: transparent; }
     .btn-primary.loading::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      margin: auto;
-      width: 20px; height: 20px;
-      border: 2px solid #fff;
-      border-top-color: transparent;
-      border-radius: 50%;
+      content: ''; position: absolute; inset: 0; margin: auto; width: 20px; height: 20px;
+      border: 2px solid #fff; border-top-color: transparent; border-radius: 50%;
       animation: spin 0.6s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .nudge {
-      position: fixed;
-      left: 50%;
-      top: 56px;
-      transform: translateX(-50%) translateY(-12px);
-      width: calc(100% - 32px);
-      max-width: 398px;
-      background: var(--raised);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-card);
-      padding: 12px;
-      z-index: 45;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      opacity: 0;
-      pointer-events: none;
+      position: fixed; left: 50%; top: 56px; transform: translateX(-50%) translateY(-12px);
+      width: calc(100% - 32px); max-width: 398px; background: var(--raised);
+      border: 1px solid var(--border); border-radius: var(--radius-card); padding: 12px;
+      z-index: 45; display: flex; align-items: center; gap: 10px; opacity: 0; pointer-events: none;
       transition: opacity 200ms ease-out, transform 200ms ease-out;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
-    .nudge.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      pointer-events: auto;
-    }
+    .nudge.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
     .nudge p { flex: 1; font-size: 13px; font-weight: 500; line-height: 1.35; }
     .nudge button {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius-btn);
-      padding: 8px 12px;
-      font-size: 12px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      white-space: nowrap;
+      background: var(--accent); color: #fff; border: none; border-radius: var(--radius-btn);
+      padding: 8px 12px; font-size: 12px; font-weight: 700; font-family: inherit; cursor: pointer; white-space: nowrap;
     }
-    .nudge button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-    .nudge .dismiss {
-      background: none;
-      color: var(--muted);
-      padding: 4px 6px;
-      font-size: 16px;
-    }
+    .nudge .dismiss { background: none; color: var(--muted); padding: 4px 6px; font-size: 16px; }
 
     .demo-bar {
-      position: fixed;
-      top: 0; right: 0;
-      z-index: 100;
-      background: rgba(26,26,26,0.9);
-      color: #fff;
-      padding: 6px 8px;
-      border-radius: 0 0 0 8px;
-      font-size: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      align-items: flex-end;
-      max-width: 200px;
+      position: fixed; top: 0; right: 0; z-index: 100;
+      background: rgba(26,26,26,0.9); color: #fff; padding: 6px 8px;
+      border-radius: 0 0 0 8px; font-size: 10px;
     }
-    .demo-bar label {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .demo-bar select {
-      background: #333;
-      color: #fff;
-      border: none;
-      font-size: 10px;
-      max-width: 150px;
-    }
-
-    /* Qty Idea 1 — suggested text + quiet outline stepper */
-    .qty.outline {
-      background: var(--raised);
-      border: 1px solid var(--border);
-    }
-    .qty.outline button { color: var(--ink); }
-    .qty.outline .qty-val { color: var(--ink); }
-    .suggested-line {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-    .suggested-line strong { color: var(--ink); font-weight: 600; }
-
-    /* Qty Idea 2 — last ordered + Change link */
-    .change-qty-link {
-      background: none;
-      border: none;
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      cursor: pointer;
-      padding: 4px 0;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-    .change-qty-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-    /* Qty Idea 3 — checkbox + muted outline qty */
-    .sheet-item.with-check {
-      align-items: flex-start;
-    }
-    .item-check {
-      margin-top: 18px;
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      accent-color: var(--accent);
-    }
-
-    /* Qty Idea 4 — Order Again-like row; Edit opens panel */
-    .edit-qty-panel {
-      display: none;
-      width: 100%;
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px dashed var(--border);
-      align-items: center;
-      gap: 8px;
-    }
-    .sheet-item.editing .edit-qty-panel { display: flex; }
-    .edit-link {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-btn);
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--ink);
-      padding: 6px 10px;
-      cursor: pointer;
-    }
-    .edit-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .demo-bar select { background: #333; color: #fff; border: none; font-size: 10px; margin-left: 4px; max-width: 140px; }
 
     .hidden { display: none !important; }
-
     .toast {
-      position: fixed;
-      top: 48px; left: 50%;
-      transform: translateX(-50%) translateY(-20px);
-      background: var(--ink);
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      opacity: 0;
-      transition: opacity 200ms ease-out, transform 200ms ease-out;
-      z-index: 80;
-      pointer-events: none;
+      position: fixed; top: 48px; left: 50%; transform: translateX(-50%) translateY(-20px);
+      background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 8px;
+      font-size: 13px; font-weight: 500; opacity: 0;
+      transition: opacity 200ms ease-out, transform 200ms ease-out; z-index: 80; pointer-events: none;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    .sample-note {
-      padding: 0 16px 8px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .start-why {
-      display: none;
-      position: relative;
-      margin-bottom: 12px;
-      padding: 10px 12px;
-      background: #EAF7E4;
-      border: 1px solid #C8E6C0;
-      border-radius: var(--radius-btn);
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--ink);
-      line-height: 1.35;
-    }
-    .start-why.show { display: block; }
-    .start-why button {
-      position: absolute;
-      top: 6px;
-      right: 8px;
-      border: none;
-      background: none;
-      color: var(--muted);
-      font-size: 16px;
-      cursor: pointer;
-      line-height: 1;
-      padding: 4px;
-    }
-    .start-why button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-    .intro-card {
-      display: none;
-      margin: 0 16px 12px;
-      padding: 16px;
-      background: var(--raised);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-card);
-    }
-    .intro-card.show { display: block; }
-    .intro-card h3 {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .intro-card p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.4;
-      margin-bottom: 12px;
-    }
-    .intro-card .intro-actions {
-      display: flex;
-      gap: 8px;
-    }
-    .intro-card .intro-actions button {
-      flex: 1;
-      height: 40px;
-      border-radius: var(--radius-btn);
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .intro-primary {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-    }
-    .intro-secondary {
-      background: #fff;
-      color: var(--accent);
-      border: 1px solid var(--accent);
-    }
-    .intro-primary:focus-visible,
-    .intro-secondary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-    .intro-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 70;
-      display: none;
-      place-items: center;
-      padding: 24px;
-    }
-    .intro-overlay.show { display: grid; }
-    .intro-sheet {
-      width: 100%;
-      max-width: 340px;
-      background: var(--raised);
-      border-radius: var(--radius-card);
-      padding: 20px 16px 16px;
-      border: 1px solid var(--border);
-    }
-    .intro-sheet h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .intro-sheet p {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.45;
-      margin-bottom: 12px;
-    }
-    .intro-sheet .step-dots {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-    .intro-sheet .step-dots span {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #D0D0D0;
-    }
-    .intro-sheet .step-dots span.on { background: var(--accent); }
-    .intro-sheet .intro-actions { display: flex; gap: 8px; }
-    .intro-sheet .intro-actions button {
-      flex: 1;
-      height: 44px;
-      border-radius: var(--radius-btn);
-      font-family: inherit;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
   <div class="demo-bar" aria-hidden="true">
-    <label>State
-      <select id="stateSelect" aria-label="Demo state">
-        <option value="ready">Ready (≥2 items)</option>
-        <option value="toomuch">Too much (many items)</option>
-        <option value="loading">Loading sheet</option>
-        <option value="empty">Not enough — no entry</option>
-        <option value="nudge">Ready + nudge</option>
-      </select>
-    </label>
-    <label>Qty UI
-      <select id="qtyIdeaSelect" aria-label="Quantity idea">
-        <option value="1">Idea 1 — Outline (locked feel)</option>
-        <option value="2">Idea 2 — Last ordered · Change</option>
-        <option value="3">Idea 3 — Checkbox + outline</option>
-        <option value="4">Idea 4 — Edit panel</option>
-      </select>
-    </label>
-    <label>Start why
-      <select id="motivationSelect" aria-label="Start motivation">
-        <option value="none">None</option>
-        <option value="A">A — Entry payoff</option>
-        <option value="B">B — Sheet job beat</option>
-        <option value="C">C — Nudge why</option>
-        <option value="AC">A+C — Entry + nudge</option>
-      </select>
-    </label>
-    <label>Intro
-      <select id="introSelect" aria-label="Intro idea">
-        <option value="none">None</option>
-        <option value="1">Intro 1 — First-open sheet</option>
-        <option value="2">Intro 2 — Order Again card</option>
-        <option value="3">Intro 3 — 2-step tip</option>
-      </select>
-    </label>
+    Demo
+    <select id="stateSelect" aria-label="Demo state">
+      <option value="ready">Ready</option>
+      <option value="toomuch">Too much</option>
+      <option value="loading">Loading</option>
+      <option value="empty">Not enough</option>
+      <option value="nudge">Nudge</option>
+    </select>
   </div>
 
   <div class="toast" id="toast" role="status"></div>
 
-  <div class="intro-overlay" id="introOverlay" role="dialog" aria-modal="true" aria-labelledby="introTitle">
-    <div class="intro-sheet">
-      <div class="step-dots" id="introDots" hidden>
-        <span class="on"></span><span></span>
-      </div>
-      <h3 id="introTitle">Running low</h3>
-      <p id="introBody">We guess staples from your Blinkit orders. You check, change qty, then add to cart — nothing goes in until you say so.</p>
-      <div class="intro-actions">
-        <button type="button" class="intro-secondary" id="introSkip">Skip</button>
-        <button type="button" class="intro-primary" id="introNext">Continue</button>
-      </div>
-    </div>
-  </div>
-
   <div class="nudge" id="nudge" role="status">
-    <p id="nudgeCopy">A few things might be running low</p>
-    <button type="button" id="nudgeOpen">Running low</button>
+    <p>Cook flagged staples again — check Running low before tonight</p>
+    <button type="button" id="nudgeOpen">Check</button>
     <button type="button" class="dismiss" id="nudgeDismiss" aria-label="Dismiss">×</button>
   </div>
 
@@ -857,33 +340,28 @@
   </header>
 
   <main>
-    <!-- Order Again: Running low ENTRY only when enough items -->
     <section id="rlEntrySection">
-      <div class="section-head">
-        <h2>Running low</h2>
-      </div>
-      <p class="sample-note">Sample items for the prototype — not live Blinkit data.</p>
-      <div class="intro-card" id="introCard">
-        <h3>What is Running low?</h3>
-        <p>Looks at your past Blinkit orders and suggests what might be short. Nothing’s in your cart until you add.</p>
-        <div class="intro-actions">
-          <button type="button" class="intro-primary" id="introCardGotIt">Got it</button>
+      <div class="section-head"><h2>Running low</h2></div>
+      <p class="sample-note">Sample items — not live Blinkit data.</p>
+      <button type="button" class="rl-card" id="rlEntry" aria-haspopup="dialog">
+        <div class="rl-top">
+          <div class="thumbs" id="entryThumbs" aria-hidden="true"></div>
+          <div>
+            <div class="rl-title">Running low</div>
+            <p class="rl-body" id="entryMeta">
+              When the cook says something’s finishing and you still don’t order — we list staples from your Blinkit orders so you can check qty and clear the cart minimum in one go. Nothing sits in cart until you add.
+            </p>
+          </div>
         </div>
-      </div>
-      <button type="button" class="rl-entry" id="rlEntry" aria-haspopup="dialog">
-        <div class="thumbs" id="entryThumbs" aria-hidden="true"></div>
-        <div class="copy">
-          <h3>Running low</h3>
-          <p id="entryMeta">Might be running low · tap to check</p>
+        <div class="rl-cta">
+          <span id="entryCount">3 staples to check</span>
+          <span class="go">Check list ›</span>
         </div>
-        <span class="chev" aria-hidden="true">›</span>
       </button>
     </section>
 
     <section>
-      <div class="section-head">
-        <h2>Frequently bought</h2>
-      </div>
+      <div class="section-head"><h2>Frequently bought</h2></div>
       <div class="freq-grid">
         <div class="freq-tile"><div class="emoji">🍞</div><h4>Bread, Butter &amp; Eggs</h4><span>+3 more</span></div>
         <div class="freq-tile"><div class="emoji">🥬</div><h4>Vegetables &amp; Fruits</h4><span>+6 more</span></div>
@@ -914,15 +392,11 @@
       <button type="button" class="sheet-close" id="closeSheet" aria-label="Close">×</button>
     </div>
     <p class="hint">Suggested qty from last orders — you can change it</p>
-    <div class="start-why" id="startWhy">
-      <span id="startWhyCopy">Check these so nothing blocks the cook mid-week</span>
-      <button type="button" id="startWhyDismiss" aria-label="Dismiss">×</button>
-    </div>
     <button type="button" class="household-notch" id="householdNotch">
-      <span id="householdLabel">3 people at home</span>
-      <span class="household-change">Change</span>
+      <span id="householdLabel">Suggestions sized for your home</span>
+      <span class="household-change">Adjust</span>
     </button>
-    <div class="household-picker hidden" id="householdPicker" role="group" aria-label="People at home">
+    <div class="household-picker hidden" id="householdPicker" role="group" aria-label="Household size for suggestions">
       <button type="button" data-people="1">1</button>
       <button type="button" data-people="2">2</button>
       <button type="button" data-people="3" class="on">3</button>
@@ -936,106 +410,76 @@
       <p style="margin-top:12px">Building Running low…</p>
     </div>
 
-    <div id="sheetError" class="sheet-error hidden" hidden></div>
-
     <div class="sheet-list" id="sheetList"></div>
-
     <div class="sheet-footer">
       <button type="button" class="btn btn-primary" id="addAllBtn">Add all to cart</button>
     </div>
   </div>
 
   <script>
-    /* Sample catalogue — not live data. Enough = ≥2 (brief: guessing). */
     const ENOUGH = 2;
     const SAMPLE = [
-      { id: 'onion', name: 'Onion (pyaaz)', unit: '1 kg', detail: 'From your last orders', emoji: '🧅', price: 32, qty: 2 },
-      { id: 'dal', name: 'Toor dal', unit: '1 kg', detail: 'From your last orders', emoji: '🫘', price: 54, qty: 1 },
-      { id: 'oil', name: 'Fortune Sunflower Oil', unit: '1 L', detail: 'From your last orders', emoji: '🛢️', price: 100, qty: 1 }
+      { id: 'onion', name: 'Onion (pyaaz)', unit: '1 kg', emoji: '🧅', qty: 2 },
+      { id: 'dal', name: 'Toor dal', unit: '1 kg', emoji: '🫘', qty: 1 },
+      { id: 'oil', name: 'Fortune Sunflower Oil', unit: '1 L', emoji: '🛢️', qty: 1 }
     ];
-
-    /* Sample only — for Too much stress check. Not a claim about real kitchens. */
     const MANY = [
-      { id: 'onion', name: 'Onion (pyaaz)', unit: '1 kg', detail: 'From your last orders', emoji: '🧅', price: 32, qty: 2 },
-      { id: 'dal', name: 'Toor dal', unit: '1 kg', detail: 'From your last orders', emoji: '🫘', price: 54, qty: 1 },
-      { id: 'oil', name: 'Fortune Sunflower Oil Cold Pressed Premium', unit: '1 L', detail: 'From your last orders', emoji: '🛢️', price: 100, qty: 1 },
-      { id: 'atta', name: 'Aashirvaad Whole Wheat Atta', unit: '5 kg', detail: 'From your last orders', emoji: '🌾', price: 240, qty: 1 },
-      { id: 'rice', name: 'India Gate Basmati Rice', unit: '1 kg', detail: 'From your last orders', emoji: '🍚', price: 145, qty: 1 },
-      { id: 'sugar', name: 'Madhur Pure Sugar', unit: '1 kg', detail: 'From your last orders', emoji: '🧂', price: 48, qty: 1 },
-      { id: 'salt', name: 'Tata Salt', unit: '1 kg', detail: 'From your last orders', emoji: '⬜', price: 28, qty: 1 },
-      { id: 'tea', name: 'Tata Tea Gold', unit: '500 g', detail: 'From your last orders', emoji: '🍵', price: 210, qty: 1 },
-      { id: 'coffee', name: 'Nescafe Classic Coffee', unit: '100 g', detail: 'From your last orders', emoji: '☕', price: 185, qty: 1 },
-      { id: 'ghee', name: 'Amul Pure Ghee', unit: '1 L', detail: 'From your last orders', emoji: '🧈', price: 560, qty: 1 },
-      { id: 'besan', name: 'Fortune Besan', unit: '1 kg', detail: 'From your last orders', emoji: '🟡', price: 95, qty: 1 },
-      { id: 'poha', name: 'Mother’s Recipe Thick Poha', unit: '1 kg', detail: 'From your last orders', emoji: '🥞', price: 72, qty: 1 },
-      { id: 'rava', name: 'Bambino Sooji / Rava', unit: '1 kg', detail: 'From your last orders', emoji: '🥣', price: 55, qty: 1 },
-      { id: 'mustard', name: 'Fortune Mustard Oil', unit: '1 L', detail: 'From your last orders', emoji: '🫙', price: 165, qty: 1 },
-      { id: 'soap', name: 'Surf Excel Matic Front Load', unit: '2 kg', detail: 'From your last orders', emoji: '🧼', price: 380, qty: 1 },
-      { id: 'tissue', name: 'Origami Kitchen Towels', unit: '6 rolls', detail: 'From your last orders', emoji: '🧻', price: 199, qty: 1 }
+      { id: 'onion', name: 'Onion (pyaaz)', unit: '1 kg', emoji: '🧅', qty: 2 },
+      { id: 'dal', name: 'Toor dal', unit: '1 kg', emoji: '🫘', qty: 1 },
+      { id: 'oil', name: 'Fortune Sunflower Oil Cold Pressed Premium', unit: '1 L', emoji: '🛢️', qty: 1 },
+      { id: 'atta', name: 'Aashirvaad Whole Wheat Atta', unit: '5 kg', emoji: '🌾', qty: 1 },
+      { id: 'rice', name: 'India Gate Basmati Rice', unit: '1 kg', emoji: '🍚', qty: 1 },
+      { id: 'sugar', name: 'Madhur Pure Sugar', unit: '1 kg', emoji: '🧂', qty: 1 },
+      { id: 'salt', name: 'Tata Salt', unit: '1 kg', emoji: '⬜', qty: 1 },
+      { id: 'tea', name: 'Tata Tea Gold', unit: '500 g', emoji: '🍵', qty: 1 },
+      { id: 'coffee', name: 'Nescafe Classic Coffee', unit: '100 g', emoji: '☕', qty: 1 },
+      { id: 'ghee', name: 'Amul Pure Ghee', unit: '1 L', emoji: '🧈', qty: 1 },
+      { id: 'besan', name: 'Fortune Besan', unit: '1 kg', emoji: '🟡', qty: 1 },
+      { id: 'poha', name: 'Mother’s Recipe Thick Poha', unit: '1 kg', emoji: '🥞', qty: 1 },
+      { id: 'rava', name: 'Bambino Sooji / Rava', unit: '1 kg', emoji: '🥣', qty: 1 },
+      { id: 'mustard', name: 'Fortune Mustard Oil', unit: '1 L', emoji: '🫙', qty: 1 },
+      { id: 'soap', name: 'Surf Excel Matic Front Load', unit: '2 kg', emoji: '🧼', qty: 1 },
+      { id: 'tissue', name: 'Origami Kitchen Towels', unit: '6 rolls', emoji: '🧻', qty: 1 }
     ];
 
-    let items = SAMPLE.map(i => ({ ...i, selected: true, editing: false }));
-    let cartCount = 0;
-    let qtyIdea = 1;
-    let motivation = 'none';
-    let startWhyDismissed = false;
-    let introMode = 'none';
-    let introStep = 0;
-    let introDone = false;
+    let items = SAMPLE.map(i => ({ ...i }));
+    let peopleAtHome = 3;
 
     const stateSelect = document.getElementById('stateSelect');
-    const qtyIdeaSelect = document.getElementById('qtyIdeaSelect');
-    const motivationSelect = document.getElementById('motivationSelect');
-    const introSelect = document.getElementById('introSelect');
-    const introOverlay = document.getElementById('introOverlay');
-    const introCard = document.getElementById('introCard');
-    const introDots = document.getElementById('introDots');
-    const introTitle = document.getElementById('introTitle');
-    const introBody = document.getElementById('introBody');
-    const introNext = document.getElementById('introNext');
-    const introSkip = document.getElementById('introSkip');
     const rlEntrySection = document.getElementById('rlEntrySection');
-    const entryMeta = document.getElementById('entryMeta');
     const entryThumbs = document.getElementById('entryThumbs');
+    const entryCount = document.getElementById('entryCount');
     const overlay = document.getElementById('overlay');
     const sheet = document.getElementById('rlSheet');
     const sheetList = document.getElementById('sheetList');
     const sheetLoading = document.getElementById('sheetLoading');
-    const sheetError = document.getElementById('sheetError');
     const addAllBtn = document.getElementById('addAllBtn');
     const viewCart = document.getElementById('viewCart');
     const cartLabel = document.getElementById('cartLabel');
     const cartThumb = document.getElementById('cartThumb');
     const toast = document.getElementById('toast');
     const nudge = document.getElementById('nudge');
-    const nudgeCopy = document.getElementById('nudgeCopy');
-    const startWhy = document.getElementById('startWhy');
-    const startWhyCopy = document.getElementById('startWhyCopy');
     const householdNotch = document.getElementById('householdNotch');
     const householdLabel = document.getElementById('householdLabel');
     const householdPicker = document.getElementById('householdPicker');
-    let peopleAtHome = 3;
-
-    function cloneItems(source) {
-      return source.map(i => ({ ...i, selected: true, editing: false }));
-    }
-
-    function peopleLabel(n) {
-      return n >= 5 ? '5+ people at home' : n + (n === 1 ? ' person at home' : ' people at home');
-    }
-
-    function syncHouseholdUI() {
-      householdLabel.textContent = peopleLabel(peopleAtHome);
-      householdPicker.querySelectorAll('[data-people]').forEach(btn => {
-        const n = parseInt(btn.getAttribute('data-people'), 10);
-        btn.classList.toggle('on', n === peopleAtHome || (peopleAtHome >= 5 && n === 5));
-      });
-    }
 
     function showToast(msg) {
       toast.textContent = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function peopleLabel(n) {
+      if (n >= 5) return 'Suggestions sized for 5+ · Adjust';
+      return 'Suggestions sized for ' + n + ' · Adjust';
+    }
+
+    function syncHouseholdUI() {
+      householdLabel.textContent = peopleLabel(peopleAtHome).replace(' · Adjust', '');
+      householdPicker.querySelectorAll('[data-people]').forEach(btn => {
+        const n = parseInt(btn.getAttribute('data-people'), 10);
+        btn.classList.toggle('on', n === peopleAtHome || (peopleAtHome >= 5 && n === 5));
+      });
     }
 
     function updateEntry() {
@@ -1045,11 +489,7 @@
         return;
       }
       rlEntrySection.classList.remove('hidden');
-      if (motivation === 'A' || motivation === 'AC') {
-        entryMeta.textContent = n + ' staples might run out · clear ₹150 in one go';
-      } else {
-        entryMeta.textContent = n + ' items · might be running low';
-      }
+      entryCount.textContent = n + ' staples to check';
       entryThumbs.innerHTML = '';
       items.slice(0, 2).forEach(i => {
         const d = document.createElement('div');
@@ -1065,164 +505,34 @@
       }
     }
 
-    function hideIntros() {
-      introOverlay.classList.remove('show');
-      if (introCard) introCard.classList.remove('show');
-    }
-
-    function setIntroStepContent() {
-      if (introMode === '1') {
-        introDots.hidden = true;
-        introTitle.textContent = 'Running low';
-        introBody.textContent = 'We guess staples from your Blinkit orders. You check, change qty, then add to cart — nothing goes in until you say so.';
-        introNext.textContent = 'Continue';
-        introSkip.style.display = 'none';
-      } else if (introMode === '3') {
-        introDots.hidden = false;
-        const dots = introDots.querySelectorAll('span');
-        dots[0].classList.toggle('on', introStep === 0);
-        dots[1].classList.toggle('on', introStep === 1);
-        if (introStep === 0) {
-          introTitle.textContent = 'What this is';
-          introBody.textContent = 'Running low looks at your past Blinkit orders and suggests staples that might be short.';
-          introNext.textContent = 'Next';
-        } else {
-          introTitle.textContent = 'What you do';
-          introBody.textContent = 'Check the list, change quantity if you need, then Add all to cart. Skip anytime.';
-          introNext.textContent = 'Got it';
-        }
-        introSkip.style.display = '';
-      }
-    }
-
-    function showIntroForMode() {
-      hideIntros();
-      introDone = false;
-      introStep = 0;
-      if (introMode === 'none') return;
-
-      if (introMode === '2') {
-        if (items.length >= ENOUGH) introCard.classList.add('show');
-        return;
-      }
-
-      if (introMode === '1' || introMode === '3') {
-        setIntroStepContent();
-        introOverlay.classList.add('show');
-      }
-    }
-
-    function finishIntro() {
-      introDone = true;
-      hideIntros();
-      if (introMode === '1') {
-        openSheet('ready');
-      }
-      showToast('Intro done');
-    }
-
-    function applyMotivationUI() {
-      if (motivation === 'C' || motivation === 'AC') {
-        nudgeCopy.textContent = 'Running low · past free delivery if you add now';
-      } else {
-        nudgeCopy.textContent = 'A few things might be running low';
-      }
-
-      const showB = motivation === 'B' && !startWhyDismissed;
-      startWhy.classList.toggle('show', showB);
-      startWhyCopy.textContent = 'Check these so nothing blocks the cook mid-week';
-
-      updateEntry();
-    }
-
-    function outlineStepper(item, qty) {
-      return (
-        '<div class="qty outline" role="group" aria-label="Quantity for ' + item.name + '">' +
-          '<button type="button" data-qty-minus="' + item.id + '" aria-label="Decrease quantity"' + (qty <= 1 ? ' disabled' : '') + '>−</button>' +
-          '<span class="qty-val" aria-live="polite">' + qty + '</span>' +
-          '<button type="button" data-qty-plus="' + item.id + '" aria-label="Increase quantity">+</button>' +
-        '</div>'
-      );
-    }
-
     function renderSheetList() {
       sheetList.innerHTML = '';
       items.forEach(item => {
         const qty = item.qty || 1;
         const row = document.createElement('article');
-        row.className = 'sheet-item' + (qtyIdea === 3 ? ' with-check' : '') + (item.editing ? ' editing' : '');
-        row.dataset.id = item.id;
-
-        if (qtyIdea === 1) {
-          row.innerHTML =
-            '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
-            '<div class="body">' +
-              '<h3>' + item.name + '</h3>' +
-              '<p class="item-unit">' + (item.unit || '') + '</p>' +
-              '<p class="suggested-line">Suggested: <strong>' + qty + '</strong></p>' +
-              '<span class="pill">Might be running low</span>' +
+        row.className = 'sheet-item';
+        row.innerHTML =
+          '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
+          '<div class="body">' +
+            '<h3>' + item.name + '</h3>' +
+            '<p class="item-unit">' + (item.unit || '') + '</p>' +
+            '<p class="suggested-line">Suggested: <strong>' + qty + '</strong></p>' +
+            '<span class="pill">Might be running low</span>' +
+          '</div>' +
+          '<div class="item-actions">' +
+            '<div class="qty" role="group" aria-label="Quantity for ' + item.name + '">' +
+              '<button type="button" data-qty-minus="' + item.id + '" aria-label="Decrease"' + (qty <= 1 ? ' disabled' : '') + '>−</button>' +
+              '<span class="qty-val">' + qty + '</span>' +
+              '<button type="button" data-qty-plus="' + item.id + '" aria-label="Increase">+</button>' +
             '</div>' +
-            '<div class="item-actions">' +
-              outlineStepper(item, qty) +
-              '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>' +
-            '</div>';
-        } else if (qtyIdea === 2) {
-          const editing = item.editing;
-          row.innerHTML =
-            '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
-            '<div class="body">' +
-              '<h3>' + item.name + '</h3>' +
-              '<p class="item-unit">' + (item.unit || '') + '</p>' +
-              '<p class="suggested-line">Last ordered ×' + qty + (editing ? '' : '') + '</p>' +
-              '<span class="pill">Might be running low</span>' +
-              (editing ? '<div style="margin-top:8px">' + outlineStepper(item, qty) + '</div>' : '') +
-            '</div>' +
-            '<div class="item-actions">' +
-              '<button type="button" class="change-qty-link" data-toggle-edit="' + item.id + '">' +
-                (editing ? 'Done' : 'Change qty') +
-              '</button>' +
-              '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>' +
-            '</div>';
-        } else if (qtyIdea === 3) {
-          row.innerHTML =
-            '<input type="checkbox" class="item-check" data-select="' + item.id + '"' + (item.selected !== false ? ' checked' : '') + ' aria-label="Include ' + item.name + '">' +
-            '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
-            '<div class="body">' +
-              '<h3>' + item.name + '</h3>' +
-              '<p class="item-unit">' + (item.unit || '') + '</p>' +
-              '<span class="pill">Might be running low</span>' +
-            '</div>' +
-            '<div class="item-actions">' +
-              outlineStepper(item, qty) +
-            '</div>';
-        } else {
-          row.innerHTML =
-            '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
-            '<div class="body" style="flex:1">' +
-              '<h3>' + item.name + '</h3>' +
-              '<p class="item-unit">' + (item.unit || '') + '</p>' +
-              '<p class="suggested-line">From last orders · qty ' + qty + '</p>' +
-              '<span class="pill">Might be running low</span>' +
-              '<div class="edit-qty-panel">' +
-                outlineStepper(item, qty) +
-                '<button type="button" class="change-qty-link" data-toggle-edit="' + item.id + '">Done</button>' +
-              '</div>' +
-            '</div>' +
-            '<div class="item-actions">' +
-              '<button type="button" class="edit-link" data-toggle-edit="' + item.id + '">Edit</button>' +
-              '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>' +
-            '</div>';
-        }
+            '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>' +
+          '</div>';
         sheetList.appendChild(row);
       });
-
-      const active = qtyIdea === 3 ? items.filter(i => i.selected !== false) : items;
-      const units = active.reduce((s, i) => s + (i.qty || 1), 0);
-      addAllBtn.disabled = active.length === 0;
-      addAllBtn.hidden = active.length === 0;
-      addAllBtn.textContent = active.length
-        ? 'Add all to cart · ' + units
-        : 'Add all to cart';
+      const units = items.reduce((s, i) => s + (i.qty || 1), 0);
+      addAllBtn.disabled = items.length === 0;
+      addAllBtn.hidden = items.length === 0;
+      addAllBtn.textContent = items.length ? 'Add all to cart · ' + units : 'Add all to cart';
     }
 
     function openSheet(mode) {
@@ -1230,21 +540,12 @@
       overlay.classList.add('open');
       sheet.classList.add('open');
       sheetLoading.classList.add('hidden');
-      sheetError.classList.add('hidden');
       sheetList.classList.remove('hidden');
       addAllBtn.classList.remove('hidden');
-      applyMotivationUI();
-
       if (mode === 'loading') {
         sheetList.classList.add('hidden');
         addAllBtn.classList.add('hidden');
-        startWhy.classList.remove('show');
         sheetLoading.classList.remove('hidden');
-        return;
-      }
-      if (mode === 'error') {
-        sheetError.classList.remove('hidden');
-        renderSheetList();
         return;
       }
       renderSheetList();
@@ -1260,134 +561,74 @@
     function applyDemo(state) {
       nudge.classList.remove('show');
       closeSheet();
-      hideIntros();
-      items = cloneItems(SAMPLE);
-
+      items = SAMPLE.map(i => ({ ...i }));
       if (state === 'empty') {
-        items = cloneItems(SAMPLE.slice(0, 1));
-        applyMotivationUI();
+        items = SAMPLE.slice(0, 1).map(i => ({ ...i }));
+        updateEntry();
         return;
       }
       if (state === 'toomuch') {
-        items = cloneItems(MANY);
-        applyMotivationUI();
+        items = MANY.map(i => ({ ...i }));
+        updateEntry();
         openSheet('ready');
         return;
       }
       if (state === 'loading') {
-        applyMotivationUI();
+        updateEntry();
         openSheet('loading');
         return;
       }
-
-      applyMotivationUI();
-      showIntroForMode();
-
-      if (introMode === '1' || introMode === '3') {
-        /* intro overlay handles the start */
-        return;
-      }
-
-      if (state === 'nudge' || motivation === 'C' || motivation === 'AC') {
-        nudge.classList.add('show');
-      }
-      if (motivation === 'B' && state === 'ready') {
-        openSheet('ready');
-      }
+      updateEntry();
+      if (state === 'nudge') nudge.classList.add('show');
     }
-
-    householdNotch.addEventListener('click', () => {
-      householdPicker.classList.toggle('hidden');
-    });
-    householdPicker.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-people]');
-      if (!btn) return;
-      peopleAtHome = parseInt(btn.getAttribute('data-people'), 10);
-      syncHouseholdUI();
-      householdPicker.classList.add('hidden');
-      showToast('Updated — qty guess uses ' + peopleLabel(peopleAtHome));
-    });
 
     document.getElementById('rlEntry').addEventListener('click', () => openSheet('ready'));
     document.getElementById('closeSheet').addEventListener('click', closeSheet);
     overlay.addEventListener('click', closeSheet);
     document.getElementById('nudgeOpen').addEventListener('click', () => openSheet('ready'));
     document.getElementById('nudgeDismiss').addEventListener('click', () => nudge.classList.remove('show'));
-    document.getElementById('startWhyDismiss').addEventListener('click', () => {
-      startWhyDismissed = true;
-      startWhy.classList.remove('show');
+
+    householdNotch.addEventListener('click', () => householdPicker.classList.toggle('hidden'));
+    householdPicker.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-people]');
+      if (!btn) return;
+      peopleAtHome = parseInt(btn.getAttribute('data-people'), 10);
+      syncHouseholdUI();
+      householdPicker.classList.add('hidden');
+      showToast('Suggestions updated');
     });
 
     sheetList.addEventListener('click', (e) => {
       const minus = e.target.closest('[data-qty-minus]');
       const plus = e.target.closest('[data-qty-plus]');
       const remove = e.target.closest('[data-remove]');
-      const toggleEdit = e.target.closest('[data-toggle-edit]');
-      const select = e.target.closest('[data-select]');
-
-      if (select) {
-        const id = select.getAttribute('data-select');
-        items = items.map(i => i.id === id ? { ...i, selected: select.checked } : i);
-        renderSheetList();
-        return;
-      }
-      if (toggleEdit) {
-        const id = toggleEdit.getAttribute('data-toggle-edit');
-        items = items.map(i => i.id === id ? { ...i, editing: !i.editing } : i);
-        renderSheetList();
-        return;
-      }
       if (minus) {
         const id = minus.getAttribute('data-qty-minus');
-        items = items.map(i => {
-          if (i.id !== id) return i;
-          return { ...i, qty: Math.max(1, (i.qty || 1) - 1) };
-        });
+        items = items.map(i => i.id === id ? { ...i, qty: Math.max(1, (i.qty || 1) - 1) } : i);
         renderSheetList();
         return;
       }
       if (plus) {
         const id = plus.getAttribute('data-qty-plus');
-        items = items.map(i => {
-          if (i.id !== id) return i;
-          return { ...i, qty: Math.min(99, (i.qty || 1) + 1) };
-        });
+        items = items.map(i => i.id === id ? { ...i, qty: Math.min(99, (i.qty || 1) + 1) } : i);
         renderSheetList();
         return;
       }
       if (!remove) return;
-      const id = remove.getAttribute('data-remove');
-      items = items.filter(i => i.id !== id);
+      items = items.filter(i => i.id !== remove.getAttribute('data-remove'));
       renderSheetList();
-      if (items.length < ENOUGH) {
-        showToast('Not enough left — entry will hide when you close');
-      }
-    });
-
-    sheetList.addEventListener('change', (e) => {
-      const select = e.target.closest('[data-select]');
-      if (!select) return;
-      const id = select.getAttribute('data-select');
-      items = items.map(i => i.id === id ? { ...i, selected: select.checked } : i);
-      const active = items.filter(i => i.selected !== false);
-      const units = active.reduce((s, i) => s + (i.qty || 1), 0);
-      addAllBtn.disabled = active.length === 0;
-      addAllBtn.hidden = active.length === 0;
-      addAllBtn.textContent = active.length ? 'Add all to cart · ' + units : 'Add all to cart';
     });
 
     addAllBtn.addEventListener('click', function () {
-      const active = qtyIdea === 3 ? items.filter(i => i.selected !== false) : items;
-      if (active.length === 0) return;
-      const units = active.reduce((s, i) => s + (i.qty || 1), 0);
-      const firstEmoji = active[0].emoji;
+      if (!items.length) return;
+      const units = items.reduce((s, i) => s + (i.qty || 1), 0);
+      const firstEmoji = items[0].emoji;
       this.classList.add('loading');
       this.disabled = true;
       setTimeout(() => {
         this.classList.remove('loading');
         this.disabled = false;
-        cartCount = units;
-        cartLabel.textContent = 'View cart · ' + cartCount + ' Items';
+        cartLabel.textContent = 'View cart · ' + units + ' Items';
         cartThumb.textContent = firstEmoji;
         viewCart.classList.remove('hidden');
         items = [];
@@ -1397,62 +638,10 @@
       }, 700);
     });
 
-    viewCart.addEventListener('click', () => {
-      showToast('Checkout is Blinkit’s — not redesigned here');
-    });
-
+    viewCart.addEventListener('click', () => showToast('Checkout is Blinkit’s — not redesigned here'));
     stateSelect.addEventListener('change', () => applyDemo(stateSelect.value));
-    qtyIdeaSelect.addEventListener('change', () => {
-      qtyIdea = parseInt(qtyIdeaSelect.value, 10);
-      if (items.length < ENOUGH) {
-        items = cloneItems(SAMPLE);
-        stateSelect.value = 'ready';
-      }
-      openSheet('ready');
-      showToast('Qty UI · Idea ' + qtyIdea);
-    });
-    motivationSelect.addEventListener('change', () => {
-      motivation = motivationSelect.value;
-      startWhyDismissed = false;
-      stateSelect.value = 'ready';
-      applyDemo('ready');
-      showToast('Start why · ' + motivation);
-    });
-    introSelect.addEventListener('change', () => {
-      introMode = introSelect.value;
-      introDone = false;
-      introStep = 0;
-      stateSelect.value = 'ready';
-      applyDemo('ready');
-      showToast('Intro · ' + introMode);
-    });
-    introSkip.addEventListener('click', finishIntro);
-    introNext.addEventListener('click', () => {
-      if (introMode === '3' && introStep === 0) {
-        introStep = 1;
-        setIntroStepContent();
-        return;
-      }
-      finishIntro();
-    });
-    document.getElementById('introCardGotIt').addEventListener('click', () => {
-      introCard.classList.remove('show');
-      introDone = true;
-      showToast('Intro done — open Running low when ready');
-    });
-
-    /* First tap on entry: if Intro 1 not seen, show it first */
-    document.getElementById('rlEntry').addEventListener('click', (e) => {
-      if (introMode === '1' && !introDone) {
-        e.preventDefault();
-        showIntroForMode();
-        return;
-      }
-      openSheet('ready');
-    });
 
     syncHouseholdUI();
-    applyMotivationUI();
     updateEntry();
   </script>
 </body>

@@ -15,7 +15,7 @@ Evidence:   thin — ⚠️ GAPPED at synthesis stage; n=2 interviews; survey n=
 Files:      SCOPE.md [x] · RESEARCH.md [x] · BRIEF.md [x] · DESIGN_LANGUAGE.md [x] · build [x] · live [x]
 Rounds:     0
 Open:       Scope card vs problem statement drift; JTBD cuts trail missing; no app-store triangulation; Social JTBD outcome assumed
-Next: /molades-attack or continue build polish
+Next: /molades-attack or continue polish
 ```
 
 ---
@@ -173,5 +173,11 @@ Next: /molades-attack or continue build polish
 **Decided:** Household size = Idea 1 quiet notch under Running low sheet hint (“N people at home · Change”)
 **Rejected:** Idea 2 first-time wall; Idea 3 entry on Order Again; Idea 4 infer-only with no UI
 **Because:** Student chose Idea 1
+**How sure:** worked it out
+
+### DECISION · 2026-08-24 · build
+**Decided:** Merge audience intro into Running low Order Again card; outline qty only; strip extra demo menus
+**Rejected:** Generic “what is Running low” card; separate intro above entry; filled green cart qty; multi idea dropdowns in the live UI
+**Because:** Student — Intro 2 good but generic; target cook-dependent; merge with Running low; remove extra dropdowns
 **How sure:** worked it out
 

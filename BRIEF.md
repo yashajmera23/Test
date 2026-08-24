@@ -245,3 +245,7 @@ Inherited Blinkit states — not redesigned here.
 
 ## Household notch (Idea 1 · 2026-08-23)
 Quiet row under sheet hint: **“N people at home · Change”**. Tap opens 1 / 2 / 3 / 4 / 5+ picker. No setup wall. Default sample: 3. Rejected Idea 2–4 for this pass.
+
+## Intro merged into Running low (2026-08-24)
+**Locked:** Intro 2 merged into the Running low card on Order Again — copy aimed at cook-dependent users (forget after cook warns; check list; cart empty until Add all). Outline qty only. Extra demo dropdowns removed (Qty / Start why / Intro). Household ask soft-labelled “Suggestions sized for your home · Adjust”.
+
