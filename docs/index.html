@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Blinkit — Order Again · Running low</title>
+  <style>
+    @font-face { font-family: 'Gilroy'; src: url('fonts/Gilroy-Light.ttf') format('truetype'); font-weight: 300; }
+    @font-face { font-family: 'Gilroy'; src: url('fonts/Gilroy-Regular.ttf') format('truetype'); font-weight: 400; }
+    @font-face { font-family: 'Gilroy'; src: url('fonts/Gilroy-Medium.ttf') format('truetype'); font-weight: 500; }
+    @font-face { font-family: 'Gilroy'; src: url('fonts/Gilroy-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Gilroy'; src: url('fonts/Gilroy-Heavy.ttf') format('truetype'); font-weight: 800; }
+
+    :root {
+      --surface: #F6F6F6;
+      --raised: #FFFFFF;
+      --ink: #1A1A1A;
+      --muted: #696969;
+      --accent: #318616;
+      --signal: #E23744;
+      --soon-bg: #E3F2FD;
+      --soon-ink: #1565C0;
+      --border: #E8E8E8;
+      --yellow-top: #FFE141;
+      --radius-card: 12px;
+      --radius-btn: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Gilroy', sans-serif;
+      background: var(--surface);
+      color: var(--ink);
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding-bottom: 100px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .top-bar {
+      background: linear-gradient(180deg, var(--yellow-top) 0%, #FFF9D6 60%, var(--surface) 100%);
+      padding: 12px 16px 8px;
+    }
+    .delivery-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .delivery-row h1 { font-size: 22px; font-weight: 800; line-height: 1.1; }
+    .delivery-row .sub { font-size: 12px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+    .top-icons { display: flex; gap: 8px; align-items: center; }
+    .icon-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--raised); border: 1px solid var(--border);
+      display: grid; place-items: center; font-size: 14px; font-weight: 700;
+    }
+    .search {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--raised); border-radius: 12px;
+      padding: 12px 14px; border: 1px solid var(--border);
+      font-size: 14px; color: var(--muted);
+    }
+
+    .section-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 16px 8px;
+    }
+    .section-head h2 { font-size: 18px; font-weight: 700; }
+    .sample-note { padding: 0 16px 8px; font-size: 11px; color: var(--muted); }
+
+    /* Merged Running low card — intro + entry */
+    .rl-card {
+      margin: 0 16px 16px;
+      padding: 0;
+      background: var(--raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      text-align: left;
+      width: calc(100% - 32px);
+      font-family: inherit;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 150ms ease-out, border-color 150ms ease-out;
+    }
+    .rl-card:hover { border-color: #cfcfcf; }
+    .rl-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .rl-card:active { transform: scale(0.99); }
+    .rl-card .rl-art {
+      height: 120px;
+      background: linear-gradient(180deg, #EAF7E4 0%, #F6FBF3 100%);
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .rl-card .rl-art svg { width: 160px; height: 88px; }
+    .rl-card .rl-content { padding: 12px 14px 14px; }
+    .rl-card .rl-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .rl-card .rl-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+    .rl-card .rl-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .rl-card .rl-cta .thumbs { display: flex; gap: 4px; }
+    .rl-card .thumb-sm {
+      width: 32px; height: 32px; border-radius: 8px; background: #F0F0F0;
+      display: grid; place-items: center; font-size: 14px; border: 1px solid var(--border);
+    }
+    .rl-card .thumb-sm.more { font-size: 11px; font-weight: 700; color: var(--muted); }
+    .rl-card .rl-cta .go {
+      font-size: 13px; font-weight: 700; color: var(--accent);
+    }
+
+    .freq-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 16px;
+    }
+    .freq-tile {
+      background: var(--raised); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 12px; min-height: 100px;
+    }
+    .freq-tile .emoji { font-size: 28px; margin-bottom: 8px; }
+    .freq-tile h4 { font-size: 14px; font-weight: 600; line-height: 1.3; }
+    .freq-tile span { font-size: 11px; color: var(--muted); }
+
+    .view-cart {
+      position: fixed; left: 50%; transform: translateX(-50%); bottom: 72px;
+      background: var(--accent); color: #fff; border-radius: 24px;
+      padding: 10px 12px 10px 10px; display: flex; align-items: center; gap: 10px;
+      font-size: 14px; font-weight: 600; z-index: 40; border: none; font-family: inherit; cursor: pointer;
+      transition: transform 200ms ease-out, opacity 200ms ease-out;
+    }
+    .view-cart.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
+    .view-cart:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .view-cart .mini-thumb {
+      width: 32px; height: 32px; border-radius: 6px; background: rgba(255,255,255,0.2);
+      display: grid; place-items: center; font-size: 16px;
+    }
+    .view-cart .arrow {
+      width: 28px; height: 28px; border-radius: 50%; background: #fff; color: var(--accent);
+      display: grid; place-items: center; font-weight: 800;
+    }
+
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 430px; background: var(--raised);
+      border-top: 1px solid var(--border); display: flex; justify-content: space-around;
+      align-items: center; padding: 8px 8px 12px; z-index: 30;
+    }
+    .nav-item { text-align: center; font-size: 11px; font-weight: 500; color: var(--muted); min-width: 56px; }
+    .nav-item.active { color: var(--ink); font-weight: 700; }
+    .nav-item .icon {
+      width: 40px; height: 40px; margin: 0 auto 2px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 18px;
+    }
+    .nav-item.active .icon { background: #EFEFEF; }
+
+    .overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 50;
+      opacity: 0; pointer-events: none; transition: opacity 250ms ease-out;
+    }
+    .overlay.open { opacity: 1; pointer-events: auto; }
+
+    .sheet {
+      position: fixed; left: 50%; bottom: 0; transform: translate(-50%, 100%);
+      width: 100%; max-width: 430px; background: var(--raised);
+      border-radius: 16px 16px 0 0; z-index: 60; padding: 12px 16px 24px;
+      transition: transform 280ms ease-out; max-height: 85vh; overflow-y: auto;
+      display: flex; flex-direction: column;
+    }
+    .sheet.open { transform: translate(-50%, 0); }
+    .sheet-handle {
+      width: 40px; height: 4px; background: #D0D0D0; border-radius: 2px; margin: 0 auto 16px;
+    }
+    .sheet-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; gap: 12px; }
+    .sheet h2 { font-size: 18px; font-weight: 700; }
+    .sheet-close {
+      background: none; border: none; font-size: 22px; line-height: 1; color: var(--muted);
+      cursor: pointer; padding: 4px; font-family: inherit;
+    }
+    .sheet-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .sheet .hint { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
+
+    .household-notch {
+      display: flex; align-items: center; justify-content: space-between; width: 100%;
+      margin-bottom: 12px; padding: 10px 12px; background: #F6F6F6;
+      border: 1px solid var(--border); border-radius: var(--radius-btn);
+      font-family: inherit; font-size: 13px; font-weight: 500; color: var(--ink);
+      cursor: pointer; text-align: left;
+    }
+    .household-notch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .household-notch .household-change { font-size: 13px; font-weight: 700; color: var(--accent); }
+    .household-picker { display: flex; gap: 8px; margin: -4px 0 16px; flex-wrap: wrap; }
+    .household-picker.hidden { display: none; }
+    .household-picker button {
+      min-width: 44px; height: 36px; padding: 0 10px; border-radius: var(--radius-btn);
+      border: 1px solid var(--border); background: var(--raised); font-family: inherit;
+      font-size: 13px; font-weight: 600; color: var(--ink); cursor: pointer;
+    }
+    .household-picker button.on { border-color: var(--accent); background: #EAF7E4; color: var(--accent); }
+    .household-picker button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .sheet-loading { padding: 24px 0 32px; text-align: center; font-size: 14px; color: var(--muted); }
+    .skeleton {
+      height: 72px; border-radius: var(--radius-card);
+      background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+      background-size: 200% 100%; animation: shimmer 1.2s infinite; margin-bottom: 8px;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    .sheet-list { flex: 1; overflow-y: auto; margin-bottom: 12px; }
+    .sheet-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .sheet-item:last-child { border-bottom: none; }
+    .sheet-item .thumb {
+      width: 56px; height: 56px; border-radius: 8px; background: #F0F0F0;
+      flex-shrink: 0; display: grid; place-items: center; font-size: 24px; border: 1px solid var(--border);
+    }
+    .sheet-item .body { flex: 1; min-width: 0; }
+    .sheet-item h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .item-unit { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .pill {
+      display: inline-block; margin-top: 6px; padding: 4px 8px; border-radius: 4px;
+      font-size: 11px; font-weight: 600; background: var(--soon-bg); color: var(--soon-ink);
+    }
+    .suggested-line { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .suggested-line strong { color: var(--ink); font-weight: 600; }
+
+    .item-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+    .remove-btn {
+      background: none; border: none; color: var(--muted); font-size: 12px; font-weight: 600;
+      font-family: inherit; cursor: pointer; padding: 8px 4px; text-decoration: underline; text-underline-offset: 2px;
+    }
+    .remove-btn:hover { color: var(--signal); }
+    .remove-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .qty {
+      display: inline-flex; align-items: center; height: 32px;
+      border: 1px solid var(--border); border-radius: var(--radius-btn);
+      background: var(--raised); overflow: hidden;
+    }
+    .qty button {
+      width: 32px; height: 32px; border: none; background: transparent; color: var(--ink);
+      font-size: 16px; font-weight: 700; font-family: inherit; cursor: pointer; line-height: 1;
+    }
+    .qty button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .qty button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .qty .qty-val { min-width: 28px; text-align: center; font-size: 14px; font-weight: 700; color: var(--ink); }
+
+    .sheet-footer { padding-top: 8px; }
+    .btn {
+      width: 100%; height: 48px; border-radius: var(--radius-btn); font-size: 15px;
+      font-family: inherit; cursor: pointer; transition: opacity 150ms ease-out, transform 150ms ease-out;
+    }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn:active:not(:disabled) { transform: scale(0.98); }
+    .btn-primary { background: var(--accent); color: #fff; border: none; font-weight: 700; }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-primary.loading { position: relative; color: transparent; }
+    .btn-primary.loading::after {
+      content: ''; position: absolute; inset: 0; margin: auto; width: 20px; height: 20px;
+      border: 2px solid #fff; border-top-color: transparent; border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .nudge {
+      position: fixed; left: 50%; top: 56px; transform: translateX(-50%) translateY(-12px);
+      width: calc(100% - 32px); max-width: 398px; background: var(--raised);
+      border: 1px solid var(--border); border-radius: var(--radius-card); padding: 12px;
+      z-index: 45; display: flex; align-items: center; gap: 10px; opacity: 0; pointer-events: none;
+      transition: opacity 200ms ease-out, transform 200ms ease-out;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .nudge.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .nudge p { flex: 1; font-size: 13px; font-weight: 500; line-height: 1.35; }
+    .nudge button {
+      background: var(--accent); color: #fff; border: none; border-radius: var(--radius-btn);
+      padding: 8px 12px; font-size: 12px; font-weight: 700; font-family: inherit; cursor: pointer; white-space: nowrap;
+    }
+    .nudge .dismiss { background: none; color: var(--muted); padding: 4px 6px; font-size: 16px; }
+
+    .demo-bar {
+      position: fixed; top: 0; right: 0; z-index: 100;
+      background: rgba(26,26,26,0.9); color: #fff; padding: 6px 8px;
+      border-radius: 0 0 0 8px; font-size: 10px;
+      display: flex; flex-direction: column; gap: 4px; align-items: flex-end;
+    }
+    .demo-bar select { background: #333; color: #fff; border: none; font-size: 10px; max-width: 160px; }
+
+    .hidden { display: none !important; }
+    .toast {
+      position: fixed; top: 48px; left: 50%; transform: translateX(-50%) translateY(-20px);
+      background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 8px;
+      font-size: 13px; font-weight: 500; opacity: 0;
+      transition: opacity 200ms ease-out, transform 200ms ease-out; z-index: 80; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="demo-bar" aria-hidden="true">
+    Demo
+    <select id="stateSelect" aria-label="Demo state">
+      <option value="ready">Ready</option>
+      <option value="toomuch">Too much</option>
+      <option value="loading">Loading</option>
+      <option value="empty">Not enough</option>
+      <option value="nudge">Nudge</option>
+    </select>
+    <select id="nudgeCopySelect" aria-label="Nudge copy">
+      <option value="0">Nudge A — cook flagged</option>
+      <option value="1">Nudge B — before kitchen stops</option>
+      <option value="2">Nudge C — clear ₹150</option>
+      <option value="3">Nudge D — soft check</option>
+    </select>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <div class="nudge" id="nudge" role="status">
+    <p id="nudgeCopy">Cook flagged staples again — check Running low before tonight</p>
+    <button type="button" id="nudgeOpen">Check</button>
+    <button type="button" class="dismiss" id="nudgeDismiss" aria-label="Dismiss">×</button>
+  </div>
+
+  <header class="top-bar">
+    <div class="delivery-row">
+      <div>
+        <h1>Blinkit in<br>8 minutes</h1>
+        <p class="sub">HOME — 39 A · 800 m away</p>
+      </div>
+      <div class="top-icons">
+        <div class="icon-btn" aria-hidden="true">₹0</div>
+        <div class="icon-btn" aria-hidden="true">👤</div>
+      </div>
+    </div>
+    <div class="search" aria-hidden="true">🔍 Search "tomato"</div>
+  </header>
+
+  <main>
+    <section id="rlEntrySection">
+      <div class="section-head"><h2>Running low</h2></div>
+      <p class="sample-note">Sample items — not live Blinkit data.</p>
+      <button type="button" class="rl-card" id="rlEntry" aria-haspopup="dialog">
+        <div class="rl-art" aria-hidden="true">
+          <svg viewBox="0 0 160 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="38" y="12" width="84" height="68" rx="8" fill="#fff" stroke="#318616" stroke-width="2"/>
+            <path d="M38 36h84" stroke="#C8E6C0" stroke-width="2"/>
+            <rect x="48" y="20" width="28" height="10" rx="3" fill="#EAF7E4"/>
+            <rect x="84" y="20" width="28" height="10" rx="3" fill="#EAF7E4"/>
+            <circle cx="56" cy="54" r="8" fill="#FFE141"/>
+            <rect x="70" y="46" width="14" height="20" rx="3" fill="#318616" opacity="0.85"/>
+            <rect x="90" y="50" width="18" height="14" rx="3" fill="#1565C0" opacity="0.35"/>
+            <path d="M122 28v20" stroke="#318616" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="122" cy="52" r="3" fill="#318616"/>
+          </svg>
+        </div>
+        <div class="rl-content">
+          <div class="rl-title">Running low</div>
+          <p class="rl-body" id="entryMeta">
+            Cook said it’s finishing — check staples from your Blinkit orders before the kitchen stops.
+          </p>
+          <div class="rl-cta">
+            <div class="thumbs" id="entryThumbs"></div>
+            <span class="go" id="entryCount">Check list ›</span>
+          </div>
+        </div>
+      </button>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Frequently bought</h2></div>
+      <div class="freq-grid">
+        <div class="freq-tile"><div class="emoji">🍞</div><h4>Bread, Butter &amp; Eggs</h4><span>+3 more</span></div>
+        <div class="freq-tile"><div class="emoji">🥬</div><h4>Vegetables &amp; Fruits</h4><span>+6 more</span></div>
+        <div class="freq-tile"><div class="emoji">🥔</div><h4>Chips &amp; Namkeen</h4><span>+5 more</span></div>
+        <div class="freq-tile"><div class="emoji">🥛</div><h4>Milk, Curd &amp; Paneer</h4><span>+2 more</span></div>
+      </div>
+    </section>
+  </main>
+
+  <button type="button" class="view-cart hidden" id="viewCart">
+    <div class="mini-thumb" id="cartThumb">🛢️</div>
+    <span id="cartLabel">View cart · 0 Items</span>
+    <div class="arrow">›</div>
+  </button>
+
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item"><div class="icon">🏠</div>Home</div>
+    <div class="nav-item active"><div class="icon">🔄</div>Order Again</div>
+    <div class="nav-item"><div class="icon">▦</div>Categories</div>
+    <div class="nav-item"><div class="icon">🖨</div>Print</div>
+  </nav>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="sheet" id="rlSheet" role="dialog" aria-modal="true" aria-labelledby="rlTitle">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <h2 id="rlTitle">Running low</h2>
+      <button type="button" class="sheet-close" id="closeSheet" aria-label="Close">×</button>
+    </div>
+    <p class="hint">Suggested qty from last orders — you can change it</p>
+    <button type="button" class="household-notch" id="householdNotch">
+      <span id="householdLabel">Suggestions sized for your home</span>
+      <span class="household-change">Adjust</span>
+    </button>
+    <div class="household-picker hidden" id="householdPicker" role="group" aria-label="Household size for suggestions">
+      <button type="button" data-people="1">1</button>
+      <button type="button" data-people="2">2</button>
+      <button type="button" data-people="3" class="on">3</button>
+      <button type="button" data-people="4">4</button>
+      <button type="button" data-people="5">5+</button>
+    </div>
+
+    <div id="sheetLoading" class="sheet-loading hidden">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <p style="margin-top:12px">Building Running low…</p>
+    </div>
+
+    <div class="sheet-list" id="sheetList"></div>
+    <div class="sheet-footer">
+      <button type="button" class="btn btn-primary" id="addAllBtn">Add all to cart</button>
+    </div>
+  </div>
+
+  <script>
+    const ENOUGH = 2;
+    const SAMPLE = [
+      { id: 'onion', name: 'Onion (pyaaz)', unit: '1 kg', emoji: '🧅', qty: 2 },
+      { id: 'dal', name: 'Toor dal', unit: '1 kg', emoji: '🫘', qty: 1 },
+      { id: 'oil', name: 'Fortune Sunflower Oil', unit: '1 L', emoji: '🛢️', qty: 1 }
+    ];
+    const MANY = [
+      { id: 'onion', name: 'Onion (pyaaz)', unit: '1 kg', emoji: '🧅', qty: 2 },
+      { id: 'dal', name: 'Toor dal', unit: '1 kg', emoji: '🫘', qty: 1 },
+      { id: 'oil', name: 'Fortune Sunflower Oil Cold Pressed Premium', unit: '1 L', emoji: '🛢️', qty: 1 },
+      { id: 'atta', name: 'Aashirvaad Whole Wheat Atta', unit: '5 kg', emoji: '🌾', qty: 1 },
+      { id: 'rice', name: 'India Gate Basmati Rice', unit: '1 kg', emoji: '🍚', qty: 1 },
+      { id: 'sugar', name: 'Madhur Pure Sugar', unit: '1 kg', emoji: '🧂', qty: 1 },
+      { id: 'salt', name: 'Tata Salt', unit: '1 kg', emoji: '⬜', qty: 1 },
+      { id: 'tea', name: 'Tata Tea Gold', unit: '500 g', emoji: '🍵', qty: 1 },
+      { id: 'coffee', name: 'Nescafe Classic Coffee', unit: '100 g', emoji: '☕', qty: 1 },
+      { id: 'ghee', name: 'Amul Pure Ghee', unit: '1 L', emoji: '🧈', qty: 1 },
+      { id: 'besan', name: 'Fortune Besan', unit: '1 kg', emoji: '🟡', qty: 1 },
+      { id: 'poha', name: 'Mother’s Recipe Thick Poha', unit: '1 kg', emoji: '🥞', qty: 1 },
+      { id: 'rava', name: 'Bambino Sooji / Rava', unit: '1 kg', emoji: '🥣', qty: 1 },
+      { id: 'mustard', name: 'Fortune Mustard Oil', unit: '1 L', emoji: '🫙', qty: 1 },
+      { id: 'soap', name: 'Surf Excel Matic Front Load', unit: '2 kg', emoji: '🧼', qty: 1 },
+      { id: 'tissue', name: 'Origami Kitchen Towels', unit: '6 rolls', emoji: '🧻', qty: 1 }
+    ];
+
+    let items = SAMPLE.map(i => ({ ...i }));
+    let peopleAtHome = 3;
+
+    const stateSelect = document.getElementById('stateSelect');
+    const rlEntrySection = document.getElementById('rlEntrySection');
+    const entryThumbs = document.getElementById('entryThumbs');
+    const entryCount = document.getElementById('entryCount');
+    const overlay = document.getElementById('overlay');
+    const sheet = document.getElementById('rlSheet');
+    const sheetList = document.getElementById('sheetList');
+    const sheetLoading = document.getElementById('sheetLoading');
+    const addAllBtn = document.getElementById('addAllBtn');
+    const viewCart = document.getElementById('viewCart');
+    const cartLabel = document.getElementById('cartLabel');
+    const cartThumb = document.getElementById('cartThumb');
+    const toast = document.getElementById('toast');
+    const nudge = document.getElementById('nudge');
+    const nudgeCopy = document.getElementById('nudgeCopy');
+    const nudgeCopySelect = document.getElementById('nudgeCopySelect');
+    const householdNotch = document.getElementById('householdNotch');
+    const householdLabel = document.getElementById('householdLabel');
+    const householdPicker = document.getElementById('householdPicker');
+
+    const NUDGE_LINES = [
+      'Cook flagged staples again — check Running low before tonight',
+      'Staples may run out before the next cook visit — check the list',
+      'A few staples look low — add together and clear ₹150',
+      'Running low is ready — a quick check, cart stays empty until you add'
+    ];
+
+    function applyNudgeCopy() {
+      const i = parseInt(nudgeCopySelect.value, 10) || 0;
+      nudgeCopy.textContent = NUDGE_LINES[i];
+    }
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function peopleLabel(n) {
+      if (n >= 5) return 'Suggestions sized for 5+ · Adjust';
+      return 'Suggestions sized for ' + n + ' · Adjust';
+    }
+
+    function syncHouseholdUI() {
+      householdLabel.textContent = peopleLabel(peopleAtHome).replace(' · Adjust', '');
+      householdPicker.querySelectorAll('[data-people]').forEach(btn => {
+        const n = parseInt(btn.getAttribute('data-people'), 10);
+        btn.classList.toggle('on', n === peopleAtHome || (peopleAtHome >= 5 && n === 5));
+      });
+    }
+
+    function updateEntry() {
+      const n = items.length;
+      if (n < ENOUGH) {
+        rlEntrySection.classList.add('hidden');
+        return;
+      }
+      rlEntrySection.classList.remove('hidden');
+      entryCount.textContent = 'Check ' + n + ' ›';
+      entryThumbs.innerHTML = '';
+      entryThumbs.setAttribute('aria-hidden', 'true');
+      items.slice(0, 2).forEach(i => {
+        const d = document.createElement('div');
+        d.className = 'thumb-sm';
+        d.textContent = i.emoji;
+        entryThumbs.appendChild(d);
+      });
+      if (n > 2) {
+        const m = document.createElement('div');
+        m.className = 'thumb-sm more';
+        m.textContent = '+' + (n - 2);
+        entryThumbs.appendChild(m);
+      }
+    }
+
+    function renderSheetList() {
+      sheetList.innerHTML = '';
+      items.forEach(item => {
+        const qty = item.qty || 1;
+        const row = document.createElement('article');
+        row.className = 'sheet-item';
+        row.innerHTML =
+          '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
+          '<div class="body">' +
+            '<h3>' + item.name + '</h3>' +
+            '<p class="item-unit">' + (item.unit || '') + '</p>' +
+            '<p class="suggested-line">Suggested: <strong>' + qty + '</strong></p>' +
+            '<span class="pill">Might be running low</span>' +
+          '</div>' +
+          '<div class="item-actions">' +
+            '<div class="qty" role="group" aria-label="Quantity for ' + item.name + '">' +
+              '<button type="button" data-qty-minus="' + item.id + '" aria-label="Decrease"' + (qty <= 1 ? ' disabled' : '') + '>−</button>' +
+              '<span class="qty-val">' + qty + '</span>' +
+              '<button type="button" data-qty-plus="' + item.id + '" aria-label="Increase">+</button>' +
+            '</div>' +
+            '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>' +
+          '</div>';
+        sheetList.appendChild(row);
+      });
+      const units = items.reduce((s, i) => s + (i.qty || 1), 0);
+      addAllBtn.disabled = items.length === 0;
+      addAllBtn.hidden = items.length === 0;
+      addAllBtn.textContent = items.length ? 'Add all to cart · ' + units : 'Add all to cart';
+    }
+
+    function openSheet(mode) {
+      nudge.classList.remove('show');
+      overlay.classList.add('open');
+      sheet.classList.add('open');
+      sheetLoading.classList.add('hidden');
+      sheetList.classList.remove('hidden');
+      addAllBtn.classList.remove('hidden');
+      if (mode === 'loading') {
+        sheetList.classList.add('hidden');
+        addAllBtn.classList.add('hidden');
+        sheetLoading.classList.remove('hidden');
+        return;
+      }
+      renderSheetList();
+    }
+
+    function closeSheet() {
+      overlay.classList.remove('open');
+      sheet.classList.remove('open');
+      householdPicker.classList.add('hidden');
+      updateEntry();
+    }
+
+    function applyDemo(state) {
+      nudge.classList.remove('show');
+      closeSheet();
+      items = SAMPLE.map(i => ({ ...i }));
+      if (state === 'empty') {
+        items = SAMPLE.slice(0, 1).map(i => ({ ...i }));
+        updateEntry();
+        return;
+      }
+      if (state === 'toomuch') {
+        items = MANY.map(i => ({ ...i }));
+        updateEntry();
+        openSheet('ready');
+        return;
+      }
+      if (state === 'loading') {
+        updateEntry();
+        openSheet('loading');
+        return;
+      }
+      updateEntry();
+      if (state === 'nudge') {
+        applyNudgeCopy();
+        nudge.classList.add('show');
+      }
+    }
+
+    nudgeCopySelect.addEventListener('change', () => {
+      applyNudgeCopy();
+      stateSelect.value = 'nudge';
+      applyDemo('nudge');
+    });
+
+    document.getElementById('rlEntry').addEventListener('click', () => openSheet('ready'));
+    document.getElementById('closeSheet').addEventListener('click', closeSheet);
+    overlay.addEventListener('click', closeSheet);
+    document.getElementById('nudgeOpen').addEventListener('click', () => openSheet('ready'));
+    document.getElementById('nudgeDismiss').addEventListener('click', () => nudge.classList.remove('show'));
+
+    householdNotch.addEventListener('click', () => householdPicker.classList.toggle('hidden'));
+    householdPicker.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-people]');
+      if (!btn) return;
+      peopleAtHome = parseInt(btn.getAttribute('data-people'), 10);
+      syncHouseholdUI();
+      householdPicker.classList.add('hidden');
+      showToast('Suggestions updated');
+    });
+
+    sheetList.addEventListener('click', (e) => {
+      const minus = e.target.closest('[data-qty-minus]');
+      const plus = e.target.closest('[data-qty-plus]');
+      const remove = e.target.closest('[data-remove]');
+      if (minus) {
+        const id = minus.getAttribute('data-qty-minus');
+        items = items.map(i => i.id === id ? { ...i, qty: Math.max(1, (i.qty || 1) - 1) } : i);
+        renderSheetList();
+        return;
+      }
+      if (plus) {
+        const id = plus.getAttribute('data-qty-plus');
+        items = items.map(i => i.id === id ? { ...i, qty: Math.min(99, (i.qty || 1) + 1) } : i);
+        renderSheetList();
+        return;
+      }
+      if (!remove) return;
+      items = items.filter(i => i.id !== remove.getAttribute('data-remove'));
+      renderSheetList();
+    });
+
+    addAllBtn.addEventListener('click', function () {
+      if (!items.length) return;
+      const units = items.reduce((s, i) => s + (i.qty || 1), 0);
+      const firstEmoji = items[0].emoji;
+      this.classList.add('loading');
+      this.disabled = true;
+      setTimeout(() => {
+        this.classList.remove('loading');
+        this.disabled = false;
+        cartLabel.textContent = 'View cart · ' + units + ' Items';
+        cartThumb.textContent = firstEmoji;
+        viewCart.classList.remove('hidden');
+        items = [];
+        closeSheet();
+        updateEntry();
+        showToast('Added to cart — ' + units + ' items');
+      }, 700);
+    });
+
+    viewCart.addEventListener('click', () => showToast('Checkout is Blinkit’s — not redesigned here'));
+    stateSelect.addEventListener('change', () => applyDemo(stateSelect.value));
+
+    syncHouseholdUI();
+    updateEntry();
+  </script>
+</body>
+</html>

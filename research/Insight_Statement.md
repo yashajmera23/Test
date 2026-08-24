@@ -1,0 +1,3 @@
+# Insight Statement
+
+Urban working professionals who rely on a cook to manage their kitchen struggle to act on early stockout signals — even when they're given enough warning — because individual low-priority items don't feel worth the effort of ordering alone, and passive tracking systems (sticky notes, cart-as-wishlist) get abandoned the moment something more urgent competes for attention, which means the design must convert awareness into action automatically by bundling low-priority items together and removing the moment-of-decision effort, rather than simply notifying people earlier or asking them to track manually.
