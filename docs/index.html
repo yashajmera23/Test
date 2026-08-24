@@ -548,15 +548,89 @@
       padding: 6px 8px;
       border-radius: 0 0 0 8px;
       font-size: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+      max-width: 200px;
+    }
+    .demo-bar label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
     .demo-bar select {
       background: #333;
       color: #fff;
       border: none;
       font-size: 10px;
-      margin-left: 4px;
-      max-width: 140px;
+      max-width: 150px;
     }
+
+    /* Qty Idea 1 — suggested text + quiet outline stepper */
+    .qty.outline {
+      background: var(--raised);
+      border: 1px solid var(--border);
+    }
+    .qty.outline button { color: var(--ink); }
+    .qty.outline .qty-val { color: var(--ink); }
+    .suggested-line {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .suggested-line strong { color: var(--ink); font-weight: 600; }
+
+    /* Qty Idea 2 — last ordered + Change link */
+    .change-qty-link {
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      cursor: pointer;
+      padding: 4px 0;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .change-qty-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* Qty Idea 3 — checkbox + muted outline qty */
+    .sheet-item.with-check {
+      align-items: flex-start;
+    }
+    .item-check {
+      margin-top: 18px;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      accent-color: var(--accent);
+    }
+
+    /* Qty Idea 4 — Order Again-like row; Edit opens panel */
+    .edit-qty-panel {
+      display: none;
+      width: 100%;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+      align-items: center;
+      gap: 8px;
+    }
+    .sheet-item.editing .edit-qty-panel { display: flex; }
+    .edit-link {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-btn);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink);
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    .edit-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
     .hidden { display: none !important; }
 
@@ -586,14 +660,23 @@
 </head>
 <body>
   <div class="demo-bar" aria-hidden="true">
-    Demo
-    <select id="stateSelect" aria-label="Demo state">
-      <option value="ready">Ready (≥2 items)</option>
-      <option value="toomuch">Too much (many items)</option>
-      <option value="loading">Loading sheet</option>
-      <option value="empty">Not enough — no entry</option>
-      <option value="nudge">Ready + nudge</option>
-    </select>
+    <label>State
+      <select id="stateSelect" aria-label="Demo state">
+        <option value="ready">Ready (≥2 items)</option>
+        <option value="toomuch">Too much (many items)</option>
+        <option value="loading">Loading sheet</option>
+        <option value="empty">Not enough — no entry</option>
+        <option value="nudge">Ready + nudge</option>
+      </select>
+    </label>
+    <label>Qty UI
+      <select id="qtyIdeaSelect" aria-label="Quantity idea">
+        <option value="1">Idea 1 — Suggested + outline</option>
+        <option value="2">Idea 2 — Last ordered · Change</option>
+        <option value="3">Idea 3 — Checkbox + outline</option>
+        <option value="4">Idea 4 — Edit panel</option>
+      </select>
+    </label>
   </div>
 
   <div class="toast" id="toast" role="status"></div>
@@ -725,10 +808,12 @@
       { id: 'tissue', name: 'Origami Kitchen Towels', unit: '6 rolls', detail: 'From your last orders', emoji: '🧻', price: 199, qty: 1 }
     ];
 
-    let items = SAMPLE.map(i => ({ ...i }));
+    let items = SAMPLE.map(i => ({ ...i, selected: true, editing: false }));
     let cartCount = 0;
+    let qtyIdea = 1;
 
     const stateSelect = document.getElementById('stateSelect');
+    const qtyIdeaSelect = document.getElementById('qtyIdeaSelect');
     const rlEntrySection = document.getElementById('rlEntrySection');
     const entryMeta = document.getElementById('entryMeta');
     const entryThumbs = document.getElementById('entryThumbs');
@@ -747,6 +832,10 @@
     const householdLabel = document.getElementById('householdLabel');
     const householdPicker = document.getElementById('householdPicker');
     let peopleAtHome = 3;
+
+    function cloneItems(source) {
+      return source.map(i => ({ ...i, selected: true, editing: false }));
+    }
 
     function peopleLabel(n) {
       return n >= 5 ? '5+ people at home' : n + (n === 1 ? ' person at home' : ' people at home');
@@ -789,34 +878,92 @@
       }
     }
 
+    function outlineStepper(item, qty) {
+      return (
+        '<div class="qty outline" role="group" aria-label="Quantity for ' + item.name + '">' +
+          '<button type="button" data-qty-minus="' + item.id + '" aria-label="Decrease quantity"' + (qty <= 1 ? ' disabled' : '') + '>−</button>' +
+          '<span class="qty-val" aria-live="polite">' + qty + '</span>' +
+          '<button type="button" data-qty-plus="' + item.id + '" aria-label="Increase quantity">+</button>' +
+        '</div>'
+      );
+    }
+
     function renderSheetList() {
       sheetList.innerHTML = '';
       items.forEach(item => {
         const qty = item.qty || 1;
         const row = document.createElement('article');
-        row.className = 'sheet-item';
+        row.className = 'sheet-item' + (qtyIdea === 3 ? ' with-check' : '') + (item.editing ? ' editing' : '');
         row.dataset.id = item.id;
-        row.innerHTML =
-          '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
-          '<div class="body">' +
-            '<h3>' + item.name + '</h3>' +
-            '<p class="item-unit">' + (item.unit || '') + '</p>' +
-            '<span class="pill">Might be running low</span>' +
-          '</div>' +
-          '<div class="item-actions">' +
-            '<div class="qty" role="group" aria-label="Quantity for ' + item.name + '">' +
-              '<button type="button" data-qty-minus="' + item.id + '" aria-label="Decrease quantity"' + (qty <= 1 ? ' disabled' : '') + '>−</button>' +
-              '<span class="qty-val" aria-live="polite">' + qty + '</span>' +
-              '<button type="button" data-qty-plus="' + item.id + '" aria-label="Increase quantity">+</button>' +
+
+        if (qtyIdea === 1) {
+          row.innerHTML =
+            '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
+            '<div class="body">' +
+              '<h3>' + item.name + '</h3>' +
+              '<p class="item-unit">' + (item.unit || '') + '</p>' +
+              '<p class="suggested-line">Suggested: <strong>' + qty + '</strong></p>' +
+              '<span class="pill">Might be running low</span>' +
             '</div>' +
-            '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>' +
-          '</div>';
+            '<div class="item-actions">' +
+              outlineStepper(item, qty) +
+              '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>' +
+            '</div>';
+        } else if (qtyIdea === 2) {
+          const editing = item.editing;
+          row.innerHTML =
+            '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
+            '<div class="body">' +
+              '<h3>' + item.name + '</h3>' +
+              '<p class="item-unit">' + (item.unit || '') + '</p>' +
+              '<p class="suggested-line">Last ordered ×' + qty + (editing ? '' : '') + '</p>' +
+              '<span class="pill">Might be running low</span>' +
+              (editing ? '<div style="margin-top:8px">' + outlineStepper(item, qty) + '</div>' : '') +
+            '</div>' +
+            '<div class="item-actions">' +
+              '<button type="button" class="change-qty-link" data-toggle-edit="' + item.id + '">' +
+                (editing ? 'Done' : 'Change qty') +
+              '</button>' +
+              '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>' +
+            '</div>';
+        } else if (qtyIdea === 3) {
+          row.innerHTML =
+            '<input type="checkbox" class="item-check" data-select="' + item.id + '"' + (item.selected !== false ? ' checked' : '') + ' aria-label="Include ' + item.name + '">' +
+            '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
+            '<div class="body">' +
+              '<h3>' + item.name + '</h3>' +
+              '<p class="item-unit">' + (item.unit || '') + '</p>' +
+              '<span class="pill">Might be running low</span>' +
+            '</div>' +
+            '<div class="item-actions">' +
+              outlineStepper(item, qty) +
+            '</div>';
+        } else {
+          row.innerHTML =
+            '<div class="thumb" aria-hidden="true">' + item.emoji + '</div>' +
+            '<div class="body" style="flex:1">' +
+              '<h3>' + item.name + '</h3>' +
+              '<p class="item-unit">' + (item.unit || '') + '</p>' +
+              '<p class="suggested-line">From last orders · qty ' + qty + '</p>' +
+              '<span class="pill">Might be running low</span>' +
+              '<div class="edit-qty-panel">' +
+                outlineStepper(item, qty) +
+                '<button type="button" class="change-qty-link" data-toggle-edit="' + item.id + '">Done</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="item-actions">' +
+              '<button type="button" class="edit-link" data-toggle-edit="' + item.id + '">Edit</button>' +
+              '<button type="button" class="remove-btn" data-remove="' + item.id + '">Remove</button>' +
+            '</div>';
+        }
         sheetList.appendChild(row);
       });
-      const units = items.reduce((s, i) => s + (i.qty || 1), 0);
-      addAllBtn.disabled = items.length === 0;
-      addAllBtn.hidden = items.length === 0;
-      addAllBtn.textContent = items.length
+
+      const active = qtyIdea === 3 ? items.filter(i => i.selected !== false) : items;
+      const units = active.reduce((s, i) => s + (i.qty || 1), 0);
+      addAllBtn.disabled = active.length === 0;
+      addAllBtn.hidden = active.length === 0;
+      addAllBtn.textContent = active.length
         ? 'Add all to cart · ' + units
         : 'Add all to cart';
     }
@@ -847,21 +994,22 @@
     function closeSheet() {
       overlay.classList.remove('open');
       sheet.classList.remove('open');
+      householdPicker.classList.add('hidden');
       updateEntry();
     }
 
     function applyDemo(state) {
       nudge.classList.remove('show');
       closeSheet();
-      items = SAMPLE.map(i => ({ ...i }));
+      items = cloneItems(SAMPLE);
 
       if (state === 'empty') {
-        items = SAMPLE.slice(0, 1).map(i => ({ ...i }));
+        items = cloneItems(SAMPLE.slice(0, 1));
         updateEntry();
         return;
       }
       if (state === 'toomuch') {
-        items = MANY.map(i => ({ ...i }));
+        items = cloneItems(MANY);
         updateEntry();
         openSheet('ready');
         return;
@@ -872,6 +1020,8 @@
       }
       if (state === 'loading') {
         openSheet('loading');
+      } else if (state === 'ready') {
+        openSheet('ready');
       }
     }
 
@@ -897,7 +1047,21 @@
       const minus = e.target.closest('[data-qty-minus]');
       const plus = e.target.closest('[data-qty-plus]');
       const remove = e.target.closest('[data-remove]');
+      const toggleEdit = e.target.closest('[data-toggle-edit]');
+      const select = e.target.closest('[data-select]');
 
+      if (select) {
+        const id = select.getAttribute('data-select');
+        items = items.map(i => i.id === id ? { ...i, selected: select.checked } : i);
+        renderSheetList();
+        return;
+      }
+      if (toggleEdit) {
+        const id = toggleEdit.getAttribute('data-toggle-edit');
+        items = items.map(i => i.id === id ? { ...i, editing: !i.editing } : i);
+        renderSheetList();
+        return;
+      }
       if (minus) {
         const id = minus.getAttribute('data-qty-minus');
         items = items.map(i => {
@@ -925,10 +1089,23 @@
       }
     });
 
+    sheetList.addEventListener('change', (e) => {
+      const select = e.target.closest('[data-select]');
+      if (!select) return;
+      const id = select.getAttribute('data-select');
+      items = items.map(i => i.id === id ? { ...i, selected: select.checked } : i);
+      const active = items.filter(i => i.selected !== false);
+      const units = active.reduce((s, i) => s + (i.qty || 1), 0);
+      addAllBtn.disabled = active.length === 0;
+      addAllBtn.hidden = active.length === 0;
+      addAllBtn.textContent = active.length ? 'Add all to cart · ' + units : 'Add all to cart';
+    });
+
     addAllBtn.addEventListener('click', function () {
-      if (items.length === 0) return;
-      const units = items.reduce((s, i) => s + (i.qty || 1), 0);
-      const firstEmoji = items[0].emoji;
+      const active = qtyIdea === 3 ? items.filter(i => i.selected !== false) : items;
+      if (active.length === 0) return;
+      const units = active.reduce((s, i) => s + (i.qty || 1), 0);
+      const firstEmoji = active[0].emoji;
       this.classList.add('loading');
       this.disabled = true;
       setTimeout(() => {
@@ -950,6 +1127,18 @@
     });
 
     stateSelect.addEventListener('change', () => applyDemo(stateSelect.value));
+    qtyIdeaSelect.addEventListener('change', () => {
+      qtyIdea = parseInt(qtyIdeaSelect.value, 10);
+      if (items.length >= ENOUGH) {
+        openSheet('ready');
+      } else {
+        items = cloneItems(SAMPLE);
+        updateEntry();
+        openSheet('ready');
+        stateSelect.value = 'ready';
+      }
+      showToast('Qty UI · Idea ' + qtyIdea);
+    });
 
     syncHouseholdUI();
     updateEntry();
