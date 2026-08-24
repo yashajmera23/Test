@@ -684,6 +684,102 @@
       padding: 4px;
     }
     .start-why button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .intro-card {
+      display: none;
+      margin: 0 16px 12px;
+      padding: 16px;
+      background: var(--raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+    }
+    .intro-card.show { display: block; }
+    .intro-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .intro-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .intro-card .intro-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .intro-card .intro-actions button {
+      flex: 1;
+      height: 40px;
+      border-radius: var(--radius-btn);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .intro-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+    }
+    .intro-secondary {
+      background: #fff;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .intro-primary:focus-visible,
+    .intro-secondary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .intro-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 70;
+      display: none;
+      place-items: center;
+      padding: 24px;
+    }
+    .intro-overlay.show { display: grid; }
+    .intro-sheet {
+      width: 100%;
+      max-width: 340px;
+      background: var(--raised);
+      border-radius: var(--radius-card);
+      padding: 20px 16px 16px;
+      border: 1px solid var(--border);
+    }
+    .intro-sheet h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .intro-sheet p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+    .intro-sheet .step-dots {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .intro-sheet .step-dots span {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #D0D0D0;
+    }
+    .intro-sheet .step-dots span.on { background: var(--accent); }
+    .intro-sheet .intro-actions { display: flex; gap: 8px; }
+    .intro-sheet .intro-actions button {
+      flex: 1;
+      height: 44px;
+      border-radius: var(--radius-btn);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -714,9 +810,31 @@
         <option value="AC">A+C — Entry + nudge</option>
       </select>
     </label>
+    <label>Intro
+      <select id="introSelect" aria-label="Intro idea">
+        <option value="none">None</option>
+        <option value="1">Intro 1 — First-open sheet</option>
+        <option value="2">Intro 2 — Order Again card</option>
+        <option value="3">Intro 3 — 2-step tip</option>
+      </select>
+    </label>
   </div>
 
   <div class="toast" id="toast" role="status"></div>
+
+  <div class="intro-overlay" id="introOverlay" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <div class="intro-sheet">
+      <div class="step-dots" id="introDots" hidden>
+        <span class="on"></span><span></span>
+      </div>
+      <h3 id="introTitle">Running low</h3>
+      <p id="introBody">We guess staples from your Blinkit orders. You check, change qty, then add to cart — nothing goes in until you say so.</p>
+      <div class="intro-actions">
+        <button type="button" class="intro-secondary" id="introSkip">Skip</button>
+        <button type="button" class="intro-primary" id="introNext">Continue</button>
+      </div>
+    </div>
+  </div>
 
   <div class="nudge" id="nudge" role="status">
     <p id="nudgeCopy">A few things might be running low</p>
@@ -745,6 +863,13 @@
         <h2>Running low</h2>
       </div>
       <p class="sample-note">Sample items for the prototype — not live Blinkit data.</p>
+      <div class="intro-card" id="introCard">
+        <h3>What is Running low?</h3>
+        <p>Looks at your past Blinkit orders and suggests what might be short. Nothing’s in your cart until you add.</p>
+        <div class="intro-actions">
+          <button type="button" class="intro-primary" id="introCardGotIt">Got it</button>
+        </div>
+      </div>
       <button type="button" class="rl-entry" id="rlEntry" aria-haspopup="dialog">
         <div class="thumbs" id="entryThumbs" aria-hidden="true"></div>
         <div class="copy">
@@ -854,10 +979,21 @@
     let qtyIdea = 1;
     let motivation = 'none';
     let startWhyDismissed = false;
+    let introMode = 'none';
+    let introStep = 0;
+    let introDone = false;
 
     const stateSelect = document.getElementById('stateSelect');
     const qtyIdeaSelect = document.getElementById('qtyIdeaSelect');
     const motivationSelect = document.getElementById('motivationSelect');
+    const introSelect = document.getElementById('introSelect');
+    const introOverlay = document.getElementById('introOverlay');
+    const introCard = document.getElementById('introCard');
+    const introDots = document.getElementById('introDots');
+    const introTitle = document.getElementById('introTitle');
+    const introBody = document.getElementById('introBody');
+    const introNext = document.getElementById('introNext');
+    const introSkip = document.getElementById('introSkip');
     const rlEntrySection = document.getElementById('rlEntrySection');
     const entryMeta = document.getElementById('entryMeta');
     const entryThumbs = document.getElementById('entryThumbs');
@@ -927,6 +1063,62 @@
         m.textContent = '+' + (n - 2);
         entryThumbs.appendChild(m);
       }
+    }
+
+    function hideIntros() {
+      introOverlay.classList.remove('show');
+      if (introCard) introCard.classList.remove('show');
+    }
+
+    function setIntroStepContent() {
+      if (introMode === '1') {
+        introDots.hidden = true;
+        introTitle.textContent = 'Running low';
+        introBody.textContent = 'We guess staples from your Blinkit orders. You check, change qty, then add to cart — nothing goes in until you say so.';
+        introNext.textContent = 'Continue';
+        introSkip.style.display = 'none';
+      } else if (introMode === '3') {
+        introDots.hidden = false;
+        const dots = introDots.querySelectorAll('span');
+        dots[0].classList.toggle('on', introStep === 0);
+        dots[1].classList.toggle('on', introStep === 1);
+        if (introStep === 0) {
+          introTitle.textContent = 'What this is';
+          introBody.textContent = 'Running low looks at your past Blinkit orders and suggests staples that might be short.';
+          introNext.textContent = 'Next';
+        } else {
+          introTitle.textContent = 'What you do';
+          introBody.textContent = 'Check the list, change quantity if you need, then Add all to cart. Skip anytime.';
+          introNext.textContent = 'Got it';
+        }
+        introSkip.style.display = '';
+      }
+    }
+
+    function showIntroForMode() {
+      hideIntros();
+      introDone = false;
+      introStep = 0;
+      if (introMode === 'none') return;
+
+      if (introMode === '2') {
+        if (items.length >= ENOUGH) introCard.classList.add('show');
+        return;
+      }
+
+      if (introMode === '1' || introMode === '3') {
+        setIntroStepContent();
+        introOverlay.classList.add('show');
+      }
+    }
+
+    function finishIntro() {
+      introDone = true;
+      hideIntros();
+      if (introMode === '1') {
+        openSheet('ready');
+      }
+      showToast('Intro done');
     }
 
     function applyMotivationUI() {
@@ -1068,34 +1260,39 @@
     function applyDemo(state) {
       nudge.classList.remove('show');
       closeSheet();
+      hideIntros();
       items = cloneItems(SAMPLE);
 
       if (state === 'empty') {
         items = cloneItems(SAMPLE.slice(0, 1));
-        updateEntry();
+        applyMotivationUI();
         return;
       }
       if (state === 'toomuch') {
         items = cloneItems(MANY);
-        updateEntry();
+        applyMotivationUI();
         openSheet('ready');
         return;
       }
-      updateEntry();
-      applyMotivationUI();
-      if (state === 'nudge' || motivation === 'C' || motivation === 'AC') {
-        if (state === 'nudge' || motivation === 'C' || motivation === 'AC') {
-          if (state !== 'loading' && state !== 'empty') {
-            if (motivation === 'C' || motivation === 'AC' || state === 'nudge') {
-              nudge.classList.add('show');
-            }
-          }
-        }
-      }
       if (state === 'loading') {
+        applyMotivationUI();
         openSheet('loading');
-      } else if (state === 'ready') {
-        if (motivation === 'B') openSheet('ready');
+        return;
+      }
+
+      applyMotivationUI();
+      showIntroForMode();
+
+      if (introMode === '1' || introMode === '3') {
+        /* intro overlay handles the start */
+        return;
+      }
+
+      if (state === 'nudge' || motivation === 'C' || motivation === 'AC') {
+        nudge.classList.add('show');
+      }
+      if (motivation === 'B' && state === 'ready') {
+        openSheet('ready');
       }
     }
 
@@ -1116,6 +1313,10 @@
     overlay.addEventListener('click', closeSheet);
     document.getElementById('nudgeOpen').addEventListener('click', () => openSheet('ready'));
     document.getElementById('nudgeDismiss').addEventListener('click', () => nudge.classList.remove('show'));
+    document.getElementById('startWhyDismiss').addEventListener('click', () => {
+      startWhyDismissed = true;
+      startWhy.classList.remove('show');
+    });
 
     sheetList.addEventListener('click', (e) => {
       const minus = e.target.closest('[data-qty-minus]');
@@ -1203,18 +1404,55 @@
     stateSelect.addEventListener('change', () => applyDemo(stateSelect.value));
     qtyIdeaSelect.addEventListener('change', () => {
       qtyIdea = parseInt(qtyIdeaSelect.value, 10);
-      if (items.length >= ENOUGH) {
-        openSheet('ready');
-      } else {
+      if (items.length < ENOUGH) {
         items = cloneItems(SAMPLE);
-        updateEntry();
-        openSheet('ready');
         stateSelect.value = 'ready';
       }
+      openSheet('ready');
       showToast('Qty UI · Idea ' + qtyIdea);
+    });
+    motivationSelect.addEventListener('change', () => {
+      motivation = motivationSelect.value;
+      startWhyDismissed = false;
+      stateSelect.value = 'ready';
+      applyDemo('ready');
+      showToast('Start why · ' + motivation);
+    });
+    introSelect.addEventListener('change', () => {
+      introMode = introSelect.value;
+      introDone = false;
+      introStep = 0;
+      stateSelect.value = 'ready';
+      applyDemo('ready');
+      showToast('Intro · ' + introMode);
+    });
+    introSkip.addEventListener('click', finishIntro);
+    introNext.addEventListener('click', () => {
+      if (introMode === '3' && introStep === 0) {
+        introStep = 1;
+        setIntroStepContent();
+        return;
+      }
+      finishIntro();
+    });
+    document.getElementById('introCardGotIt').addEventListener('click', () => {
+      introCard.classList.remove('show');
+      introDone = true;
+      showToast('Intro done — open Running low when ready');
+    });
+
+    /* First tap on entry: if Intro 1 not seen, show it first */
+    document.getElementById('rlEntry').addEventListener('click', (e) => {
+      if (introMode === '1' && !introDone) {
+        e.preventDefault();
+        showIntroForMode();
+        return;
+      }
+      openSheet('ready');
     });
 
     syncHouseholdUI();
+    applyMotivationUI();
     updateEntry();
   </script>
 </body>
