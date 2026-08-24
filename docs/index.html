@@ -81,7 +81,7 @@
     /* Merged Running low card — intro + entry */
     .rl-card {
       margin: 0 16px 16px;
-      padding: 14px;
+      padding: 0;
       background: var(--raised);
       border: 1px solid var(--border);
       border-radius: var(--radius-card);
@@ -89,31 +89,43 @@
       width: calc(100% - 32px);
       font-family: inherit;
       cursor: pointer;
+      overflow: hidden;
       transition: transform 150ms ease-out, border-color 150ms ease-out;
     }
     .rl-card:hover { border-color: #cfcfcf; }
     .rl-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .rl-card:active { transform: scale(0.99); }
-    .rl-card .rl-top {
-      display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px;
+    .rl-card .rl-art {
+      height: 120px;
+      background: linear-gradient(180deg, #EAF7E4 0%, #F6FBF3 100%);
+      display: grid;
+      place-items: center;
+      position: relative;
     }
-    .rl-card .thumbs { display: flex; gap: 4px; flex-shrink: 0; }
-    .rl-card .thumb-sm {
-      width: 40px; height: 40px; border-radius: 8px; background: #F0F0F0;
-      display: grid; place-items: center; font-size: 18px; border: 1px solid var(--border);
+    .rl-card .rl-art svg { width: 160px; height: 88px; }
+    .rl-card .rl-content { padding: 12px 14px 14px; }
+    .rl-card .rl-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
     }
-    .rl-card .thumb-sm.more { font-size: 12px; font-weight: 700; color: var(--muted); }
-    .rl-card .rl-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
     .rl-card .rl-body {
-      font-size: 13px; color: var(--muted); line-height: 1.4; margin-bottom: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.35;
+      margin-bottom: 12px;
     }
     .rl-card .rl-cta {
-      display: flex; align-items: center; justify-content: space-between;
-      padding-top: 10px; border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .rl-card .rl-cta span:first-child {
-      font-size: 13px; font-weight: 600; color: var(--ink);
+    .rl-card .rl-cta .thumbs { display: flex; gap: 4px; }
+    .rl-card .thumb-sm {
+      width: 32px; height: 32px; border-radius: 8px; background: #F0F0F0;
+      display: grid; place-items: center; font-size: 14px; border: 1px solid var(--border);
     }
+    .rl-card .thumb-sm.more { font-size: 11px; font-weight: 700; color: var(--muted); }
     .rl-card .rl-cta .go {
       font-size: 13px; font-weight: 700; color: var(--accent);
     }
@@ -344,18 +356,28 @@
       <div class="section-head"><h2>Running low</h2></div>
       <p class="sample-note">Sample items — not live Blinkit data.</p>
       <button type="button" class="rl-card" id="rlEntry" aria-haspopup="dialog">
-        <div class="rl-top">
-          <div class="thumbs" id="entryThumbs" aria-hidden="true"></div>
-          <div>
-            <div class="rl-title">Running low</div>
-            <p class="rl-body" id="entryMeta">
-              When the cook says something’s finishing and you still don’t order — we list staples from your Blinkit orders so you can check qty and clear the cart minimum in one go. Nothing sits in cart until you add.
-            </p>
-          </div>
+        <div class="rl-art" aria-hidden="true">
+          <svg viewBox="0 0 160 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="38" y="12" width="84" height="68" rx="8" fill="#fff" stroke="#318616" stroke-width="2"/>
+            <path d="M38 36h84" stroke="#C8E6C0" stroke-width="2"/>
+            <rect x="48" y="20" width="28" height="10" rx="3" fill="#EAF7E4"/>
+            <rect x="84" y="20" width="28" height="10" rx="3" fill="#EAF7E4"/>
+            <circle cx="56" cy="54" r="8" fill="#FFE141"/>
+            <rect x="70" y="46" width="14" height="20" rx="3" fill="#318616" opacity="0.85"/>
+            <rect x="90" y="50" width="18" height="14" rx="3" fill="#1565C0" opacity="0.35"/>
+            <path d="M122 28v20" stroke="#318616" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="122" cy="52" r="3" fill="#318616"/>
+          </svg>
         </div>
-        <div class="rl-cta">
-          <span id="entryCount">3 staples to check</span>
-          <span class="go">Check list ›</span>
+        <div class="rl-content">
+          <div class="rl-title">Running low</div>
+          <p class="rl-body" id="entryMeta">
+            Cook said it’s finishing — check staples from your Blinkit orders before the kitchen stops.
+          </p>
+          <div class="rl-cta">
+            <div class="thumbs" id="entryThumbs"></div>
+            <span class="go" id="entryCount">Check list ›</span>
+          </div>
         </div>
       </button>
     </section>
@@ -489,8 +511,9 @@
         return;
       }
       rlEntrySection.classList.remove('hidden');
-      entryCount.textContent = n + ' staples to check';
+      entryCount.textContent = 'Check ' + n + ' ›';
       entryThumbs.innerHTML = '';
+      entryThumbs.setAttribute('aria-hidden', 'true');
       items.slice(0, 2).forEach(i => {
         const d = document.createElement('div');
         d.className = 'thumb-sm';
